@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Marvel:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body{
+    font-family: var(--fonte-principal);
+}
+
+:root {
+    --azul-escuro: #000814;
+    --azul-n2: #004E98;
+    --azul-n1: #3A6EA5;
+    --cinza: #EBEBEB;
+    --branco: #FFFFFF;
+    --preto: #000000;
+    --laranja: #FF6700;
+    --fonte-principal: 'Montserrat';
+}
+
+header {
+    background-color: var(--azul-escuro);
+    display: flex;
+    justify-content: space-between;
+    padding: 1%;
+}
+
+a{
+    text-decoration: none;
+}
+
+.logo-header {
+    /* width: 15%; */
+    width: 200px;
+
+}
+
+
+.botao-header {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--azul-escuro);
+    padding: 8px;
+    color: var(--branco);
+    border: #FFFFFF solid 2px;
+    width: 125px;
+    justify-content: space-around;
+    transition: 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+
+}
+
+.botao-header:hover {
+    color: #000814;
+    background-color: var(--branco);
+}
+
+header p {
+    font-size: 20px;
+}
+
+.login-header {
+    width: 25px;
+}
+
+/* ---------------------------------- sec 1----------------------------------------------------------*/
+
+.section-inicio{
+    background-color: var(--azul-escuro);
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+}
+
+h1{
+    color: var(--branco);
+}
+
+.section-inicio p {
+    color: #FFFFFF;
+}
+
+.botao-sec-inicio{
+    width: 170px;
+    height: 50px;
+    font-family: var(--fonte-principal);
+    font-size: 1rem;
+    color: #FFFFFF;
+    background-color: #FF6700;
+    border-radius: 15px;
+    border: none;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.botao-sec-inicio:hover{
+    transform: scale(1.1);
+}
+
+.div1-sec-inicio{
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column; 
+    padding: 2%;
+}
+.div1-sec-inicio button{
+    display: flex;
+    justify-content: center;
+}
+
+.div2-sec-inicio{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    padding: 2%;
+}
+
+.div2-sec-inicio img{
+    height: 80%;
+  
+
+}
