@@ -15,13 +15,63 @@ body{
     --fonte-principal: 'Montserrat';
 }
 
+header {
+    background-color: var(--branco);
+    display: flex;
+    justify-content: space-between;
+    padding: 1%;
+}
+
+a{
+    text-decoration: none;
+}
+
+.logo-header {
+    /* width: 15%; */
+    width: 200px;
+
+}
+
+.botao-header {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--azul-escuro);
+    padding: 8px;
+    color: var(--branco);
+    border: #FFFFFF solid 2px;
+    width: 125px;
+    justify-content: space-around;
+    transition: 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+
+}
+
+.botao-header:hover {
+    color: #000814;
+    background-color: var(--branco);
+}
+
+header p {
+    font-size: 20px;
+}
+
+.login {
+    display: flex;
+    justify-self: start;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    width: 100vw;
+}
+
 .login .container{
     display: flex;
     justify-content: center;
     align-items: center;
     height: 80vh;
-    width: 75vw;
-    border: 1px solid black;
+    width: 50vw;
+    border: 2px solid black;
 }
 
 #loading-gif{
