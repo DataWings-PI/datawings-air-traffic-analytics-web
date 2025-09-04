@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Marvel:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-body{
+body {
     font-family: var(--fonte-principal);
 }
 
@@ -22,7 +22,7 @@ header {
     padding: 1%;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
@@ -61,9 +61,9 @@ header p {
     width: 25px;
 }
 
-/* ---------------------------------- sec 1----------------------------------------------------------*/
+/* ---------------------------------- SECTION INICIO ----------------------------------------------------------*/
 
-.section-inicio{
+.section-inicio {
     background-color: var(--azul-escuro);
     display: flex;
     flex-direction: row;
@@ -71,52 +71,160 @@ header p {
 
 }
 
-h1{
+h1 {
     color: var(--branco);
+    font-size: 40px;
 }
 
 .section-inicio p {
     color: #FFFFFF;
 }
 
-.botao-sec-inicio{
-    width: 170px;
+.div1-sec-inicio {
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    padding: 2%;
+}
+
+.div2-sec-inicio {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    padding: 2%;
+}
+
+/* ---------------- botao ---------------- */
+
+.botao-sec-inicio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
     height: 50px;
     font-family: var(--fonte-principal);
-    font-size: 1rem;
+    font-size: 22px;
     color: #FFFFFF;
     background-color: #FF6700;
-    border-radius: 15px;
+    border-radius: 8px;
     border: none;
     transition: transform 0.3s ease;
     cursor: pointer;
 }
 
-.botao-sec-inicio:hover{
+.botao-sec-inicio:hover {
     transform: scale(1.1);
 }
 
-.div1-sec-inicio{
-    width: 50%;
-    display: flex;
-    justify-content: space-evenly;
-    flex-direction: column; 
-    padding: 2%;
-}
-.div1-sec-inicio button{
+.div1-sec-inicio button {
     display: flex;
     justify-content: center;
 }
 
-.div2-sec-inicio{
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    padding: 2%;
+.div1-sec-inicio p {
+    line-height: 120%;
 }
 
-.div2-sec-inicio img{
+.div2-sec-inicio img {
     height: 80%;
-  
 
+}
+
+/* ------------------------------------ SECTION DADOS ----------------------------------------------- */
+
+.section-dados {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding-top: 6%;
+}
+
+/* --------------- div 1 ----------------- */
+
+.titulo-sec-dados {
+    display: flex;
+    justify-content: center;
+    height: 30%;
+    padding-top: 6%;
+
+
+}
+
+h2 {
+    color: #000000;
+    font-size: 40px;
+}
+
+/* --------------- div 2 ----------------- */
+
+
+.texto-sec-dados {
+    display: flex;
+    justify-content: center;
+    height: 20%;
+    padding-top: 4%;
+    text-align: center;
+    padding-left: 25%;
+    padding-right: 25%;
+
+}
+
+/* --------------- div 3 ----------------- */
+
+
+.cards-sec-dados {
+    height: 50%;
+    padding: 3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+
+.card1,
+.card2,
+.card3 {
+    height: 300px;
+    width: 25%;
+    background-color: #ffffff;
+    padding: 1%;
+    box-shadow:  0px 0px 10px 5px  #e0e0e0;
+}
+
+.cubo{
+    display: flex;
+    color: #FFFFFF;
+    justify-content: center;
+    align-items: center;
+    background-color: #FF6700;
+    width: 35px;
+    height: 35px;
+
+}
+
+.card1 h2,
+.card2 h2,
+.card3 h2 {
+    font-size: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.card1 p,
+.card2 p,
+.card3 p {
+    text-align: center; 
+}
+
+.img-cards{
+    width: 150px;
+}
+
+.img-cards-sec{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
 }
