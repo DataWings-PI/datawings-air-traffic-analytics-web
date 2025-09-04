@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Marvel:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-body{
-    font-family: var(--fonte-principal);
-}
-
 :root {
     --azul-escuro: #000814;
     --azul-n2: #004E98;
@@ -15,65 +11,202 @@ body{
     --fonte-principal: 'Montserrat';
 }
 
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--fonte-principal);
+}
+
+body {
+    background-color: var(--branco);
+    color: #333;
+}
+
 header {
+    position: relative;
+    height: 100px;
     background-color: var(--branco);
     display: flex;
-    justify-content: space-between;
-    padding: 1%;
-}
-
-a{
-    text-decoration: none;
-}
-
-.logo-header {
-    /* width: 15%; */
-    width: 200px;
-
+    align-items: center;
+    justify-content: center;
 }
 
 .botao-header {
-    display: flex;
-    flex-direction: row;
-    background-color: var(--azul-escuro);
-    padding: 8px;
-    color: var(--branco);
-    border: #FFFFFF solid 2px;
-    width: 125px;
-    justify-content: space-around;
-    transition: 0.3s ease;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--cinza);
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
     cursor: pointer;
-    text-decoration: none;
+    transition: 0.3s;
+}
 
+.botao-header p {
+    color: var(--preto);
+    font-weight: bold;
+    margin: 0;
 }
 
 .botao-header:hover {
-    color: #000814;
-    background-color: var(--branco);
+    background-color: var(--laranja);
 }
 
-header p {
-    font-size: 20px;
+.botao-header:hover p {
+    color: var(--branco);
+}
+
+.logo-header {
+    height: 50px;
 }
 
 .login {
     display: flex;
-    justify-self: start;
     justify-content: center;
     align-items: center;
-    height: 50vh;
-    width: 100vw;
+    padding: 70px 30px;
 }
 
-.login .container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-    width: 50vw;
-    border: 2px solid black;
+.container {
+    max-width: 500px;
+    width: 100%;
 }
 
-#loading-gif{
+.card-login {
+    background-color: var(--branco);
+    padding: 40px;
+    border-radius: 12px;
+    border: 2px solid var(--preto);
+    align-content: center;
+    height: 400px;
+}
+
+.card-login h2 {
+    text-align:start;
+    margin-bottom: 30px;
+    color: var(--preto);
+}
+
+.formulario .campo {
+    margin-bottom: 20px;
+}
+
+.formulario span {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.formulario input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--preto);
+    border-radius: 12px;
+    transition: border-color 0.3s;
+    color: var(--cinza);
+}
+
+.formulario input:focus {
+    border-color: var(--laranja);
+    outline: none;
+}
+
+.botao {
+    display: block;
+    margin: 0 auto;
+    width: 60%;
+    padding: 12px;
+    background-color: var(--laranja);
+    color: var(--preto);
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.botao:hover {
+    background-color: var(--laranja);
+}
+
+.alerta_erro {
+    margin-bottom: 20px;
+}
+
+.card_erro {
+    background-color: #ffe5e5;
+    border: 1px solid #ff4d4d;
+    padding: 10px;
+    border-radius: 8px;
+    color: #b30000;
     display: none;
+}
+
+.loading-div {
+    text-align: center;
+    margin-top: 20px;
+    display: none;
+}
+
+#loading-gif {
+    width: 40px;
+}
+
+.footer {
+    background-color: var(--preto);
+    padding: 30px 0;
+    font-size: 14px;
+    color: var(--branco);
+}
+
+.footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer .direita img {
+    height: 60px;
+}
+
+.footer .esquerda {
+    text-align: right;
+}
+
+.footer .titulo {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: var(--laranja);
+    text-align: center;
+    text-decoration: underline;
+}
+
+.footer .texto {
+    line-height: 1.5;
+    color: var(--branco);
+}
+
+.version {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #777;
+}
+
+.footer .copyright {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--branco);
 }
