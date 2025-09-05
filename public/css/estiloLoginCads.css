@@ -76,13 +76,14 @@ header {
     width: 100%;
 }
 
-.card-login {
+.card-login, .card-cadastro {
     background-color: var(--branco);
     padding: 40px;
     border-radius: 12px;
     border: 2px solid var(--preto);
     align-content: center;
-    height: 400px;
+    height: auto;
+    min-height: 400px;
 }
 
 .card-login h2 {
@@ -212,46 +213,61 @@ header {
 }
 
 @media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        height: auto;
-        padding: 20px;
-    }
+  header {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+    text-align: center;
+  }
 
-    .botao-header {
-        position: static;
-        transform: none;
-        margin-bottom: 10px;
-    }
+  .botao-header {
+    position: static;
+    transform: none;
+    margin-bottom: 10px;
+  }
 
-    .logo-header {
-        margin-top: 10px;
-    }
+  .logo-header {
+    margin-top: 10px;
+    max-width: 80%;
+    height: auto;
+  }
 
-    .login {
-        padding: 40px 20px;
-    }
+  .login {
+    padding: 30px 15px;
+  }
 
-    .container {
-        max-width: 100%;
-        padding: 0 20px;
-    }
+  .container {
+    max-width: 100%;
+    padding: 0 15px;
+  }
 
-    .card-login {
-        padding: 30px 20px;
-        height: auto;
-    }
+  .card-login, .card-cadastro {
+    padding: 20px;
+    min-height: auto;
+  }
 
-    .botao {
-        width: 100%;
-    }
+  .formulario input {
+    font-size: 14px;
+  }
 
-    footer {
-        flex-direction: column;
-        text-align: center;
-      }
-    
-      footer .footer-section {
-        margin: 15px 0;
-      }
+  .botao {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .footer .container {
+    flex-direction: column;
+    text-align: center;
+    padding: 0 15px;
+  }
+
+  .footer .direita,
+  .footer .esquerda {
+    margin: 10px 0;
+  }
+
+  .footer .direita img {
+    max-width: 100px;
+    height: auto;
+  }
 }
