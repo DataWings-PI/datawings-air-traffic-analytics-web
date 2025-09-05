@@ -210,3 +210,58 @@ header {
     font-size: 14px;
     color: var(--branco);
 }
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+    }
+
+    .botao-header {
+        position: static;
+        transform: none;
+        margin-bottom: 10px;
+    }
+
+    .logo-header {
+        margin-top: 10px;
+    }
+
+    .login {
+        padding: 40px 20px;
+    }
+
+    .container {
+        max-width: 100%;
+        padding: 0 20px;
+    }
+
+    .card-login {
+        padding: 30px 20px;
+        height: auto;
+    }
+
+    .botao {
+        width: 100%;
+    }
+
+    .footer .container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer .esquerda {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .footer .direita {
+        margin-bottom: 20px;
+    }
+
+    .footer .direita img {
+        height: 50px;
+    }
+}
