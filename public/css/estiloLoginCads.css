@@ -107,7 +107,7 @@ header {
     border: 2px solid var(--preto);
     border-radius: 12px;
     transition: border-color 0.3s;
-    color: var(--cinza);
+    color: var(--preto);
 }
 
 .formulario input:focus {
@@ -246,22 +246,12 @@ header {
         width: 100%;
     }
 
-    .footer .container {
+    footer {
         flex-direction: column;
-        align-items: center;
         text-align: center;
-    }
-
-    .footer .esquerda {
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    .footer .direita {
-        margin-bottom: 20px;
-    }
-
-    .footer .direita img {
-        height: 50px;
-    }
+      }
+    
+      footer .footer-section {
+        margin: 15px 0;
+      }
 }
