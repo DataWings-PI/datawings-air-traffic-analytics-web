@@ -116,6 +116,10 @@ header {
     outline: none;
 }
 
+.formulario p{
+    text-align: center;
+}
+
 .botao {
     display: block;
     margin: 0 auto;
