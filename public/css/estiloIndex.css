@@ -2,6 +2,7 @@
 
 body {
     font-family: var(--fonte-principal);
+    
 }
 
 :root {
@@ -227,4 +228,370 @@ h2 {
     justify-content: center;
     width: 100%;
     margin-top: 10px;
+}
+
+
+/* -------------------------------- carousel ---------------------------------------------*/
+
+.sec-carousel{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.carousel {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  height: 400px;
+  background: var(--branco);
+  border-radius: 10px;
+    box-shadow:  0px 0px 10px 5px  #e0e0e0;
+}
+
+.parte-cima{
+    height: 20%;
+    color: #000000;
+    font-size: 25px;
+}
+
+.parte-cima h3{
+    margin-top: 65px;
+    margin-left: 25px;
+}
+
+.parte-debaixo{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 80%;
+}
+
+.arrow {
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+  padding: 10px;
+  color: #333;
+  transition: 0.5s;
+}
+
+.arrow:hover{
+    transform: scale(1.8);
+}
+
+.content {
+    width: 90%;
+  display: flex;
+  align-items: center;
+  
+}
+
+.image {
+  width: 40%;
+  height: 200px;
+  background: #ddd;
+  border-radius: 8px;
+  flex-shrink: 0;
+
+}
+
+.text{
+    width: 60%;
+    margin-left: 25px;
+}
+
+.text h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #222;
+}
+
+.text p {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+/* ------------------------------- beneficios -------------------------------------- */
+
+.sec-beneficios{
+    padding-top: 3%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+
+}
+
+.agudo{
+    display: flex;
+}
+
+.traço-bene{
+    display: flex;
+    justify-content: center;
+    width: 15%;
+ 
+}
+
+.ouahh{
+    background-color: #000000;
+    width: 1px;
+    height: 200px;
+}
+
+.caixas-bene{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+
+.caixas-bene1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+
+.box1{
+    width: 60%;
+    background-color: var(--branco) ;
+    height: 125px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 1%;
+    box-shadow:  0px 0px 10px 5px  #e0e0e0;
+    transition: 0.8s;
+}
+
+.box1:hover{
+    transform: scale(1.1);
+}
+
+.box1 p{
+    text-align: justify;
+}
+
+.linha{
+    width: 35px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --------------------------- TEAM ----------------------------------- */
+.sec-nosso-time{
+    padding: 3%;
+}
+
+.sec-equipe {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.equipe-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.equipe-linha {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.team-card {
+  width: 220px;
+  padding: 20px;
+  border-radius: 10px;
+box-shadow:  0px 0px 10px 5px  #e0e0e0;
+  text-align: center;
+  background: white;
+}
+
+.team-img {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #ddd;
+}
+
+.team-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.team-card h2 {
+  margin: 5px 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.team-card h4 {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #777;
+}
+
+.team-card p {
+  font-size: 13px;
+  color: #555;
+}
+
+h3{
+    margin-left: 90px;
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*- -------------------------------- footer --------------------------------- */
+
+
+.footer {
+    background-color: var(--azul-escuro);
+    padding: 30px 0;
+    font-size: 14px;
+    color: var(--branco);
+}
+
+.footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer .direita img {
+    height: 60px;
+}
+
+.footer .esquerda {
+    text-align: right;
+}
+
+.footer .titulo {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: var(--laranja);
+    text-align: center;
+    text-decoration: underline;
+}
+
+.footer .texto {
+    line-height: 1.5;
+    color: var(--branco);
+}
+
+.version {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #777;
+}
+
+.footer .copyright {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--branco);
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .botao-header {
+    position: static;
+    transform: none;
+    margin-bottom: 10px;
+  }
+
+  .logo-header {
+    margin-top: 10px;
+    max-width: 80%;
+    height: auto;
+  }
+
+  .login {
+    padding: 30px 15px;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+
+  .card-login, .card-cadastro {
+    padding: 20px;
+    min-height: auto;
+  }
+
+  .formulario input {
+    font-size: 14px;
+  }
+
+  .botao {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .footer .container {
+    flex-direction: column;
+    text-align: center;
+    padding: 0 15px;
+  }
+
+  .footer .direita,
+  .footer .esquerda {
+    margin: 10px 0;
+  }
+
+  .footer .direita img {
+    max-width: 100px;
+    height: auto;
+  }
 }

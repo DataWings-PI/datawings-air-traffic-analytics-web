@@ -82,7 +82,7 @@
           Transformar
         </h2>
         <p>
-          Tratamos, padronizamos e cruzamos os dados para criar informações consistentes e acionáveis.  
+          Tratamos, padronizamos e cruzamos os dados para criar informações consistentes e acionáveis.
         </p>
         <div class="img-cards-sec">
           <img class="img-cards" src="./assets/rotacao.png" alt="">
@@ -105,6 +105,190 @@
       </div>
     </div>
   </section>
-</body>
 
-</html>
+  <section class="sec-carousel">
+    <div class="carousel">
+      <div class="parte-cima">
+        <h3>Os Obstáculos que o Setor Aéreo Enfrenta Todos os Dias</h3>
+      </div>
+
+      <div class="parte-debaixo">
+        <div class="arrow" onclick="prevSlide()">&#8249;</div>
+        <div class="content" id="carousel-content">
+          <!-- O conteúdo é carregado pelo JS -->
+        </div>
+        <div class="arrow" onclick="nextSlide()">&#8250;</div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="sec-beneficios">
+
+    <h3>Benefícios do sistema</h3>
+    <div class="agudo">
+      <div class="caixas-bene">
+        <div class="box1">
+          <p> <span style="font-weight: bolder;">Redução de Custos</span><br>
+            Identifique gargalos e otimize recursos, reduzindo perdas.</p>
+        </div>
+          <div style="color: white;">S</div>
+        <div class="box1">
+            <p> <span style="font-weight: bolder;">Melhoria na Tomada de Decisão</span><br>
+            Decisões rápidas e estratégicas com base em indicadores confiáveis e informações consolidadas.</p>
+        </div>
+      </div>
+      <div class="caixas-bene1">
+        <div class="box1">
+          <p> <span style="font-weight: bolder;">Dashboards em Tempo Real</span><br>
+            Acompanhe status de voos, atrasos e cancelamentos em tempo real, garantindo controle total das operações</p>
+        </div>
+        <div style="color: white;">S</div>
+        <div class="box1">
+            <p> <span style="font-weight: bolder;">Apoio à Logística</span><br>
+           Planeje rotas, recursos e atendimento com dados precisos, evitando conflitos e atrasos futuros</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <section class="sec-nosso-time">
+    <h3>Nossa equipe</h3>
+    <div class="equipe-container">
+
+      <!-- Linha de cima (3 membros) -->
+      <div class="equipe-linha">
+        <div class="team-card">
+          <div class="team-img">
+            <img src="./assets/people/thalita.jpeg" alt="Thalita">
+          </div>
+          <h2>Thalita</h2>
+          <h4>Designer</h4>
+          <p>Especialista em UI/UX e identidade visual.</p>
+        </div>
+
+        <div class="team-card">
+          <div class="team-img">
+            <img src="./assets/people/vinicius.jpeg" alt="Vini">
+          </div>
+          <h2>Vinicius</h2>
+          <h4>Desenvolvedor</h4>
+          <p>Responsável pelo frontend e integrações.</p>
+        </div>
+
+        <div class="team-card">
+          <div class="team-img">
+            <img src="./assets/people/gustavo.jpeg" alt="Gustavo">
+          </div>
+          <h2>Gustavo</h2>
+          <h4>Gestor de Projetos</h4>
+          <p>Coordena prazos, processos e entregas.</p>
+        </div>
+      </div>
+
+      <!-- Linha de baixo (2 membros) -->
+      <div class="equipe-linha">
+        <div class="team-card">
+          <div class="team-img">
+            <img src="./assets/people/otavio.jpeg" alt="Maria">
+          </div>
+          <h2>Otávio</h2>
+          <h4>Marketing</h4>
+          <p>Foca na comunicação e divulgação.</p>
+        </div>
+
+        <div class="team-card">
+          <div class="team-img">
+            <img src="./assets/people/niedo.jpeg" alt="Lucas">
+          </div>
+          <h2>Gabriel Niedo</h2>
+          <h4>Analista de Dados</h4>
+          <p>Transforma dados em insights estratégicos.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+
+
+  <div class="footer">
+    <div class="container">
+      <div class="direita">
+        <img src="./assets/logoLaranja-removebg-preview.png" alt="">
+      </div>
+      <div class="esquerda">
+        <p class="titulo">Contato</p>
+        <p class="texto">
+          datawings@sptech.school
+          <br>
+          Rua Haddock Lobo n595
+        </p>
+      </div>
+      <span class="version"></span>
+    </div>
+    <div class="copyright">
+      @2025 DataWings.
+    </div>
+  </div>
+
+
+
+
+  <script>
+    const slides = [
+      {
+        title: "Atrasos Frequentes",
+        text: "Voos atrasados diariamente causam prejuízos operacionais e prejudicam a experiência do passageiro.",
+        image: "./assets/atraso.jpg"
+      },
+      {
+        title: "Cancelamentos de Última Hora",
+        text: "Mudanças repentinas geram caos no atendimento e impacto financeiro direto.",
+        image: "./assets/cancelamento.jpg"
+      },
+      {
+        title: "Falta de Dados Integrados",
+        text: "Informações dispersas dificultam a análise e a tomada de decisões estratégicas.",
+        image: "./assets/dados.jpg"
+      },
+      {
+        title: "Impacto em Períodos Críticos",
+        text: "Datas especiais como feriados e férias aumentam atrasos e demandam gestão eficiente.",
+        image: "./assets/feriados.jpg"
+      }
+    ];
+
+    let currentIndex = 0;
+    const contentDiv = document.getElementById("carousel-content");
+
+    function showSlide(index) {
+      const slide = slides[index];
+      contentDiv.innerHTML = `
+      <div class="image">
+        <img src="${slide.image}" alt="${slide.title}">
+      </div>
+      <div class="text">
+        <h2>${slide.title}</h2>
+        <p>${slide.text}</p>
+      </div>
+    `;
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      showSlide(currentIndex);
+    }
+
+    showSlide(currentIndex);
+
+  </script>
