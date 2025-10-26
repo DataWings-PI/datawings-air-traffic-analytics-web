@@ -1,11 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataWiwngs | Dashboard</title>
+    <title>DataWings - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <h1>Chegou na dashboard</h1>
+
+    <!-- ====== CABEÇALHO ====== -->
+    <header class="header">
+
+        <div class="content">
+            <div class="logo">
+                <img src="../assets/logoLaranja-removebg-preview.png" alt="">
+            </div>
+            <nav class="nav">
+                 <select name="navigation" id="navigationSelect">
+                     <option value="./index.html">Home</option>
+                    <option value="./dashboard.html">Dashboard</option>
+                    <option value="./relatorio.html">Relatório</option>
+                </select>
+            </nav>
+        </div>
+
+        <div class="user-icon"></div>
+    </header>
+
+    <!-- ====== CONTEÚDO PRINCIPAL ====== -->
+    <main class="main">
+        <h2 class="welcome-text">Bem-vindo, usuário...</h2>
+
+        <section class="cards-container">
+            <a href="dashboard.html" class="card">
+                <div class="card-bar"></div>
+                <p>Dashboard</p>
+            </a>
+
+            <a href="relatorio.html" class="card">
+                <div class="card-bar"></div>
+                <p>Relatório</p>
+            </a>
+
+            <a href="perfil.html" class="card">
+                <div class="card-bar"></div>
+                <p>Perfil</p>
+            </a>
+        </section>
+    </main>
+
+
 </body>
+
 </html>
+
+<script>
+    const select = document.getElementById("navigationSelect");
+
+    select.addEventListener("change", function() {
+        const url = this.value;
+        if (url) {
+            window.location.href = url;
+        }
+    });
+</script>

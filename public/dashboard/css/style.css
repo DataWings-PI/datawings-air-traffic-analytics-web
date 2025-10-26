@@ -1,0 +1,109 @@
+/* ===== RESET BÁSICO ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ===== CABEÇALHO ===== */
+.header {
+  background-color: #000814; /* azul bem escuro */
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 70px;
+  position: relative;
+  z-index: 2;
+}
+
+.header .content {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.logo img {
+  width: 200px;
+}
+
+.content select {
+  border: none;
+  color: #333;
+  font-size: 15px;
+  cursor: pointer;
+  background: none;
+  color: #fff;
+}
+
+.content option {
+
+    background-color: #ffffff;
+    color: #111827;
+    font-size: 15px;
+    padding: 10px;
+  
+}
+/* círculo do usuário no canto direito */
+.user-icon {
+  width: 35px;
+  height: 35px;
+  background-color: #d9d9d9;
+  border-radius: 50%;
+}
+
+/* ===== CONTEÚDO PRINCIPAL ===== */
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+  text-align: center;
+}
+
+.welcome-text {
+  font-size: 28px;
+  color: #000;
+  margin-bottom: 60px;
+}
+
+/* ===== CARDS ===== */
+.cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 300px;
+  height: 180px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  font-weight: 500;
+  color: #000;
+  text-decoration-line: none;
+  font-size: 20px;
+}
+
+.card-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 20px;
+  background-color: #3366a8; /* azul da lateral */
+}

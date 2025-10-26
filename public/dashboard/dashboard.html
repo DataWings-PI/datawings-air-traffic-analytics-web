@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataWings - Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+    <!-- ====== CABEÇALHO ====== -->
+    <header class="header">
+        <div class="content">
+            <div class="logo">
+                <img src="../assets/logoLaranja-removebg-preview.png" alt="">
+            </div>
+            <nav class="nav">
+                <select name="navigation" id="navigationSelect">
+                    <option value="./dashboard.html">Dashboard</option>
+                    <option value="./index.html">Home</option>
+                    <option value="./relatorio.html">Relatório</option>
+                </select>
+            </nav>
+        </div>
+        <div class="user-icon"></div>
+    </header>
+
+    <!-- ====== CONTEÚDO PRINCIPAL ====== -->
+    <main class="main">
+        <h2 class="welcome-text">Estatísticas de voos</h2>
+
+        <section class="cards-container">
+            <div class="card">
+                <div class="card-bar"></div>
+                <p>Total de voos analisados</p>
+                <p class="subtitulo">100.000 Voos</p>
+            </div>
+
+            <div class="card">
+                <div class="card-bar"></div>
+                <p>Voos sem nenhum atraso</p>
+                <p class="subtitulo">15.000 voos | 15% </p>
+            </div>
+
+            <div class="card">
+                <div class="card-bar"></div>
+                <p>Voos atrasados na partida</p>
+                <p class="subtitulo">30.000 voos | 30%</p>
+            </div>
+
+            <div class="card">
+                <div class="card-bar"></div>
+                <p>Voos atrasados na chegada</p>
+                <p class="subtitulo">45.000 voos | 45%</p>
+            </div>
+
+            <div class="card">
+                <div class="card-bar"></div>
+                <p>Voos que foram cancelados</p>
+                <p class="subtitulo">10.000 voos | 10%</p>
+            </div>
+        </section>
+
+
+
+        <div class="contain-2">
+            <!-- Tabela -->
+            <div class="tabela-scroll">
+                <table id="voosTable">
+                    <thead>
+                        <tr>
+                            <th>Rota</th>
+                            <th>DT prevista</th>
+                            <th>Previsão Partida</th>
+                            <th>Previsão Chegada</th>
+                            <th>Partida</th>
+                            <th>Chegada</th>
+                            <th>Atraso Partida</th>
+                            <th>Atraso Chegada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>101</td>
+                            <td>01/01/2025</td>
+                            <td>08:15</td>
+                            <td>10:00</td>
+                            <td>08:20</td>
+                            <td>10:05</td>
+                            <td>5</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>01/01/2025</td>
+                            <td>09:00</td>
+                            <td>11:00</td>
+                            <td>09:10</td>
+                            <td>11:05</td>
+                            <td>10</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>103</td>
+                            <td>01/01/2025</td>
+                            <td>09:30</td>
+                            <td>11:30</td>
+                            <td>09:35</td>
+                            <td>11:50</td>
+                            <td>5</td>
+                            <td>20</td>
+                        </tr>
+                        <tr>
+                            <td>104</td>
+                            <td>01/01/2025</td>
+                            <td>10:00</td>
+                            <td>12:00</td>
+                            <td>10:05</td>
+                            <td>12:10</td>
+                            <td>5</td>
+                            <td>10</td>
+                        </tr>
+                        <tr>
+                            <td>105</td>
+                            <td>01/01/2025</td>
+                            <td>10:30</td>
+                            <td>12:30</td>
+                            <td>10:35</td>
+                            <td>12:40</td>
+                            <td>5</td>
+                            <td>10</td>
+                        </tr>
+                        <tr>
+                            <td>106</td>
+                            <td>01/01/2025</td>
+                            <td>11:00</td>
+                            <td>13:00</td>
+                            <td>11:05</td>
+                            <td>13:20</td>
+                            <td>5</td>
+                            <td>20</td>
+                        </tr>
+                        <tr>
+                            <td>107</td>
+                            <td>01/01/2025</td>
+                            <td>11:30</td>
+                            <td>13:30</td>
+                            <td>11:35</td>
+                            <td>13:45</td>
+                            <td>5</td>
+                            <td>15</td>
+                        </tr>
+                        <tr>
+                            <td>108</td>
+                            <td>01/01/2025</td>
+                            <td>12:00</td>
+                            <td>14:00</td>
+                            <td>12:05</td>
+                            <td>14:10</td>
+                            <td>5</td>
+                            <td>10</td>
+                        </tr>
+                        <tr>
+                            <td>109</td>
+                            <td>01/01/2025</td>
+                            <td>12:30</td>
+                            <td>14:30</td>
+                            <td>12:40</td>
+                            <td>14:50</td>
+                            <td>10</td>
+                            <td>20</td>
+                        </tr>
+                        <tr>
+                            <td>110</td>
+                            <td>01/01/2025</td>
+                            <td>13:00</td>
+                            <td>15:00</td>
+                            <td>13:05</td>
+                            <td>15:10</td>
+                            <td>5</td>
+                            <td>10</td>
+                        </tr>
+                        <tr>
+                            <td>111</td>
+                            <td>01/01/2025</td>
+                            <td>13:30</td>
+                            <td>15:30</td>
+                            <td>13:35</td>
+                            <td>15:50</td>
+                            <td>5</td>
+                            <td>20</td>
+                        </tr>
+                        <tr>
+                            <td>112</td>
+                            <td>01/01/2025</td>
+                            <td>14:00</td>
+                            <td>16:00</td>
+                            <td>14:05</td>
+                            <td>16:10</td>
+                            <td>5</td>
+                            <td>10</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+            <!-- Gráfico -->
+            <div class="grafico">
+                <canvas id="lineChart"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <!-- Script do Chart.js -->
+    <script>
+        // Pegar dados da tabela
+        const table = document.getElementById('voosTable');
+        const labels = [];
+        const atrasosChegada = [];
+
+        for (let i = 1; i < table.rows.length; i++) {
+            const row = table.rows[i];
+            labels.push(row.cells[0].innerText); // Rota como label
+            atrasosChegada.push(parseInt(row.cells[7].innerText)); // Atraso Chegada
+        }
+
+        const ctx = document.getElementById('lineChart').getContext('2d');
+        const lineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Atraso Chegada (min)',
+                    data: atrasosChegada,
+                    borderColor: '#4a90e2',
+                    backgroundColor: 'rgba(74, 144, 226, 0.2)',
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#4a90e2'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Minutos de atraso'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Rota do voo'
+                        }
+                    }
+                }
+            }
+        });
+
+    const select = document.getElementById("navigationSelect");
+
+    select.addEventListener("change", function() {
+        const url = this.value;
+        if (url) {
+            window.location.href = url;
+        }
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,210 @@
+/* ===== RESET BÁSICO ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  height: 100vh;
+  overflow-x: hidden;
+} /* ===== CABEÇALHO ===== */
+.header {
+  background-color: #000814; /* azul bem escuro */
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 70px;
+  position: relative;
+  z-index: 2;
+}
+.header .content {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.logo img {
+  width: 200px;
+}
+.content select {
+  border: none;
+  color: #333;
+  font-size: 15px;
+  cursor: pointer;
+  background: none;
+  color: #fff;
+}
+.content option {
+  background-color: #ffffff;
+  color: #111827;
+  font-size: 15px;
+  padding: 10px;
+} /* círculo do usuário no canto direito */
+.user-icon {
+  width: 35px;
+  height: 35px;
+  background-color: #d9d9d9;
+  border-radius: 50%;
+} /* ===== CONTEÚDO PRINCIPAL ===== */
+.main {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 80px;
+}
+.welcome-text {
+  font-size: 28px;
+  color: #000;
+  margin-bottom: 30px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 900px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+    text-align: center;
+}
+th,
+td {
+  padding: 5px 5px;
+  text-align: left;
+}
+thead {
+  background-color: #4a90e2;
+  color: #ffffff;
+}
+tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.3s;
+}
+tbody tr:hover {
+  background-color: #f0f8ff;
+}
+tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* ===== CONTAINER DA TABELA COM SCROLL ===== */
+.tabela-scroll {
+  max-height: 550px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* mantém o cabeçalho fixo */
+.tabela-scroll thead tr {
+  position: sticky;
+  top: 0;
+  background-color: #4a90e2;
+  color: #fff;
+  z-index: 1;
+}
+
+/* ===== CONTAINER TABELA + GRÁFICO ===== */
+.contain-2 {
+  display: flex;
+  gap: 30px; /* espaço entre tabela e gráfico */
+  margin-top: 30px;
+  height: 470px;
+} 
+
+/* ===== BOTÕES DA TABELA ===== */
+.btn-abrir,
+.btn-excluir {
+  border: none;
+  border-radius: 10px;
+  padding: 6px 15px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #fff;
+}
+
+/* Botão Abrir (azul) */
+.btn-abrir {
+  background-color: #4a90e2;
+}
+
+.btn-abrir:hover {
+  background-color: #357ac9;
+  box-shadow: 0 0 6px rgba(74, 144, 226, 0.6);
+}
+
+/* Botão Excluir (vermelho/laranja) */
+.btn-excluir {
+  background-color: #ff5c5c;
+}
+
+.btn-excluir:hover {
+  background-color: #ff4040;
+  box-shadow: 0 0 6px rgba(255, 92, 92, 0.6);
+}
+
+
+.form-relatorio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 300px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-height: 400px;
+}
+
+.card-relatorio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  width: 280px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card-relatorio h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #000;
+}
+
+.card-relatorio label {
+  align-self: flex-start;
+  font-size: 13px;
+  margin-bottom: 5px;
+  color: #000;
+}
+
+.card-relatorio input {
+  width: 100%;
+  border: none;
+  border-radius: 20px;
+  background-color: #e4e4e4;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.card-relatorio button {
+  background-color: #ffa559;
+  color: #000;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.card-relatorio button:hover {
+  background-color: #ff9343;
+}
