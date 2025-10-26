@@ -18,9 +18,10 @@
                 <img src="../assets/logoLaranja-removebg-preview.png" alt="">
             </div>
             <nav class="nav">
-                <select name="navigation" id="">
-                    <option value="./index.html">Home</option>
+                 <select name="navigation" id="navigationSelect">
+                     <option value="./index.html">Home</option>
                     <option value="./dashboard.html">Dashboard</option>
+                    <option value="./relatorio.html">Relatório</option>
                 </select>
             </nav>
         </div>
@@ -54,3 +55,14 @@
 </body>
 
 </html>
+
+<script>
+    const select = document.getElementById("navigationSelect");
+
+    select.addEventListener("change", function() {
+        const url = this.value;
+        if (url) {
+            window.location.href = url;
+        }
+    });
+</script>

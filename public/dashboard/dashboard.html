@@ -20,9 +20,10 @@
                 <img src="../assets/logoLaranja-removebg-preview.png" alt="">
             </div>
             <nav class="nav">
-                <select name="navigation" id="">
+                <select name="navigation" id="navigationSelect">
                     <option value="./dashboard.html">Dashboard</option>
                     <option value="./index.html">Home</option>
+                    <option value="./relatorio.html">Relatório</option>
                 </select>
             </nav>
         </div>
@@ -43,25 +44,25 @@
             <div class="card">
                 <div class="card-bar"></div>
                 <p>Voos sem nenhum atraso</p>
-                <p class="subtitulo">13.178 voos</p>
+                <p class="subtitulo">15.000 voos | 15% </p>
             </div>
 
             <div class="card">
                 <div class="card-bar"></div>
                 <p>Voos atrasados na partida</p>
-                <p class="subtitulo">30.178 voos</p>
+                <p class="subtitulo">30.000 voos | 30%</p>
             </div>
 
             <div class="card">
                 <div class="card-bar"></div>
                 <p>Voos atrasados na chegada</p>
-                <p class="subtitulo">20.509 voos</p>
+                <p class="subtitulo">45.000 voos | 45%</p>
             </div>
 
             <div class="card">
                 <div class="card-bar"></div>
                 <p>Voos que foram cancelados</p>
-                <p class="subtitulo">13.178 voos</p>
+                <p class="subtitulo">10.000 voos | 10%</p>
             </div>
         </section>
 
@@ -274,6 +275,15 @@
                 }
             }
         });
+
+    const select = document.getElementById("navigationSelect");
+
+    select.addEventListener("change", function() {
+        const url = this.value;
+        if (url) {
+            window.location.href = url;
+        }
+    });
     </script>
 </body>
 
