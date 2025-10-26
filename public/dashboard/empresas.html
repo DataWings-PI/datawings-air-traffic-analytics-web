@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataWings - Dashboard</title>
+    <link rel="stylesheet" href="css/empresas.css">
+
+</head>
+
+<body>
+
+    <!-- ====== CABEÇALHO ====== -->
+    <header class="header">
+        <div class="content">
+            <div class="logo">
+                <img src="../assets/logoLaranja-removebg-preview.png" alt="">
+            </div>
+            <nav class="nav">
+                <select name="navigation" id="">
+                    <option value="./dashboard.html">Dashboard</option>
+                    <option value="./index.html">Home</option>
+                </select>
+            </nav>
+        </div>
+        <div class="user-icon"></div>
+    </header>
+
+    <!-- ====== CONTEÚDO PRINCIPAL ====== -->
+    <main class="main">
+        <div class="contain-2">
+            <!-- Tabela -->
+
+            <div class="form-relatorio">
+                <form class="card-relatorio">
+                    <h2>Cadastrar empresa</h2>
+
+                    <label>Nome</label>
+                    <input type="text" id="nome" placeholder="Digite o nome">
+
+                    <label>CNPJ</label>
+                    <input type="text" id="cnpj" placeholder="Digite o nome">
+
+                    <label>Email</label>
+                    <input type="text" id="email" placeholder="Digite o nome">
+
+                    <label>Telefone</label>
+                    <input type="text" id="telefone" placeholder="Digite o nome">
+
+                    <button type="submit">Cadastrar</button>
+                </form>
+            </div>
+
+
+            <div class="tabela-scroll">
+                <table id="voosTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Criado em:</th>
+                            <th>informações</th>
+                            <th>Excluir</th>
+                            <th>Definir status</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>01</td>
+                            <td>Gol</td>
+                            <td>26/10/2025</td>
+                            <td><button class="btn-abrir">informações</button></td>
+                            <td><button class="btn-excluir">Excluir</button></td>
+                            <td><button class="btn-excluir">Status</button></td>
+                        </tr>
+
+                        <tr>
+                            <td>02</td>
+                            <td>LATAM</td>
+                            <td>25/10/2025</td>
+                            <td><button class="btn-abrir">informações</button></td>
+                            <td><button class="btn-excluir">Excluir</button></td>
+                            <td><button class="btn-excluir">Status</button></td>
+                        </tr>
+                        <tr>
+                            <td>03</td>
+                            <td>Gol Linhas Aéreas</td>
+                            <td>24/10/2025</td>
+                            <td><button class="btn-abrir">informações</button></td>
+                            <td><button class="btn-excluir">Excluir</button></td>
+                            <td><button class="btn-excluir">Status</button></td>
+                        </tr>
+                        <tr>
+                            <td>04</td>
+                            <td>Azul Linhas Aéreas</td>
+                            <td>23/10/2025</td>
+                            <td><button class="btn-abrir">informações</button></td>
+                            <td><button class="btn-excluir">Excluir</button></td>
+                            <td><button class="btn-excluir">Status</button></td>
+                        </tr>
+                        <tr>
+                            <td>05</td>
+                            <td>American Airlines</td>
+                            <td>22/10/2025</td>
+                            <td><button class="btn-abrir">informações</button></td>
+                            <td><button class="btn-excluir">Excluir</button></td>
+                            <td><button class="btn-excluir">Status</button></td>
+                        </tr>
+                        <tr>
+                            <td>06</td>
+                            <td>Delta Airlines</td>
+                            <td>21/10/2025</td>
+                            <td><button class="btn-abrir">informações</button></td>
+                            <td><button class="btn-excluir">Excluir</button></td>
+                            <td><button class="btn-excluir">Status</button></td>
+                        </tr>
+                        <tr>
+                            <td>07</td>
+                            <td>United Airlines</td>
+                            <td>20/10/2025</td>
+                            <td><button class="btn-abrir">informações</button></td>
+                            <td><button class="btn-excluir">Excluir</button></td>
+                            <td><button class="btn-excluir">Status</button></td>
+                        </tr>
+                        <tr>
+                            <td>08</td>
+                            <td>Air France</td>
+                            <td>19/10/2025</td>
+                            <td><button class="btn-abrir">informações</button></td>
+                            <td><button class="btn-excluir">Excluir</button></td>
+                            <td><button class="btn-excluir">Status</button></td>
+                        </tr>
+                        <tr>
+                            <td>09</td>
+                            <td>Lufthansa</td>
+                            <td>18/10/2025</td>
+                            <td><button class="btn-abrir">informações</button></td>
+                            <td><button class="btn-excluir">Excluir</button></td>
+                            <td><button class="btn-excluir">Status</button></td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>British Airways</td>
+                            <td>17/10/2025</td>
+                            <td><button class="btn-abrir">informações</button></td>
+                            <td><button class="btn-excluir">Excluir</button></td>
+                            <td><button class="btn-excluir">Status</button></td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>KLM</td>
+                            <td>16/10/2025</td>
+                            <td><button class="btn-abrir">informações</button></td>
+                            <td><button class="btn-excluir">Excluir</button></td>
+                            <td><button class="btn-excluir">Status</button></td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>Emirates</td>
+                            <td>15/10/2025</td>
+                            <td><button class="btn-abrir">informações</button></td>
+                            <td><button class="btn-excluir">Excluir</button></td>
+                            <td><button class="btn-excluir">Status</button></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>
