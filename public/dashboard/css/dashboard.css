@@ -1,0 +1,159 @@
+/* ===== RESET BÁSICO ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  height: 100vh;
+  overflow-x: hidden;
+} /* ===== CABEÇALHO ===== */
+.header {
+  background-color: #000814; /* azul bem escuro */
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 70px;
+  position: relative;
+  z-index: 2;
+}
+.header .content {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.logo img {
+  width: 200px;
+}
+.content select {
+  border: none;
+  color: #333;
+  font-size: 15px;
+  cursor: pointer;
+  background: none;
+  color: #fff;
+}
+.content option {
+  background-color: #ffffff;
+  color: #111827;
+  font-size: 15px;
+  padding: 10px;
+} /* círculo do usuário no canto direito */
+.user-icon {
+  width: 35px;
+  height: 35px;
+  background-color: #d9d9d9;
+  border-radius: 50%;
+} /* ===== CONTEÚDO PRINCIPAL ===== */
+.main {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 80px;
+}
+.welcome-text {
+  font-size: 28px;
+  color: #000;
+  margin-bottom: 30px;
+} /* ===== CARDS ===== */
+.cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 42px;
+}
+.card {
+  width: 206px;
+  height: 100px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  color: #000;
+  text-decoration-line: none;
+  font-size: 20px;
+  padding: 30px;
+}
+
+.card .subtitulo {
+    margin-top: 10px; 
+    font-size: 15px;
+}
+
+.card-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 20px;
+  background-color: #3366a8; /* azul da lateral */
+}
+table {
+  border-collapse: collapse;
+  width: 700px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+th,
+td {
+  padding: 5px 10px;
+  text-align: left;
+}
+thead {
+  background-color: #4a90e2;
+  color: #ffffff;
+}
+tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.3s;
+}
+tbody tr:hover {
+  background-color: #f0f8ff;
+}
+tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* ===== CONTAINER DA TABELA COM SCROLL ===== */
+.tabela-scroll {
+  max-height: 410px;
+  overflow-y: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* mantém o cabeçalho fixo */
+.tabela-scroll thead tr {
+  position: sticky;
+  top: 0;
+  background-color: #4a90e2;
+  color: #fff;
+  z-index: 1;
+}
+
+/* ===== CONTAINER TABELA + GRÁFICO ===== */
+.contain-2 {
+  display: flex;
+  gap: 30px; /* espaço entre tabela e gráfico */
+  margin-top: 30px;
+  height: 300px;
+} /* ===== GRÁFICO ===== */
+.grafico {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  min-width: 300px; /* garante tamanho mínimo */
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
