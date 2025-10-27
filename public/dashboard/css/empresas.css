@@ -42,12 +42,8 @@ body {
   font-size: 15px;
   padding: 10px;
 } /* círculo do usuário no canto direito */
-.user-icon {
-  width: 35px;
-  height: 35px;
-  background-color: #d9d9d9;
-  border-radius: 50%;
-} /* ===== CONTEÚDO PRINCIPAL ===== */
+
+/* ===== CONTEÚDO PRINCIPAL ===== */
 .main {
   display: flex;
   flex-direction: column;
