@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>DataWings | Cadastro</title>
 
@@ -16,16 +16,15 @@
 </head>
 
 <body onload="listar()">
-    <header>
-        <a href="./index.html ">
-            <button class="botao-header">
-              <p>Voltar</p>
-            </button>
-        </a>
+  <header>
+    <a href="./index.html ">
+      <button class="botao-header">
+        <p>Voltar</p>
+      </button>
+    </a>
 
-        <img class="logo-header" src="./assets/logoLaranja.png" alt="">
-    
-    </header>
+    <img class="logo-header" src="./assets/logoLaranja.png" alt="">
+  </header>
 
   <div class="login">
     <div class="alerta_erro">
@@ -37,20 +36,24 @@
       <div class="card card-cadastro">
         <h2>Cadastro</h2>
         <div class="formulario">
-  
+
           <div class="campo">
             <span>Nome Completo:</span>
             <input id="nome_input" type="text" placeholder="Seu nome" />
           </div>
           <div class="campo">
             <span>E-mail Corporativo:</span>
-            <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
+            <input id="email_input" type="email" placeholder="meuemail@provedor.com" />
+          </div>
+          <div class="campo">
+            <span>Telefone:</span>
+            <input id="telefone_input" type="text" maxlength="15" placeholder="(11) 98765-4321" />
           </div>
           <div class="campo">
             <span>Código de Ativação:</span>
-            <input id="codigo_ativacao_input" type="text" placeholder="ABCDE123" />
+            <input id="codigo_ativacao_input" type="text" maxlength="8" placeholder="ABCDE123" />
           </div>
-          
+
           <div class="campo">
             <span>Senha:</span>
             <input id="senha_input" type="password" placeholder="******" />
@@ -72,88 +75,86 @@
 
   <div class="footer">
     <div class="container">
-        <div class="direita">
+      <div class="direita">
         <img src="./assets/logoLaranja-removebg-preview.png" alt="">
-        </div>
-        <div class="esquerda">
-            <p class="titulo">Contato</p>
-            <p class="texto">
-                datawings@sptech.school
-                <br>
-                Rua Haddock Lobo n595 
-            </p>
-        </div>
-        <span class="version"></span>
+      </div>
+      <div class="esquerda">
+        <p class="titulo">Contato</p>
+        <p class="texto">
+          datawings@sptech.school
+          <br>
+          Rua Haddock Lobo n595
+        </p>
+      </div>
+      <span class="version"></span>
     </div>
     <div class="copyright">
-        @2025 DataWings.
+      @2025 DataWings.
     </div>
-</div>
+  </div>
 </body>
 
 </html>
 
 <script>
-
-  // Array para armazenar empresas cadastradas para validação de código de ativação 
   let listaEmpresasCadastradas = [];
 
-  function cadastrar() {
-    // aguardar();
+  // Máscara do telefone (formato: (XX) XXXXX-XXXX)
+  telefone_input.addEventListener("input", function () {
+    let valor = telefone_input.value.replace(/\D/g, ""); // Remove tudo que não for número
+    valor = valor.replace(/^(\d{2})(\d)/g, "($1) $2");
+    valor = valor.replace(/(\d{5})(\d{4})$/, "$1-$2");
+    telefone_input.value = valor;
+  });
 
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
+  function cadastrar() {
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
+    var telefoneVar = telefone_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
     var codigoVar = codigo_ativacao_input.value;
-    var idEmpresaVincular
+    var idEmpresaVincular;
 
-    // Verificando se há algum campo em branco
     if (
       nomeVar == "" ||
       emailVar == "" ||
+      telefoneVar == "" ||
       senhaVar == "" ||
       confirmacaoSenhaVar == "" ||
       codigoVar == ""
     ) {
       cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
-
+      mensagem_erro.innerHTML = "Por favor, preencha todos os campos corretamente.";
       finalizarAguardar();
       return false;
     } else {
       setInterval(sumirMensagem, 5000);
     }
 
-    // Verificando se o código de ativação é de alguma empresa cadastrada
     for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
       if (listaEmpresasCadastradas[i].codigo == codigoVar) {
-        idEmpresaVincular = listaEmpresasCadastradas[i].id_empresa
-        console.log("Código de ativação válido."+listaEmpresasCadastradas[i].id);
+        idEmpresaVincular = listaEmpresasCadastradas[i].id_empresa;
+        console.log("Código de ativação válido. " + listaEmpresasCadastradas[i].id);
         break;
       } else {
         cardErro.style.display = "block";
-        mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
+        mensagem_erro.innerHTML = "Código de ativação inválido.";
         finalizarAguardar();
       }
     }
 
-    // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
         emailServer: emailVar,
+        telefoneServer: telefoneVar,
         senhaServer: senhaVar,
-        idEmpresaVincularServer: idEmpresaVincular
+        idEmpresaVincularServer: idEmpresaVincular,
       }),
     })
       .then(function (resposta) {
@@ -161,13 +162,12 @@
 
         if (resposta.ok) {
           cardErro.style.display = "block";
-
           mensagem_erro.innerHTML =
             "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
           setTimeout(() => {
             window.location = "login.html";
-          }, "2000");
+          }, 2000);
 
           limparFormulario();
           finalizarAguardar();
@@ -183,7 +183,6 @@
     return false;
   }
 
-  // Listando empresas cadastradas 
   function listar() {
     fetch("/empresas/listar", {
       method: "GET",
@@ -192,9 +191,6 @@
         resposta.json().then((empresas) => {
           empresas.forEach((empresa) => {
             listaEmpresasCadastradas.push(empresa);
-
-            console.log("listaEmpresasCadastradas")
-            console.log(listaEmpresasCadastradas[0].codigo)
           });
         });
       })
