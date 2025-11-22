@@ -75,8 +75,6 @@
 
                      <label>Número</label>
                     <input type="text" id="numeroEndereco" placeholder="Digite o Número">
-                    <label>Número</label>
-                    <input type="text" id="numero" placeholder="Digite o Número">
 
                     <label>Complemento</label>
                     <input type="text" id="complemento" placeholder="Digite o Complemento">
@@ -214,6 +212,7 @@ function cadastrar(){
             window.location.href = url;
         }
     });
+    
     function carregarEmpresas() {
         fetch("http://localhost:8080/empresas/listar")
             .then(resposta => resposta.json())
