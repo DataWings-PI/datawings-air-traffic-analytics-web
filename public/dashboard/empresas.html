@@ -59,7 +59,7 @@
                     <input type="text" id="apelido" placeholder="Digite o Apelido">
 
                     <label>Cep</label>
-                    <input type="text" id="cep" placeholder="Digite o Cep">
+                    <input type="text" id="cep" onblur="buscarCep()" placeholder="Digite o Cep">
 
                     <label>Logradouro</label>
                     <input type="text" id="logradouro" placeholder="Digite o Logradouro">
@@ -74,12 +74,11 @@
                     <input type="text" id="uf" placeholder="Digite o Unidade Federativa">
 
                      <label>Número</label>
-                    <input type="text" id="numero" placeholder="Digite o Número">
+                    <input type="text" id="numeroEndereco" placeholder="Digite o Número">
 
                     <label>Complemento</label>
                     <input type="text" id="complemento" placeholder="Digite o Complemento">
-
-                    <button type="submit">Cadastrar</button>
+                    <button type="submit" onclick="cadastrar()">Cadastrar</button>
                 </form>
             </div>
 
@@ -194,6 +193,100 @@
 </html>
 
 <script>
+
+function buscarCep(){
+
+
+    const cepVar = cep.value;
+    
+    fetch(`https://viacep.com.br/ws/${cepVar}/json/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+            return resposta.json();
+
+        } else {
+          throw "Houve um erro ao tentar buscar o cep digitado!";
+        }
+      })
+      .then((resposta) => {
+        var endereco = resposta;
+            logradouro.value = endereco.logradouro;
+            bairro.value = endereco.bairro;
+            cidade.value = endereco.localidade;
+            uf.value = endereco.uf;
+
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+    }
+    
+
+
+function cadastrar(){
+    var nome_fantasiaVar = nome_fantasia.value;
+    var razao_socialVar= razao_social.value;
+    var cnpjVar = cnpj.value;
+    var numeroVar = numero.value;
+    var tipo_numVar = tipo_num.value;
+    var departamentoVar = departamento.value;
+    var apelidoVar = apelido.value;
+    var cepVar = cep.value;
+    var logradouroVar = logradouro.value;
+    var bairroVar = bairro.value ;
+    var cidadeVar = cidade.value;
+    var ufVar = uf.value;
+    var numeroEnderecoVar = numeroEndereco.value;
+    var complementoVar = complemento.value;
+
+
+   fetch("/empresas/cadastrarEmpresa", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nome_fantasiaServer: nome_fantasiaVar,
+        razao_socialServer: razao_socialVar,
+        cnpjServer :cnpjVar,
+        numeroServer: numeroVar,
+        tipo_numServer: tipo_numVar,
+        departamentoServer: departamentoVar,
+        apelidoServer: apelidoVar,
+        cepServer :cepVar,
+        logradouroServer :logradouroVar,
+        bairroServer: bairroVar,
+        cidadeServer: cidadeVar,
+        ufServer: ufVar,
+        numeroEnderecoServer: numeroEnderecoVar,
+        complementoServer: complementoVar
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          setTimeout(() => {
+            window.location = "login.html";
+          }, "2000");
+
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });}
+
+
     const select = document.getElementById("navigationSelect");
 
     select.addEventListener("change", function () {
