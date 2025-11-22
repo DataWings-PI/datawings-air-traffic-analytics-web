@@ -1,6 +1,8 @@
 CREATE DATABASE IF NOT EXISTS datawings;
 USE datawings;
 
+
+
 CREATE TABLE log_java (
     id INT PRIMARY KEY auto_increment, 
     data_hora_registro DATETIME NOT NULL, 
@@ -11,15 +13,16 @@ CREATE TABLE log_java (
 CREATE TABLE empresa (
     id INT PRIMARY KEY auto_increment,
     nome_fantasia VARCHAR(255) NOT NULL,
-    razao_social VARCHAR(255) NOT NULL,
+    razao_social VARCHAR(255) UNIQUE NOT NULL,
     cnpj VARCHAR(14) NOT NULL,
-    data_criacao DATETIME NOT NULL
+    data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
+
 
 CREATE TABLE voo (
     id INT PRIMARY KEY auto_increment,
     sigla_empresa CHAR(3) NOT NULL,
-    numero_voo VARCHAR(5) NOT NULL,
+    numero_voo VARCHAR(5) NOT NULL,	
     codigo_autorizacao VARCHAR(2) NOT NULL,
     codigo_tipo_linha CHAR(1) NOT NULL,
     icao_origem VARCHAR(10) NOT NULL,
@@ -41,17 +44,17 @@ CREATE TABLE contato (
     departamento VARCHAR(45) NOT NULL,
     numero VARCHAR(11) NOT NULL,
     tipo_numero ENUM('fixo', 'móvel') NOT NULL,
-    email VARCHAR(100),
     fk_empresa INT NOT NULL,
     FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
 );
+
 
 CREATE TABLE endereco_empresa(
     id INT PRIMARY KEY auto_increment,
     apelido VARCHAR(45) NOT NULL,
     logradouro VARCHAR(100) NOT NULL,
     numero VARCHAR(10) NOT NULL,
-    completo VARCHAR(50),
+    complemento VARCHAR(50),
     bairro VARCHAR(100) NOT NULL,
     cep CHAR(8) NOT NULL,
     cidade VARCHAR(100) NOT NULL,
