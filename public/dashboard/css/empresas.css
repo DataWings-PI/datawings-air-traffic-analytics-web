@@ -115,7 +115,8 @@ tbody tr:nth-child(even) {
 } 
 
 /* ===== BOTÕES DA TABELA ===== */
-.btn-abrir,
+.btn-ativo,
+.btn-inativo,
 .btn-excluir {
   border: none;
   border-radius: 10px;
@@ -127,15 +128,25 @@ tbody tr:nth-child(even) {
   color: #fff;
 }
 
-/* Botão Abrir (azul) */
-.btn-abrir {
-  background-color: #4a90e2;
+/* BOTÃO ATIVO → VERDE */
+.btn-ativo {
+  background-color: #28a745; /* verde */
 }
 
-.btn-abrir:hover {
-  background-color: #357ac9;
-  box-shadow: 0 0 6px rgba(74, 144, 226, 0.6);
+.btn-ativo:hover {
+  background-color: #218838; /* verde escuro */
+  box-shadow: 0 0 6px rgba(40, 167, 69, 0.6);
 }
+
+/* BOTÃO INATIVO → AMARELO */
+.btn-inativo {
+  background-color: #f0c419; /* amarelo */
+}
+
+.btn-inativo:hover {
+  background-color: #d4ab12; /* amarelo escuro */
+  box-shadow: 0 0 6px rgba(240, 196, 25, 0.6);
+} 
 
 /* Botão Excluir (vermelho/laranja) */
 .btn-excluir {

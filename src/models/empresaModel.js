@@ -1,5 +1,12 @@
 var database = require("../database/config")
 
+function listarEmpresas () {
+        var instrucaoSql = `
+            SELECT id, razao_social, data_criacao, status FROM empresa;
+        `;
+        console.log("Executando a instrução SQL: \n" + instrucaoSql);
+        return database.executar(instrucaoSql);
+}
 function cadastrarEmpresa(nome_fantasia, razao_social, cnpj, departamento, numero, tipo_num, apelido, cep, logradouro, bairro, cidade, uf, numeroEndereco, complemento) {
     var instrucaoSql = `
        INSERT INTO empresa (nome_fantasia, razao_social, cnpj)
@@ -40,5 +47,6 @@ function cadastrarEmpresa(nome_fantasia, razao_social, cnpj, departamento, numer
 
 
 module.exports = {
+    listarEmpresas,
     cadastrarEmpresa
 };

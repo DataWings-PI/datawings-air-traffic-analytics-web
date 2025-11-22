@@ -1,6 +1,22 @@
 var empresaModel =  require("../models/empresaModel");
 
 
+function listarEmpresas(req, res) {
+    empresaModel.listarEmpresas()
+        .then((resultado) => {
+            if (resultado.length > 0) {
+                // Sucesso: retorna as empresas encontradas
+                res.status(200).json(resultado);
+            } else {
+                // Nenhuma empresa no banco
+                res.status(204).send("Nenhuma empresa encontrada!");
+            }
+        })
+        .catch((erro) => {
+            console.log("Erro ao buscar empresas:", erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
 function cadastrarEmpresa(req, res) {
     var nome_fantasia = req.body.nome_fantasiaServer;
     var razao_social = req.body.razao_socialServer;
@@ -68,5 +84,6 @@ function cadastrarEmpresa(req, res) {
 
 
 module.exports = {
+    listarEmpresas,
   cadastrarEmpresa
 }
