@@ -1,3 +1,18 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Marvel:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+:root {
+  --azul-escuro: #000814;
+  --azul-n2: #004E98;
+  --azul-n1: #3A6EA5;
+  --cinza: #EBEBEB;
+  --branco: #FFFFFF;
+  --preto: #000000;
+  --laranja: #FF6700;
+  --fonte-principal: 'Montserrat';
+}
+
 /* ===== RESET BÁSICO ===== */
 * {
   margin: 0;
@@ -5,10 +20,13 @@
   box-sizing: border-box;
 }
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: var(--fonte-principal);
   background-color: #ffffff;
   height: 100vh;
   overflow-x: hidden;
+
+
+
 } /* ===== CABEÇALHO ===== */
 .header {
   background-color: #000814; /* azul bem escuro */
@@ -51,25 +69,115 @@ body {
 .user img {
   width: 50px;
 }
+
+
+
 /* ===== CONTEÚDO PRINCIPAL ===== */
 .main {
   display: flex;
-  flex-direction: column;
-  padding: 10px 80px;
+  flex-direction: row;
+  height: 87vh;
+  width: 100%;
+
 }
+
 .welcome-text {
   font-size: 28px;
-  color: #000;
+  color: #ffffff;
   margin-bottom: 30px;
-} /* ===== CARDS ===== */
+  position: absolute;
+  left: 40%;
+  
+  }
+
+
+/* ===== CARDS ===== */
 .cards-container {
   display: flex;
   justify-content: center;
-  gap: 42px;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+  background-color: var(--branco);
 }
+
+.botão-modal-1{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 10%;
+  width: 100%;
+}
+
+.cards-grafico-1{
+  height: 45%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.cards-grafico-2-1{
+  height: 45%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.botoes-modal{
+  height: 50px;
+  width: 170px;
+  background-color: var(--azul-n1);
+  color: var(--branco);
+  font-family: var(--fonte-principal);
+  border-radius: 5px;
+  border: 1px solid var(--azul-n1);
+  transition: 0.4s;
+  cursor: pointer;
+  
+
+}
+
+.botoes-modal:hover{
+  background-color: var(--laranja);
+  color: var(--azul-escuro);
+  
+  transition: 2.0;
+
+}
+
+/* ----------------------------------------- */
+
+
+.contain-2 {
+  padding: 1%;
+  display: flex;
+  flex-direction: column ;
+  width: 50%;
+  background-color: rgb(255, 255, 255);
+  height: 100%;
+  
+} 
+
+.contain-parte-cima{
+  height: 40%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.contain-parte-baixo{
+  height: 60%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+
+
 .card {
-  width: 206px;
-  height: 100px;
+  width: 200px;
+  height: 80px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
@@ -82,23 +190,113 @@ body {
   overflow: hidden;
   color: #000;
   text-decoration-line: none;
-  font-size: 20px;
+  font-size: 13px;
   padding: 30px;
 }
+
+
 
 .card .subtitulo {
   margin-top: 10px;
   font-size: 15px;
 }
 
-.card-bar {
+.card-bar1 {
   position: absolute;
   left: 0;
   top: 0;
   height: 100%;
   width: 20px;
-  background-color: #3366a8; /* azul da lateral */
+  background-color: var(--azul-escuro);
 }
+
+.card-bar2 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 20px;
+  background-color: #36A2EB;
+}
+
+.card-bar3 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 20px;
+  background-color: #FFCD56;
+}
+
+
+.card-bar4 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 20px;
+  background-color: #FF6384;
+}
+
+.card-bar5 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 20px;
+  background-color: #87ff63;
+}
+
+
+.divisao-pt1,
+.divisao-pt2{
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+
+
+
+
+/* ===== CONTAINER DA TABELA COM SCROLL ===== */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.modal-conteudo {
+  width: 95%;
+  height: 90vh;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabela-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tabela-scroll thead tr {
+  position: sticky;
+  top: 0;
+  background-color: #000814;
+  color: #fff;
+  z-index: 1;
+}
+
+/* ------ */
+
 table {
   border-collapse: collapse;
   width: 700px;
@@ -127,146 +325,113 @@ tbody tr:nth-child(even) {
   background-color: #fafafa;
 }
 
-/* ===== CONTAINER DA TABELA COM SCROLL ===== */
-.tabela-scroll {
-  max-height: 410px;
-  overflow-y: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+
+
+
+/* ===== GRÁFICO ===== */
+#meuGraficoPie {
+    width: 300px !important;
+    height: 300px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+    
 }
 
-/* mantém o cabeçalho fixo */
-.tabela-scroll thead tr {
-  position: sticky;
-  top: 0;
-  background-color: #4a90e2;
-  color: #fff;
-  z-index: 1;
-}
-
-/* ===== CONTAINER TABELA + GRÁFICO ===== */
-.contain-2 {
-  display: flex;
-  gap: 30px; /* espaço entre tabela e gráfico */
-  margin-top: 30px;
-  height: 300px;
-} /* ===== GRÁFICO ===== */
-.grafico {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  min-width: 300px; /* garante tamanho mínimo */
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+#meuGraficoBarra2{
+    height: 240px !important;
 }
 
 
-/* ===== MODAL ===== */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
 
-.modal-conteudo {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 25px;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
-  position: relative;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-  animation: aparecer 0.3s ease;
-}
 
-.modal-conteudo h2 {
-  display: flex;
-  margin-bottom: 20px;
-  justify-content: center;
-}
 
-@keyframes aparecer {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
 
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ====== MODAL TABELA VOOS ========= */
+
 
 .fechar {
   position: absolute;
-  top: 10px;
+  top: 7px;
   right: 15px;
-  font-size: 22px;
+  font-size: 40px;
   font-weight: bold;
-  color: #333;
+  color: var(--laranja);
   cursor: pointer;
 }
 
-.usuario-foto {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 15px;
-  border: 2px solid #ff6600;
+#modal2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.55);
+    display: none;
+    justify-content: center;
+    align-items: left;
+    z-index: 9999;
 }
 
-.modal-conteudo form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* Conteúdo FULLSCREEN */
+#modal2 .modal-tabela-conteudo {
+    width: 90vw;
+    height: 90vh;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
-.modal-conteudo input,
-.modal-conteudo textarea {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
+#modal2 .fechar {
+    position: absolute;
+    top: 8px;
+    right: 18px;
+    font-size: 28px;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 999;
 }
 
-.modal-conteudo button {
-  background-color: #ff6600;
-  border: none;
-  color: #fff;
-  padding: 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
+/* Área scroll */
+#modal2 .tabela-scroll {
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
+    height: 100%;
 }
 
-.modal-conteudo button:hover {
-  background-color: #e05500;
+/* Tabela */
+#modal2 table {
+    width: 100%;
+
 }
 
-.btn-abrir-modal {
-  margin-top: 25px;
-  padding: 10px 20px;
-  background-color: #ff6600;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
+/* TH ajustado */
+#modal2 th {
+    white-space: normal;
+    word-break: keep-all;
+    text-align: center;
+    padding: 10px;
 }
 
-.btn-abrir-modal:hover {
-  background-color: #e05500;
-}
+
