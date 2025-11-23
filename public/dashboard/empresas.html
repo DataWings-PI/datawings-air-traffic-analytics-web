@@ -9,7 +9,7 @@
 
 </head>
 
-<body>
+<body onload="carregarEmpresas()">
 
     <!-- ====== CABEÇALHO ====== -->
     <header class="header">
@@ -112,8 +112,6 @@
 <script>
 
 function buscarCep(){
-
-
     const cepVar = cep.value;
     
     fetch(`https://viacep.com.br/ws/${cepVar}/json/`, {
@@ -151,6 +149,7 @@ function cadastrar(){
     var nome_fantasiaVar = nome_fantasia.value;
     var razao_socialVar= razao_social.value;
     var cnpjVar = cnpj.value;
+    var statusVar = 'TRUE';
     var numeroVar = numero.value;
     var tipo_numVar = tipo_num.value;
     var departamentoVar = departamento.value;
@@ -172,13 +171,14 @@ function cadastrar(){
       body: JSON.stringify({
         nome_fantasiaServer: nome_fantasiaVar,
         razao_socialServer: razao_socialVar,
-        cnpjServer :cnpjVar,
+        cnpjServer: cnpjVar,
+        statusServer: statusVar,
         numeroServer: numeroVar,
         tipo_numServer: tipo_numVar,
         departamentoServer: departamentoVar,
         apelidoServer: apelidoVar,
-        cepServer :cepVar,
-        logradouroServer :logradouroVar,
+        cepServer : cepVar,
+        logradouroServer : logradouroVar,
         bairroServer: bairroVar,
         cidadeServer: cidadeVar,
         ufServer: ufVar,
@@ -191,9 +191,7 @@ function cadastrar(){
 
         if (resposta.ok) {
 
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
+          alert("Empresa cadastrada com sucesso");
 
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
@@ -214,8 +212,15 @@ function cadastrar(){
     });
     
     function carregarEmpresas() {
-        fetch("http://localhost:8080/empresas/listar")
-            .then(resposta => resposta.json())
+        fetch("/empresas/listar")
+            .then((resposta) => 
+            {
+              
+              
+              
+              resposta.json()
+            })
+
             .then(empresas => {
 
                 let tabela = document.getElementById("tabela_empresas");
@@ -225,14 +230,22 @@ function cadastrar(){
 
                     let textoStatus = empresa.status ? "Ativo" : "Inativo";
                     let classeStatus = empresa.status ? "btn-ativo" : "btn-inativo";
+                    const dataCriacao = empresa.data_criacao;
 
+                    var data = dataCriacao.split("T");
+                    var tempo = data[1].split(".");
+                    var hora = tempo[0];
+                    var dataSemHora = data[0].split("-");
+                    var dataFormatada = `${dataSemHora[2]}/${dataSemHora[1]}/${dataSemHora[0]} ${hora}`
+
+                    
                     tabela.innerHTML += `
                         <tr>
                             <td>${empresa.id}</td>
                             <td>${empresa.razao_social}</td>
-                            <td>${empresa.data_criacao}</td>
-                            <td><button class="btn-excluir">Excluir</button></td>
-                            <td><button class="${classeStatus}">${textoStatus}</button></td>
+                            <td>${dataFormatada}</td>
+                            <td><button class="btn-excluir" onclick="deletarEmpresa(${empresa.id})">Excluir</button></td>
+                            <td><button class="${classeStatus}" onclick="atualizarStatus(${empresa.id})">${textoStatus}</button></td>
                         </tr>
                     `;
                 });
@@ -242,5 +255,53 @@ function cadastrar(){
             });
     }
 
-    carregarEmpresas();
+    function atualizarStatus(id){
+
+      fetch(`/empresas/atualizarStatus/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          alert("Status atualizado com sucesso");
+          carregarEmpresas();
+
+        } else {
+          throw "Houve um erro ao atualizar o status da empresa!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+    }
+
+
+    function deletarEmpresa(id){
+      fetch(`/empresas/deletarEmpresa/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          alert("Empresa deletada com sucesso");
+          carregarEmpresas();
+
+        } else {
+          throw "Houve um erro ao tentar deletar uma empresa!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+    }
 </script>

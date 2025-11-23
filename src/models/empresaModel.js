@@ -6,11 +6,12 @@ function listarEmpresas () {
         `;
         console.log("Executando a instrução SQL: \n" + instrucaoSql);
         return database.executar(instrucaoSql);
-}
-function cadastrarEmpresa(nome_fantasia, razao_social, cnpj, departamento, numero, tipo_num, apelido, cep, logradouro, bairro, cidade, uf, numeroEndereco, complemento) {
+};
+
+function cadastrarEmpresa(nome_fantasia, razao_social, cnpj, status, departamento, numero, tipo_num, apelido, cep, logradouro, bairro, cidade, uf, numeroEndereco, complemento) {
     var instrucaoSql = `
-       INSERT INTO empresa (nome_fantasia, razao_social, cnpj)
-       VALUES ('${nome_fantasia}', '${razao_social}', '${cnpj}');
+       INSERT INTO empresa (nome_fantasia, razao_social, cnpj, status)
+       VALUES ('${nome_fantasia}', '${razao_social}', '${cnpj}', ${status});
    `;
    console.log("Executando o INSERT: \n" + instrucaoSql);
    return database.executar(instrucaoSql)
@@ -46,7 +47,40 @@ function cadastrarEmpresa(nome_fantasia, razao_social, cnpj, departamento, numer
 }
 
 
+function atualizarStatus(id) {
+    var instrucaoSql = `
+        SELECT status FROM empresa WHERE id = ${id};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+    .then((status) =>{
+        if(status[0].status == 1){
+            var instrucaoSql = `
+            UPDATE empresa SET status = FALSE WHERE id = ${id};
+        `;
+        }else{
+            var instrucaoSql = `
+            UPDATE empresa SET status = TRUE WHERE id = ${id};
+        `;
+        }
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+    });
+};
+
+
+function deletarEmpresa(id){
+    var instrucaoSql = `
+    DELETE FROM empresa WHERE id = ${id}; 
+`;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
+
 module.exports = {
     listarEmpresas,
-    cadastrarEmpresa
+    cadastrarEmpresa,
+    atualizarStatus,
+    deletarEmpresa
 };

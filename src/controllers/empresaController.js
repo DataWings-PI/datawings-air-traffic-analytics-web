@@ -16,11 +16,13 @@ function listarEmpresas(req, res) {
             console.log("Erro ao buscar empresas:", erro);
             res.status(500).json(erro.sqlMessage);
         });
-}
+};
+
 function cadastrarEmpresa(req, res) {
     var nome_fantasia = req.body.nome_fantasiaServer;
     var razao_social = req.body.razao_socialServer;
     var cnpj = req.body.cnpjServer;
+    var status = req.body.statusServer;
     var numero = req.body.numeroServer;
     var tipo_num = req.body.tipo_numServer;
     var departamento = req.body.departamentoServer;
@@ -40,6 +42,8 @@ function cadastrarEmpresa(req, res) {
         res.status(400).send("Sua razão social está undefined!");
     } else if (cnpj == undefined) {
         res.status(400).send("Seu cnpj está undefined!");
+    } else if (status == undefined) {
+        res.status(400).send("Seu status está undefined!");
     } else if (numero == undefined) {
         res.status(400).send("Seu numero está undefined!");
     } else if (tipo_num == undefined) {
@@ -64,7 +68,7 @@ function cadastrarEmpresa(req, res) {
         res.status(400).send("Seu complemento está undefined!");
     }else {
 
-        empresaModel.cadastrarEmpresa(nome_fantasia, razao_social, cnpj, departamento, numero, tipo_num, apelido, cep, logradouro, bairro, cidade, uf, numeroEndereco, complemento)
+        empresaModel.cadastrarEmpresa(nome_fantasia, razao_social, cnpj, status, departamento, numero, tipo_num, apelido, cep, logradouro, bairro, cidade, uf, numeroEndereco, complemento)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -82,8 +86,47 @@ function cadastrarEmpresa(req, res) {
     }
 }
 
+function atualizarStatus(req, res) {
+    var id = req.params.id;
+    empresaModel.atualizarStatus(id)
+    .then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log(
+                "\nHouve um erro ao atualizar o status! Erro: ",
+                erro.sqlMessage
+            );
+            res.status(500).json(erro.sqlMessage);
+        });
+};
+
+
+function deletarEmpresa(req, res) {
+    var id = req.params.id;
+    empresaModel.deletarEmpresa(id)
+    .then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log(
+                "\nHouve um erro ao deletar a empresa! Erro: ",
+                erro.sqlMessage
+            );
+            res.status(500).json(erro.sqlMessage);
+        });
+};
+
 
 module.exports = {
     listarEmpresas,
-  cadastrarEmpresa
+    cadastrarEmpresa,
+    atualizarStatus,
+    deletarEmpresa
 }

@@ -1,13 +1,13 @@
 CREATE DATABASE IF NOT EXISTS datawings;
 USE datawings;
 
-
 CREATE TABLE log_java (
     id INT PRIMARY KEY auto_increment, 
     data_hora_registro DATETIME NOT NULL, 
     mensagem VARCHAR(100) NOT NULL,
     categoria ENUM('ERRO', 'CARGA') NOT NULL
 );
+
 
 CREATE TABLE empresa (
     id INT PRIMARY KEY auto_increment,
@@ -17,6 +17,9 @@ CREATE TABLE empresa (
     status TINYINT,
     data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
+
+
+ 
 
 
 CREATE TABLE voo (
@@ -45,8 +48,13 @@ CREATE TABLE contato (
     numero VARCHAR(11) NOT NULL,
     tipo_numero ENUM('fixo', 'móvel') NOT NULL,
     fk_empresa INT NOT NULL,
-    FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+    FOREIGN KEY (fk_empresa) REFERENCES empresa(id) ON DELETE CASCADE
 );
+
+
+
+INSERT INTO contato(departamento, numero, tipo_numero, fk_empresa) VALUES
+('Trabalho','11989977333','móvel', 1);
 
 
 CREATE TABLE endereco_empresa(
@@ -60,7 +68,7 @@ CREATE TABLE endereco_empresa(
     cidade VARCHAR(100) NOT NULL,
     uf CHAR(2) NOT NULL,
     fk_empresa INT NOT NULL,
-    FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+    FOREIGN KEY (fk_empresa) REFERENCES empresa(id) ON DELETE CASCADE
 );
 
 

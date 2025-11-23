@@ -1,0 +1,43 @@
+services:
+  database:
+    container_name: database_datawings
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - datawings_network
+    volumes:
+      - database_volume:/var/lib/mysql
+      - ./src/database:/docker-entrypoint-initdb.d
+  site:
+    container_name: site_datawings
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - database
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    networks:
+      - datawings_network
+    environment:
+      DB_HOST: database
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_PORT: ${DB_PORT}
+    volumes:
+      - .:/app
+      - /app/node_modules
+    env_file:
+      - .env
+networks:
+  datawings_network:
+    name: datawings_network
+
+volumes:
+  database_volume:
+    name: database_volume
