@@ -19,9 +19,6 @@ CREATE TABLE empresa (
 );
 
 
- 
-
-
 CREATE TABLE voo (
     id INT PRIMARY KEY auto_increment,
     sigla_empresa CHAR(3) NOT NULL,
@@ -51,10 +48,6 @@ CREATE TABLE contato (
     FOREIGN KEY (fk_empresa) REFERENCES empresa(id) ON DELETE CASCADE
 );
 
-
-
-INSERT INTO contato(departamento, numero, tipo_numero, fk_empresa) VALUES
-('Trabalho','11989977333','móvel', 1);
 
 
 CREATE TABLE endereco_empresa(
