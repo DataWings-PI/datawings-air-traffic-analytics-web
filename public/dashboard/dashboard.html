@@ -47,7 +47,7 @@
                     Tabela Dados dos voos
                 </button>
 
-                <button class="botoes-modal">
+                <button id="tabelaLegendaJustificativas" class="botoes-modal">
                     Tabela justificativa legendas
                 </button>
             </div>
@@ -120,368 +120,588 @@
                 <span class="fechar" id="modal2-fechar">&times;</span>
 
                 <div class="tabela-scroll">
+
                     <table id="voosTable">
+                        <thead>
+                            <tr>
+                                <th>Rota</th>
+                                <th>Data prevista</th>
+                                <th>Previsão Partida</th>
+                                <th>Previsão Chegada</th>
+                                <th>Partida</th>
+                                <th>Chegada</th>
+                                <th>Atraso chegada</th>
+                                <th>Atraso Partida</th>
+                                <th>Atraso Total</th>
+                                <th>Origem</th>
+                                <th>Destino</th>
+                                <th>Código Justificativa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>101</td>
+                                <td>01/01/2025</td>
+                                <td>08:15</td>
+                                <td>10:00</td>
+                                <td>08:20</td>
+                                <td>10:05</td>
+                                <td>1 min</td>
+                                <td>4 min</td>
+                                <td>5 min</td>
+                                <td>SP</td>
+                                <td>PE</td>
+                                <td>DG</td>
+                            </tr>
+                            <tr>
+                                <td>102</td>
+                                <td>01/01/2025</td>
+                                <td>09:00</td>
+                                <td>11:00</td>
+                                <td>09:10</td>
+                                <td>11:05</td>
+                                <td>10 min</td>
+                                <td>20 min</td>
+                                <td>30 min</td>
+                                <td>SP</td>
+                                <td>PE</td>
+                                <td>AA</td>
 
-                        <table id="voosTable">
-                            <thead>
-                                <tr>
-                                    <th>Rota</th>
-                                    <th>Data prevista</th>
-                                    <th>Previsão Partida</th>
-                                    <th>Previsão Chegada</th>
-                                    <th>Partida</th>
-                                    <th>Chegada</th>
-                                    <th>Atraso chegada</th>
-                                    <th>Atraso Partida</th>
-                                    <th>Atraso Total</th>
-                                    <th>Origem</th>
-                                    <th>Destino</th>
-                                    <th>Código Justificativa</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>101</td>
-                                    <td>01/01/2025</td>
-                                    <td>08:15</td>
-                                    <td>10:00</td>
-                                    <td>08:20</td>
-                                    <td>10:05</td>
-                                    <td>1 min</td>
-                                    <td>4 min</td>
-                                    <td>5 min</td>
-                                    <td>SP</td>
-                                    <td>PE</td>
-                                    <td>DG</td>
-                                </tr>
-                                <tr>
-                                    <td>102</td>
-                                    <td>01/01/2025</td>
-                                    <td>09:00</td>
-                                    <td>11:00</td>
-                                    <td>09:10</td>
-                                    <td>11:05</td>
-                                    <td>10 min</td>
-                                    <td>20 min</td>
-                                    <td>30 min</td>
-                                    <td>SP</td>
-                                    <td>PE</td>
-                                    <td>AA</td>
+                            </tr>
+                            <tr>
+                                <td>103</td>
+                                <td>01/01/2025</td>
+                                <td>09:30</td>
+                                <td>11:30</td>
+                                <td>09:35</td>
+                                <td>11:50</td>
+                                <td>10 min</td>
+                                <td>10 min</td>
+                                <td>20 min</td>
+                                <td>SP</td>
+                                <td>PE</td>
+                                <td>AA</td>
 
-                                </tr>
-                                <tr>
-                                    <td>103</td>
-                                    <td>01/01/2025</td>
-                                    <td>09:30</td>
-                                    <td>11:30</td>
-                                    <td>09:35</td>
-                                    <td>11:50</td>
-                                    <td>10 min</td>
-                                    <td>10 min</td>
-                                    <td>20 min</td>
-                                    <td>SP</td>
-                                    <td>PE</td>
-                                    <td>AA</td>
+                            </tr>
+                            <tr>
+                                <td>104</td>
+                                <td>01/01/2025</td>
+                                <td>10:00</td>
+                                <td>12:00</td>
+                                <td>10:05</td>
+                                <td>12:10</td>
+                                <td>3 min</td>
+                                <td>7 min</td>
+                                <td>10 min</td>
+                                <td>PE</td>
+                                <td>SP</td>
+                                <td>AR</td>
+                            </tr>
+                            <tr>
+                                <td>105</td>
+                                <td>01/01/2025</td>
+                                <td>10:30</td>
+                                <td>12:30</td>
+                                <td>10:35</td>
+                                <td>12:40</td>
+                                <td>5 min</td>
+                                <td>5 min</td>
+                                <td>10 min</td>
+                                <td>RJ</td>
+                                <td>RR</td>
+                                <td>AT</td>
+                            </tr>
+                            <tr>
+                                <td>106</td>
+                                <td>01/01/2025</td>
+                                <td>11:00</td>
+                                <td>13:00</td>
+                                <td>11:05</td>
+                                <td>13:20</td>
+                                <td>7 min</td>
+                                <td>13 min</td>
+                                <td>20 min</td>
+                                <td>SP</td>
+                                <td>MG</td>
+                                <td>AF</td>
+                            </tr>
+                            <tr>
+                                <td>107</td>
+                                <td>01/01/2025</td>
+                                <td>11:30</td>
+                                <td>13:30</td>
+                                <td>11:35</td>
+                                <td>13:45</td>
+                                <td>7 min</td>
+                                <td>8 min</td>
+                                <td>15 min</td>
+                                <td> RJ</td>
+                                <td> BA</td>
+                                <td>AS</td>
+                            </tr>
+                            <tr>
+                                <td>108</td>
+                                <td>01/01/2025</td>
+                                <td>12:00</td>
+                                <td>14:00</td>
+                                <td>12:05</td>
+                                <td>14:10</td>
+                                <td>8 min</td>
+                                <td>2 min</td>
+                                <td>10 min</td>
+                                <td>DF</td>
+                                <td>AM</td>
+                                <td>AS</td>
+                            </tr>
+                            <tr>
+                                <td>109</td>
+                                <td>01/01/2025</td>
+                                <td>12:30</td>
+                                <td>14:30</td>
+                                <td>12:40</td>
+                                <td>14:50</td>
+                                <td>10 min</td>
+                                <td>10 min</td>
+                                <td>20 min</td>
+                                <td>RS</td>
+                                <td>PR</td>
+                                <td>DF</td>
+                            </tr>
+                            <tr>
+                                <td>110</td>
+                                <td>01/01/2025</td>
+                                <td>13:00</td>
+                                <td>15:00</td>
+                                <td>13:05</td>
+                                <td>15:10</td>
+                                <td>5 min</td>
+                                <td>5 min</td>
+                                <td>10 min</td>
+                                <td>GO</td>
+                                <td>PA</td>
+                                <td>GF</td>
+                            </tr>
+                            <tr>
+                                <td>111</td>
+                                <td>01/01/2025</td>
+                                <td>13:30</td>
+                                <td>15:30</td>
+                                <td>13:35</td>
+                                <td>15:50</td>
+                                <td>6 min</td>
+                                <td>14 min</td>
+                                <td>20 min</td>
+                                <td>SP</td>
+                                <td>PE</td>
+                                <td>WS</td>
 
-                                </tr>
-                                <tr>
-                                    <td>104</td>
-                                    <td>01/01/2025</td>
-                                    <td>10:00</td>
-                                    <td>12:00</td>
-                                    <td>10:05</td>
-                                    <td>12:10</td>
-                                    <td>3 min</td>
-                                    <td>7 min</td>
-                                    <td>10 min</td>
-                                    <td>PE</td>
-                                    <td>SP</td>
-                                    <td>AR</td>
-                                </tr>
-                                <tr>
-                                    <td>105</td>
-                                    <td>01/01/2025</td>
-                                    <td>10:30</td>
-                                    <td>12:30</td>
-                                    <td>10:35</td>
-                                    <td>12:40</td>
-                                    <td>5 min</td>
-                                    <td>5 min</td>
-                                    <td>10 min</td>
-                                    <td>RJ</td>
-                                    <td>RR</td>
-                                    <td>AT</td>
-                                </tr>
-                                <tr>
-                                    <td>106</td>
-                                    <td>01/01/2025</td>
-                                    <td>11:00</td>
-                                    <td>13:00</td>
-                                    <td>11:05</td>
-                                    <td>13:20</td>
-                                    <td>7 min</td>
-                                    <td>13 min</td>
-                                    <td>20 min</td>
-                                    <td>SP</td>
-                                    <td>MG</td>
-                                    <td>AF</td>
-                                </tr>
-                                <tr>
-                                    <td>107</td>
-                                    <td>01/01/2025</td>
-                                    <td>11:30</td>
-                                    <td>13:30</td>
-                                    <td>11:35</td>
-                                    <td>13:45</td>
-                                    <td>7 min</td>
-                                    <td>8 min</td>
-                                    <td>15 min</td>
-                                    <td> RJ</td>
-                                    <td> BA</td>
-                                    <td>AS</td>
-                                </tr>
-                                <tr>
-                                    <td>108</td>
-                                    <td>01/01/2025</td>
-                                    <td>12:00</td>
-                                    <td>14:00</td>
-                                    <td>12:05</td>
-                                    <td>14:10</td>
-                                    <td>8 min</td>
-                                    <td>2 min</td>
-                                    <td>10 min</td>
-                                    <td>DF</td>
-                                    <td>AM</td>
-                                    <td>AS</td>
-                                </tr>
-                                <tr>
-                                    <td>109</td>
-                                    <td>01/01/2025</td>
-                                    <td>12:30</td>
-                                    <td>14:30</td>
-                                    <td>12:40</td>
-                                    <td>14:50</td>
-                                    <td>10 min</td>
-                                    <td>10 min</td>
-                                    <td>20 min</td>
-                                    <td>RS</td>
-                                    <td>PR</td>
-                                    <td>DF</td>
-                                </tr>
-                                <tr>
-                                    <td>110</td>
-                                    <td>01/01/2025</td>
-                                    <td>13:00</td>
-                                    <td>15:00</td>
-                                    <td>13:05</td>
-                                    <td>15:10</td>
-                                    <td>5 min</td>
-                                    <td>5 min</td>
-                                    <td>10 min</td>
-                                    <td>GO</td>
-                                    <td>PA</td>
-                                    <td>GF</td>
-                                </tr>
-                                <tr>
-                                    <td>111</td>
-                                    <td>01/01/2025</td>
-                                    <td>13:30</td>
-                                    <td>15:30</td>
-                                    <td>13:35</td>
-                                    <td>15:50</td>
-                                    <td>6 min</td>
-                                    <td>14 min</td>
-                                    <td>20 min</td>
-                                    <td>SP</td>
-                                    <td>PE</td>
-                                    <td>WS</td>
+                            </tr>
+                            <tr>
+                                <td>112</td>
+                                <td>01/01/2025</td>
+                                <td>14:00</td>
+                                <td>16:00</td>
+                                <td>14:05</td>
+                                <td>16:10</td>
+                                <td>5 min</td>
+                                <td>5 min</td>
+                                <td>10 min</td>
+                                <td>SP</td>
+                                <td>PE</td>
+                                <td>WP</td>
+                            </tr>
+                            <tr>
+                                <td>112</td>
+                                <td>01/01/2025</td>
+                                <td>14:00</td>
+                                <td>16:00</td>
+                                <td>14:05</td>
+                                <td>16:10</td>
+                                <td>5 min</td>
+                                <td>5 min</td>
+                                <td>10 min</td>
+                                <td>SP</td>
+                                <td>PE</td>
+                                <td>WP</td>
+                            </tr>
+                            <tr>
+                                <td>112</td>
+                                <td>01/01/2025</td>
+                                <td>14:00</td>
+                                <td>16:00</td>
+                                <td>14:05</td>
+                                <td>16:10</td>
+                                <td>5 min</td>
+                                <td>5 min</td>
+                                <td>10 min</td>
+                                <td>SP</td>
+                                <td>PE</td>
+                                <td>WP</td>
+                            </tr>
+                            <tr>
+                                <td>112</td>
+                                <td>01/01/2025</td>
+                                <td>14:00</td>
+                                <td>16:00</td>
+                                <td>14:05</td>
+                                <td>16:10</td>
+                                <td>5 min</td>
+                                <td>5 min</td>
+                                <td>10 min</td>
+                                <td>SP</td>
+                                <td>PE</td>
+                                <td>WP</td>
+                            </tr>
+                            <tr>
+                                <td>112</td>
+                                <td>01/01/2025</td>
+                                <td>14:00</td>
+                                <td>16:00</td>
+                                <td>14:05</td>
+                                <td>16:10</td>
+                                <td>5 min</td>
+                                <td>5 min</td>
+                                <td>10 min</td>
+                                <td>SP</td>
+                                <td>PE</td>
+                                <td>WP</td>
+                            </tr>
+                            <tr>
+                                <td>112</td>
+                                <td>01/01/2025</td>
+                                <td>14:00</td>
+                                <td>16:00</td>
+                                <td>14:05</td>
+                                <td>16:10</td>
+                                <td>5 min</td>
+                                <td>5 min</td>
+                                <td>10 min</td>
+                                <td>SP</td>
+                                <td>PE</td>
+                                <td>WP</td>
+                            </tr>
+                            <tr>
+                                <td>112</td>
+                                <td>01/01/2025</td>
+                                <td>14:00</td>
+                                <td>16:00</td>
+                                <td>14:05</td>
+                                <td>16:10</td>
+                                <td>5 min</td>
+                                <td>5 min</td>
+                                <td>10 min</td>
+                                <td>SP</td>
+                                <td>PE</td>
+                                <td>WP</td>
+                            </tr>
+                            <tr>
+                                <td>112</td>
+                                <td>01/01/2025</td>
+                                <td>14:00</td>
+                                <td>16:00</td>
+                                <td>14:05</td>
+                                <td>16:10</td>
+                                <td>5 min</td>
+                                <td>5 min</td>
+                                <td>10 min</td>
+                                <td>SP</td>
+                                <td>PE</td>
+                                <td>WP</td>
+                            </tr>
+                            <tr>
+                                <td>112</td>
+                                <td>01/01/2025</td>
+                                <td>14:00</td>
+                                <td>16:00</td>
+                                <td>14:05</td>
+                                <td>16:10</td>
+                                <td>5 min</td>
+                                <td>5 min</td>
+                                <td>10 min</td>
+                                <td>SP</td>
+                                <td>PE</td>
+                                <td>WP</td>
+                            </tr>
+                            <tr>
+                                <td>112</td>
+                                <td>01/01/2025</td>
+                                <td>14:00</td>
+                                <td>16:00</td>
+                                <td>14:05</td>
+                                <td>16:10</td>
+                                <td>5 min</td>
+                                <td>5 min</td>
+                                <td>10 min</td>
+                                <td>SP</td>
+                                <td>PE</td>
+                                <td>WP</td>
+                            </tr>
+                            <tr>
+                                <td>112</td>
+                                <td>01/01/2025</td>
+                                <td>14:00</td>
+                                <td>16:00</td>
+                                <td>14:05</td>
+                                <td>16:10</td>
+                                <td>5 min</td>
+                                <td>5 min</td>
+                                <td>10 min</td>
+                                <td>SP</td>
+                                <td>PE</td>
+                                <td>WP</td>
+                            </tr>
+                            <tr>
+                                <td>112</td>
+                                <td>01/01/2025</td>
+                                <td>14:00</td>
+                                <td>16:00</td>
+                                <td>14:05</td>
+                                <td>16:10</td>
+                                <td>5 min</td>
+                                <td>5 min</td>
+                                <td>10 min</td>
+                                <td>SP</td>
+                                <td>PE</td>
+                                <td>WP</td>
+                            </tr>
+                            <tr>
+                                <td>112</td>
+                                <td>01/01/2025</td>
+                                <td>14:00</td>
+                                <td>16:00</td>
+                                <td>14:05</td>
+                                <td>16:10</td>
+                                <td>5 min</td>
+                                <td>5 min</td>
+                                <td>10 min</td>
+                                <td>SP</td>
+                                <td>PE</td>
+                                <td>WP</td>
+                            </tr>
 
-                                </tr>
-                                <tr>
-                                    <td>112</td>
-                                    <td>01/01/2025</td>
-                                    <td>14:00</td>
-                                    <td>16:00</td>
-                                    <td>14:05</td>
-                                    <td>16:10</td>
-                                    <td>5 min</td>
-                                    <td>5 min</td>
-                                    <td>10 min</td>
-                                    <td>SP</td>
-                                    <td>PE</td>
-                                    <td>WP</td>
-                                </tr>
-                                <tr>
-                                    <td>112</td>
-                                    <td>01/01/2025</td>
-                                    <td>14:00</td>
-                                    <td>16:00</td>
-                                    <td>14:05</td>
-                                    <td>16:10</td>
-                                    <td>5 min</td>
-                                    <td>5 min</td>
-                                    <td>10 min</td>
-                                    <td>SP</td>
-                                    <td>PE</td>
-                                    <td>WP</td>
-                                </tr>
-                                <tr>
-                                    <td>112</td>
-                                    <td>01/01/2025</td>
-                                    <td>14:00</td>
-                                    <td>16:00</td>
-                                    <td>14:05</td>
-                                    <td>16:10</td>
-                                    <td>5 min</td>
-                                    <td>5 min</td>
-                                    <td>10 min</td>
-                                    <td>SP</td>
-                                    <td>PE</td>
-                                    <td>WP</td>
-                                </tr>
-                                <tr>
-                                    <td>112</td>
-                                    <td>01/01/2025</td>
-                                    <td>14:00</td>
-                                    <td>16:00</td>
-                                    <td>14:05</td>
-                                    <td>16:10</td>
-                                    <td>5 min</td>
-                                    <td>5 min</td>
-                                    <td>10 min</td>
-                                    <td>SP</td>
-                                    <td>PE</td>
-                                    <td>WP</td>
-                                </tr>
-                                <tr>
-                                    <td>112</td>
-                                    <td>01/01/2025</td>
-                                    <td>14:00</td>
-                                    <td>16:00</td>
-                                    <td>14:05</td>
-                                    <td>16:10</td>
-                                    <td>5 min</td>
-                                    <td>5 min</td>
-                                    <td>10 min</td>
-                                    <td>SP</td>
-                                    <td>PE</td>
-                                    <td>WP</td>
-                                </tr>
-                                <tr>
-                                    <td>112</td>
-                                    <td>01/01/2025</td>
-                                    <td>14:00</td>
-                                    <td>16:00</td>
-                                    <td>14:05</td>
-                                    <td>16:10</td>
-                                    <td>5 min</td>
-                                    <td>5 min</td>
-                                    <td>10 min</td>
-                                    <td>SP</td>
-                                    <td>PE</td>
-                                    <td>WP</td>
-                                </tr>
-                                <tr>
-                                    <td>112</td>
-                                    <td>01/01/2025</td>
-                                    <td>14:00</td>
-                                    <td>16:00</td>
-                                    <td>14:05</td>
-                                    <td>16:10</td>
-                                    <td>5 min</td>
-                                    <td>5 min</td>
-                                    <td>10 min</td>
-                                    <td>SP</td>
-                                    <td>PE</td>
-                                    <td>WP</td>
-                                </tr>
-                                <tr>
-                                    <td>112</td>
-                                    <td>01/01/2025</td>
-                                    <td>14:00</td>
-                                    <td>16:00</td>
-                                    <td>14:05</td>
-                                    <td>16:10</td>
-                                    <td>5 min</td>
-                                    <td>5 min</td>
-                                    <td>10 min</td>
-                                    <td>SP</td>
-                                    <td>PE</td>
-                                    <td>WP</td>
-                                </tr>
-                                <tr>
-                                    <td>112</td>
-                                    <td>01/01/2025</td>
-                                    <td>14:00</td>
-                                    <td>16:00</td>
-                                    <td>14:05</td>
-                                    <td>16:10</td>
-                                    <td>5 min</td>
-                                    <td>5 min</td>
-                                    <td>10 min</td>
-                                    <td>SP</td>
-                                    <td>PE</td>
-                                    <td>WP</td>
-                                </tr>
-                                <tr>
-                                    <td>112</td>
-                                    <td>01/01/2025</td>
-                                    <td>14:00</td>
-                                    <td>16:00</td>
-                                    <td>14:05</td>
-                                    <td>16:10</td>
-                                    <td>5 min</td>
-                                    <td>5 min</td>
-                                    <td>10 min</td>
-                                    <td>SP</td>
-                                    <td>PE</td>
-                                    <td>WP</td>
-                                </tr>
-                                <tr>
-                                    <td>112</td>
-                                    <td>01/01/2025</td>
-                                    <td>14:00</td>
-                                    <td>16:00</td>
-                                    <td>14:05</td>
-                                    <td>16:10</td>
-                                    <td>5 min</td>
-                                    <td>5 min</td>
-                                    <td>10 min</td>
-                                    <td>SP</td>
-                                    <td>PE</td>
-                                    <td>WP</td>
-                                </tr>
-                                <tr>
-                                    <td>112</td>
-                                    <td>01/01/2025</td>
-                                    <td>14:00</td>
-                                    <td>16:00</td>
-                                    <td>14:05</td>
-                                    <td>16:10</td>
-                                    <td>5 min</td>
-                                    <td>5 min</td>
-                                    <td>10 min</td>
-                                    <td>SP</td>
-                                    <td>PE</td>
-                                    <td>WP</td>
-                                </tr>
-                                <tr>
-                                    <td>112</td>
-                                    <td>01/01/2025</td>
-                                    <td>14:00</td>
-                                    <td>16:00</td>
-                                    <td>14:05</td>
-                                    <td>16:10</td>
-                                    <td>5 min</td>
-                                    <td>5 min</td>
-                                    <td>10 min</td>
-                                    <td>SP</td>
-                                    <td>PE</td>
-                                    <td>WP</td>
-                                </tr>
+                        </tbody>
+                    </table>
 
-                            </tbody>
-                        </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="modal3">
+            <div class="modal-tabela-conteudo">
+
+                <span class="fechar" id="modal3-fechar">&times;</span>
+                <div class="tabela-scroll">
+
+                    <table id="voosTable">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Descrição</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>AA</td>
+                                <td>ATRASO AEROPORTO DE ALTERNATIVA – ORDEM TÉCNICA</td>
+                            </tr>
+                            <tr>
+                                <td>AF</td>
+                                <td>FACILIDADES DO AEROPORTO - RESTRIÇÕES DE APOIO</td>
+                            </tr>
+                            <tr>
+                                <td>AG</td>
+                                <td>MIGRAÇÃO/ALFÂNDEGA/SAÚDE</td>
+                            </tr>
+                            <tr>
+                                <td>AI</td>
+                                <td>AEROPORTO DE ORIGEM INTERDITADO</td>
+                            </tr>
+                            <tr>
+                                <td>AJ</td>
+                                <td>AEROPORTO DE DESTINO INTERDITADO</td>
+                            </tr>
+                            <tr>
+                                <td>AM</td>
+                                <td>ATRASO AEROPORTO DE ALTERNATIVA – CONDIÇÕES METEOROLÓGICAS</td>
+                            </tr>
+                            <tr>
+                                <td>AS</td>
+                                <td>SEGURANÇA/PAX/CARGA/ALARME</td>
+                            </tr>
+                            <tr>
+                                <td>AR</td>
+                                <td>AEROPORTO COM RESTRIÇÕES OPERACIONAIS</td>
+                            </tr>
+                            <tr>
+                                <td>AT</td>
+                                <td>LIBERAÇÃO SERV. TRÁFEGO AÉREO/ANTECIPAÇÃO</td>
+                            </tr>
+                            <tr>
+                                <td>DF</td>
+                                <td>AVARIA DURANTE OPERAÇÕES EM VÔO</td>
+                            </tr>
+                            <tr>
+                                <td>DG</td>
+                                <td>AVARIA DURANTE OPERAÇÕES EM SOLO</td>
+                            </tr>
+                            <tr>
+                                <td>FP</td>
+                                <td>PLANO DE VÔO - APROVAÇÃO</td>
+                            </tr>
+                            <tr>
+                                <td>GF</td>
+                                <td>ABASTECIMENTO/DESTANQUEIO</td>
+                            </tr>
+                            <tr>
+                                <td>MA</td>
+                                <td>FALHA EQUIPO AUTOMOTIVO E DE ATENDIMENTO DE PAX</td>
+                            </tr>
+                            <tr>
+                                <td>MX</td>
+                                <td>ATRASOS NÃO ESPECÍFICOS – OUTROS</td>
+                            </tr>
+                            <tr>
+                                <td>OA</td>
+                                <td>AUTORIZADO</td>
+                            </tr>
+                            <tr>
+                                <td>RA</td>
+                                <td>CONEXÃO DE AERONAVE</td>
+                            </tr>
+                            <tr>
+                                <td>RI</td>
+                                <td>CONEXÃO AERONAVE/VOLTA – VÔO DE IDA NÃO PENALIZADO - AEROPORTO INTERDITADO</td>
+                            </tr>
+                            <tr>
+                                <td>RM</td>
+                                <td>CONEXÃO AERONAVE/VOLTA – VÔO DE IDA NÃO PENALIZADO - CONDIÇÕES METEOROLÓGICAS</td>
+                            </tr>
+                            <tr>
+                                <td>TC</td>
+                                <td>TROCA DE AERONAVE</td>
+                            </tr>
+                            <tr>
+                                <td>TD</td>
+                                <td>DEFEITOS DA AERONAVE</td>
+                            </tr>
+                            <tr>
+                                <td>WA</td>
+                                <td>ALTERNATIVA ABAIXO DOS LIMITES</td>
+                            </tr>
+                            <tr>
+                                <td>WI</td>
+                                <td>DEGELO E REMOÇÃO DE NEVE E/OU LAMA EM AERONAVE</td>
+                            </tr>
+                            <tr>
+                                <td>WR</td>
+                                <td>ATRASO DEVIDO RETORNO – CONDIÇÕES METEOROLÓGICAS</td>
+                            </tr>
+                            <tr>
+                                <td>WO</td>
+                                <td>AEROPORTO ORIGEM ABAIXO DOS LIMITES</td>
+                            </tr>
+                            <tr>
+                                <td>WP</td>
+                                <td>ATRASO DEVIDO RETORNO – ORDEM TÉCNICA</td>
+                            </tr>
+                            <tr>
+                                <td>WT</td>
+                                <td>AEROPORTO DESTINO ABAIXO DOS LIMITES</td>
+                            </tr>
+                            <tr>
+                                <td>WS</td>
+                                <td>REMOÇÃO GELO/ÁGUA/LAMA/AREIA EM AEROPORTO</td>
+                            </tr>
+
+                            <tr>
+                                <td>XA</td>
+                                <td>PROGRAMADO – FERIADO NACIONAL</td>
+                            </tr>
+                            <tr>
+                                <td>XB</td>
+                                <td>AUTORIZADO (CANCELAMENTO)</td>
+                            </tr>
+                            <tr>
+                                <td>XI</td>
+                                <td>CANCELAMENTO – AEROPORTO DE ORIGEM INTERDITADO</td>
+                            </tr>
+                            <tr>
+                                <td>XJ</td>
+                                <td>CANCELAMENTO – AEROPORTO DE DESTINO INTERDITADO</td>
+                            </tr>
+                            <tr>
+                                <td>XL</td>
+                                <td>FALTA PAX COM PASSAGEM MARCADA – (LINHAS DOMÉSTICAS REGIONAIS)</td>
+                            </tr>
+                            <tr>
+                                <td>XM</td>
+                                <td>CANCELAMENTO – CONEXÃO/VOLTA – VÔO DE IDA CANCELADO – AEROPORTO INTERDITADO</td>
+                            </tr>
+                            <tr>
+                                <td>XN</td>
+                                <td>CANCELAMENTO POR MOTIVOS TÉCNICOS/OPERACIONAIS</td>
+                            </tr>
+                            <tr>
+                                <td>XO</td>
+                                <td>CANCELAMENTO – AEROPORTO ORIGEM ABAIXO LIMITES</td>
+                            </tr>
+                            <tr>
+                                <td>XT</td>
+                                <td>CANCELAMENTO – AEROPORTO DESTINO ABAIXO LIMITES</td>
+                            </tr>
+                            <tr>
+                                <td>XR</td>
+                                <td>CANCELAMENTO DE VÔOS EM CODE SHARING</td>
+                            </tr>
+                            <tr>
+                                <td>XS</td>
+                                <td>CANCELAMENTO – CONEXÃO/VOLTA – CONDIÇÕES METEOROLÓGICAS</td>
+                            </tr>
+
+                            <tr>
+                                <td>ST</td>
+                                <td>INCLUSÃO DE ETAPA DEVIDO CANCELAMENTO DE ESCALAS</td>
+                            </tr>
+                            <tr>
+                                <td>IR</td>
+                                <td>INCLUSÃO DE ETAPA (AEROPORTO ALTERNATIVA) – VÔO ESPECIAL RETORNO</td>
+                            </tr>
+                            <tr>
+                                <td>VR</td>
+                                <td>VÔO ESPECIAL DE RETORNO</td>
+                            </tr>
+                            <tr>
+                                <td>VE</td>
+                                <td>VÔO ESPECIAL DE EXPERIÊNCIA</td>
+                            </tr>
+                            <tr>
+                                <td>VI</td>
+                                <td>VÔO ESPECIAL DE INSTRUÇÃO</td>
+                            </tr>
+
+                            <tr>
+                                <td>HA</td>
+                                <td>AUTORIZADA (ALTERAÇÃO DE HORÁRIO)</td>
+                            </tr>
+                            <tr>
+                                <td>HB</td>
+                                <td>VÔO > 4H ATRASO – PANE AERONAVE</td>
+                            </tr>
+                            <tr>
+                                <td>HC</td>
+                                <td>VÔO > 4H ATRASO – AEROPORTO INTERDITADO</td>
+                            </tr>
+                            <tr>
+                                <td>HD</td>
+                                <td>ANTECIPAÇÃO DE HORÁRIO AUTORIZADA</td>
+                            </tr>
+                            <tr>
+                                <td>HI</td>
+                                <td>ANTECIPAÇÃO DE HORÁRIO – VÔOS INTERNACIONAIS</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                 </div>
 
@@ -495,6 +715,30 @@
 
     <!-- IMPORTAR plugin de DataLabels -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -703,26 +947,35 @@
 
 
 
-
-        // ===== MODAL Tabela grafico Dados Voos ===== //
-        const tabelaDadosVoos = document.getElementById("tabelaDadosVoos");
         const modal2 = document.getElementById("modal2");
-        const modal2Fechar = document.getElementById("modal2-fechar");
+        const modal3 = document.getElementById("modal3");
 
-        // abrir modal
-        tabelaDadosVoos.addEventListener("click", () => {
-            modal2.style.display = "flex";
-        });
+        const btnVoos = document.getElementById("tabelaDadosVoos");
+        const btnLegenda = document.getElementById("tabelaLegendaJustificativas");
 
-        // fechar pelo X
-        modal2Fechar.addEventListener("click", () => {
-            modal2.style.display = "none";
-        });
+        const fechar2 = document.getElementById("modal2-fechar");
+        const fechar3 = document.getElementById("modal3-fechar");
 
-        // fechar ao clicar fora
-        window.addEventListener("click", (ev) => {
-            if (ev.target === modal2) modal2.style.display = "none";
-        });
+        // Abrir modal de voos
+        btnVoos.onclick = () => {
+            modal2.style.display = "block";
+        };
+
+        // Abrir modal de legendas
+        btnLegenda.onclick = () => {
+            modal3.style.display = "block";
+        };
+
+        // Fechar modais
+        fechar2.onclick = () => modal2.style.display = "none";
+        fechar3.onclick = () => modal3.style.display = "none";
+
+        // Fechar ao clicar fora
+        window.onclick = (e) => {
+            if (e.target === modal2) modal2.style.display = "none";
+            if (e.target === modal3) modal3.style.display = "none";
+        };
+
 
 
 
