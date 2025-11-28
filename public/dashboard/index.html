@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DataWings - Dashboard</title>
+  <title>DataWings - HUB</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="..//assets/icon/favicon-data.png">
 
@@ -12,71 +12,75 @@
 
 <body>
   <!-- ====== CABEÇALHO ====== -->
-  <header class="header">
-    <div class="content">
-      <div class="logo">
-        <img src="../assets/logoLaranja-removebg-preview.png" alt="">
+  <section class="full-body">
+
+    <div class="left-header">
+      <div class="content">
+        <div>
+          <img class="logo" src="../assets/logoLaranja-removebg-preview.png" alt="">
+        </div>
+
+        <h2 style="color: white;" class="welcome-text">HUB</h2>
+
       </div>
-      <nav class="nav">
-        <select name="navigation" id="navigationSelect">
-          <option value="./index.html">Home</option>
-          <option value="./dashboard.html">Dashboard</option>
-          <option value="./relatorio.html">Relatório</option>
-        </select>
-      </nav>
+
+      <div class="content2">
+
+        <a href="../index.html">
+          <button class="botao-sair">
+            Sair
+          </button>
+        </a>
+      </div>
     </div>
 
-    <!-- ÍCONE DO USUÁRIO -->
+    <!-- ====== CONTEÚDO PRINCIPAL ====== -->
+    <main class="main">
+      <h2 class="welcome-text">Bem-vindo, usuário...</h2>
 
-    <div class="user">
-      <img src="../assets/perfil.png" id="perfilIcon" style="cursor: pointer;">
-      <span>@usuário</span>
+      <section class="cards-container">
+        <a href="dashboard.html" class="card">
+          <div class="card-bar"></div>
+          <p>Dashboard</p>
+        </a>
+
+        <a href="relatorio.html" class="card">
+          <div class="card-bar"></div>
+          <p>Relatório</p>
+        </a>
+
+        <button id="perfilCard" class="card">
+          <div class="card-bar"></div>
+          <p>Configuração Slack</p>
+        </button>
+      </section>
+    </main>
+
+    <!-- ===== MODAL ===== -->
+    <div class="modal" id="modal" style="display: none;">
+      <div class="modal-conteudo">
+        <span class="fechar" id="fechar">&times;</span>
+
+        <!-- Foto -->
+        <img src="../assets/perfil.png" alt="Usuário" class="usuario-foto">
+
+        <h2>@usuário</h2>
+
+        <!-- Formulário -->
+        <form id="formUsuario">
+          <input type="text" name="nome" placeholder="Nome" required>
+          <input type="email" name="email" placeholder="Email" required>
+          <input type="text" name="telefone" placeholder="Telefone" required>
+          <button type="submit">Atualizar</button>
+        </form>
+      </div>
     </div>
-  </header>
+  </section>
 
-  <!-- ====== CONTEÚDO PRINCIPAL ====== -->
-  <main class="main">
-    <h2 class="welcome-text">Bem-vindo, usuário...</h2>
 
-    <section class="cards-container">
-      <a href="dashboard.html" class="card">
-        <div class="card-bar"></div>
-        <p>Dashboard</p>
-      </a>
 
-      <a href="relatorio.html" class="card">
-        <div class="card-bar"></div>
-        <p>Relatório</p>
-      </a>
 
-      <button id="perfilCard" class="card">
-        <div class="card-bar"></div>
-        <p>Perfil</p>
-      </button>
-    </section>
-  </main>
-
-  <!-- ===== MODAL ===== -->
-  <div class="modal" id="modal" style="display: none;">
-    <div class="modal-conteudo">
-      <span class="fechar" id="fechar">&times;</span>
-
-      <!-- Foto -->
-      <img src="../assets/perfil.png" alt="Usuário" class="usuario-foto">
-
-      <h2>@usuário</h2>
-
-      <!-- Formulário -->
-      <form id="formUsuario">
-        <input type="text" name="nome" placeholder="Nome" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="text" name="telefone" placeholder="Telefone" required>
-        <button type="submit">Atualizar</button>
-      </form>
-    </div>
-  </div>
-
-<script>
+  <script>
     // Redirecionamento do select
     const select = document.getElementById("navigationSelect");
     select.addEventListener("change", function () {
@@ -87,21 +91,21 @@
     });
 
     // ===== LÓGICA DO MODAL =====
-    const perfilIcon = document.getElementById('perfilIcon');  
-    const perfilCard = document.getElementById('perfilCard');   
+    const perfilIcon = document.getElementById('perfilIcon');
+    const perfilCard = document.getElementById('perfilCard');
     const modal = document.getElementById('modal');
     const btnFechar = document.getElementById('fechar');
     const form = document.getElementById('formUsuario');
 
-  
+
     const abrirModal = () => {
       modal.style.display = 'flex';
     };
 
-    
+
     perfilIcon.addEventListener('click', abrirModal);
 
-    perfilCard.addEventListener('click', abrirModal); 
+    perfilCard.addEventListener('click', abrirModal);
 
     btnFechar.addEventListener('click', () => {
       modal.style.display = 'none';
@@ -112,7 +116,7 @@
         modal.style.display = 'none';
       }
     });
-</script>
+  </script>
 
 </body>
 
