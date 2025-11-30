@@ -1,76 +1,55 @@
-var usuarioModel = require("../models/usuarioModel");
+const usuarioModel = require("../models/usuarioModel");
 
 function autenticar(req, res) {
-    var email = req.body.emailServer;
-    var senha = req.body.senhaServer;
+    const email = req.body.email;
+    const senha = req.body.senha;
 
-    if (email == undefined) {
-        res.status(400).send("Seu email está undefined!");
-    } else if (senha == undefined) {
-        res.status(400).send("Sua senha está indefinida!");
-    } else {
+    if (!email) return res.status(400).send("Email está indefinido!");
+    if (!senha) return res.status(400).send("Senha está indefinida!");
 
-        usuarioModel.autenticar(email, senha)
-            .then(
-                function (resultadoAutenticar) {
-                    console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
+    usuarioModel.autenticar(email, senha)
+        .then(resultado => {
+            if (resultado.length === 1) {
+                const usuario = resultado[0];
 
-                    if (resultadoAutenticar.length == 1) {
-                        res.json({
-                            id: resultadoAutenticar[0].id,
-                            email: resultadoAutenticar[0].email,
-                            nome: resultadoAutenticar[0].nome,
-                            senha: resultadoAutenticar[0].senha,
-                            telefone: resultadoAutenticar[0].telefone // ✅ envia o telefone também, se quiser usar no login
-                        });
-                    } else if (resultadoAutenticar.length == 0) {
-                        res.status(403).send("Email e/ou senha inválido(s)");
-                    } else {
-                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
-                    }
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-    }
+                return res.json({
+                    id: usuario.id,
+                    nome: usuario.nome_completo,
+                    email: usuario.email,
+                    fk_role: usuario.fk_role,
+                    fk_empresa: usuario.fk_empresa,
+                    fk_codigo: usuario.fk_codigo
+                });
+            }
+
+            if (resultado.length == 0) {
+                return res.status(403).send("Email e/ou senha inválidos!");
+            }
+
+        })
+        .catch(erro => {
+            console.log("Erro ao autenticar:", erro);
+            res.status(500).json(erro.sqlMessage);
+        });
 }
 
 function cadastrar(req, res) {
-    // Recuperando valores vindos do cadastro.html
-    var nome = req.body.nomeServer;
-    var email = req.body.emailServer;
-    var telefone = req.body.telefoneServer; // ✅ novo campo
-    var senha = req.body.senhaServer;
-    var fkEmpresa = req.body.idEmpresaVincularServer;
+    const nome = req.body.nome;
+    const email = req.body.email;
+    const senha = req.body.senha;
+    const codigoEmpresa = req.body.codigoEmpresa; // <- certo!
 
-    // Validações
-    if (nome == undefined) {
-        res.status(400).send("Seu nome está undefined!");
-    } else if (email == undefined) {
-        res.status(400).send("Seu email está undefined!");
-    } else if (telefone == undefined) {
-        res.status(400).send("Seu telefone está undefined!"); // ✅ validação adicionada
-    } else if (senha == undefined) {
-        res.status(400).send("Sua senha está undefined!");
-    } else if (fkEmpresa == undefined) {
-        res.status(400).send("Sua empresa a vincular está undefined!");
-    } else {
-        // Envia para o model
-        usuarioModel.cadastrar(nome, email, telefone, senha, fkEmpresa) // ✅ telefone incluído
-            .then(function (resultado) {
-                res.json(resultado);
-            })
-            .catch(function (erro) {
-                console.log(erro);
-                console.log("\nHouve um erro ao realizar o cadastro! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            });
-    }
+    if (!nome) return res.status(400).send("Nome está indefinido!");
+    if (!email) return res.status(400).send("Email está indefinido!");
+    if (!senha) return res.status(400).send("Senha está indefinida!");
+    if (!codigoEmpresa) return res.status(400).send("Código de ativação está indefinido!");
+
+    usuarioModel.cadastrar(nome, email, senha, codigoEmpresa)
+        .then(resultado => res.json(resultado))
+        .catch(erro => {
+            console.log("Erro ao cadastrar:", erro);
+            res.status(500).json(erro.sqlMessage || erro);
+        });
 }
 
 module.exports = {

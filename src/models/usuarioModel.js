@@ -1,29 +1,40 @@
 var database = require("../database/config");
-var role = 'USER';
 
 function autenticar(email, senha) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function autenticar(): ", email, senha);
-    
-    var instrucaoSql = `
-        SELECT id_usuario, nome_completo, email, telefone 
-        FROM usuario 
+    const sql = `
+        SELECT id, nome_completo, email, fk_role, fk_empresa, fk_codigo
+        FROM usuario
         WHERE email = '${email}' AND senha = '${senha}';
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+    return database.executar(sql);
 }
 
-// ✅ Agora incluindo o campo telefone
-function cadastrar(nome, email, telefone, senha, fkEmpresa) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, telefone, senha, fkEmpresa);
-    
-    var instrucaoSql = `
-        INSERT INTO usuario (nome_completo, email, telefone, role, senha, fk_empresa)
-        VALUES ('${nome}', '${email}', '${telefone}', '${role}', '${senha}', '${fkEmpresa}');
+function cadastrar(nome, email, senha, codigoAtivacao) {
+
+    const sqlBuscarCodigo = `
+        SELECT id, fk_empresa
+        FROM codigo
+        WHERE token_ativacao = '${codigoAtivacao}'
+          AND status = 'ativo';
     `;
-    
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+
+    return database.executar(sqlBuscarCodigo).then(resultado => {
+
+        if (resultado.length === 0) {
+            throw "Código inválido";
+        }
+
+        const fkCodigo = resultado[0].id;
+        const fkEmpresa = resultado[0].fk_empresa;
+        const fkRole = 2; // usuário comum
+
+        const sqlInsert = `
+            INSERT INTO usuario (nome_completo, email, senha, fk_role, fk_empresa, fk_codigo)
+            VALUES ('${nome}', '${email}', '${senha}', ${fkRole}, ${fkEmpresa}, ${fkCodigo});
+        `;
+
+        return database.executar(sqlInsert);
+    });
 }
 
 module.exports = {
