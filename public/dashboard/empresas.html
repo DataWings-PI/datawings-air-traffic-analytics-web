@@ -11,7 +11,7 @@
 
 </head>
 
-<body>
+<body onload="carregarEmpresas()">
 
     <section class="full-body">
         <!-- ====== CABEÇALHO ====== -->
@@ -44,134 +44,74 @@
                     <form class="card-relatorio">
                         <h2>Cadastrar empresa</h2>
 
-                        <label>Nome</label>
-                        <input type="text" id="nome" placeholder="Digite o nome">
+                    <label>Nome Fantasia</label>
+                    <input type="text" id="nome_fantasia" placeholder="Digite o nome Fantasia">
 
-                        <label>CNPJ</label>
-                        <input type="text" id="cnpj" placeholder="Digite o nome">
+                    <label>Razão social</label>
+                    <input type="text" id="razao_social" placeholder="Digite o Razão Social">
 
-                        <label>Email</label>
-                        <input type="text" id="email" placeholder="Digite o nome">
+                    <label>CNPJ</label>
+                    <input type="text" id="cnpj" placeholder="Digite o cnpj">
 
-                        <label>Telefone</label>
-                        <input type="text" id="telefone" placeholder="Digite o nome">
+                    <h2>Contato</h2>
 
-                        <button type="submit">Cadastrar</button>
-                    </form>
-                </div>
+                    <label>Telefone</label>
+                    <input type="text" id="numero" placeholder="Digite o Telefone">
+
+                    <label>Tipo do número</label>
+                    <select id="tipo_num">
+                        <option value="fixo">Fixo</option>
+                        <option value="móvel">Móvel</option>
+                    </select>
+
+                    <label>Departamento</label>
+                    <input type="text" id="departamento" placeholder="Digite o Departamento">
+
+                    <h2>Endereço</h2>
+
+                    <label>Apelido</label>
+                    <input type="text" id="apelido" placeholder="Digite o Apelido">
+
+                    <label>Cep</label>
+                    <input type="text" id="cep" onblur="buscarCep()" placeholder="Digite o Cep">
+
+                    <label>Logradouro</label>
+                    <input type="text" id="logradouro" placeholder="Digite o Logradouro">
+
+                    <label>Bairro</label>
+                    <input type="text" id="bairro" placeholder="Digite o Bairro">
+
+                    <label>Cidade</label>
+                    <input type="text" id="cidade" placeholder="Digite o Cidade">
+
+                    <label>Unidade Federativa</label>
+                    <input type="text" id="uf" placeholder="Digite o Unidade Federativa">
+
+                     <label>Número</label>
+                    <input type="text" id="numeroEndereco" placeholder="Digite o Número">
+
+                    <label>Complemento</label>
+                    <input type="text" id="complemento" placeholder="Digite o Complemento">
+                    <button type="submit" onclick="cadastrar()">Cadastrar</button>
+                </form>
+            </div>
 
 
-                <div class="tabela-scroll">
-                    <table id="voosTable">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Criado em:</th>
-                                <th>informações</th>
-                                <th>Excluir</th>
-                                <th>Definir status</th>
+            <div class="tabela-scroll">
+                <table id="voosTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Criado em:</th>
+                            <th>Excluir</th>
+                            <th>Definir status</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>01</td>
-                                <td>Gol</td>
-                                <td>15/10/2025</td>
-                                <td><button class="btn-abrir">informações</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                                <td><button class="btn-excluir">Status</button></td>
-                            </tr>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela_empresas">
 
-                            <tr>
-                                <td>02</td>
-                                <td>LATAM</td>
-                                <td>16/10/2025</td>
-                                <td><button class="btn-abrir">informações</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                                <td><button class="btn-excluir">Status</button></td>
-                            </tr>
-                            <tr>
-                                <td>03</td>
-                                <td>Gol Linhas Aéreas</td>
-                                <td>17/10/2025</td>
-                                <td><button class="btn-abrir">informações</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                                <td><button class="btn-excluir">Status</button></td>
-                            </tr>
-                            <tr>
-                                <td>04</td>
-                                <td>Azul Linhas Aéreas</td>
-                                <td>18/10/2025</td>
-                                <td><button class="btn-abrir">informações</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                                <td><button class="btn-excluir">Status</button></td>
-                            </tr>
-                            <tr>
-                                <td>05</td>
-                                <td>American Airlines</td>
-                                <td>19/10/2025</td>
-                                <td><button class="btn-abrir">informações</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                                <td><button class="btn-excluir">Status</button></td>
-                            </tr>
-                            <tr>
-                                <td>06</td>
-                                <td>Delta Airlines</td>
-                                <td>20/10/2025</td>
-                                <td><button class="btn-abrir">informações</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                                <td><button class="btn-excluir">Status</button></td>
-                            </tr>
-                            <tr>
-                                <td>07</td>
-                                <td>United Airlines</td>
-                                <td>21/10/2025</td>
-                                <td><button class="btn-abrir">informações</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                                <td><button class="btn-excluir">Status</button></td>
-                            </tr>
-                            <tr>
-                                <td>08</td>
-                                <td>Air France</td>
-                                <td>22/10/2025</td>
-                                <td><button class="btn-abrir">informações</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                                <td><button class="btn-excluir">Status</button></td>
-                            </tr>
-                            <tr>
-                                <td>09</td>
-                                <td>Lufthansa</td>
-                                <td>23/10/2025</td>
-                                <td><button class="btn-abrir">informações</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                                <td><button class="btn-excluir">Status</button></td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>British Airways</td>
-                                <td>24/10/2025</td>
-                                <td><button class="btn-abrir">informações</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                                <td><button class="btn-excluir">Status</button></td>
-                            </tr>
-                            <tr>
-                                <td>11</td>
-                                <td>KLM</td>
-                                <td>25/10/2025</td>
-                                <td><button class="btn-abrir">informações</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                                <td><button class="btn-excluir">Status</button></td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                <td>Emirates</td>
-                                <td>26/10/2025</td>
-                                <td><button class="btn-abrir">informações</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                                <td><button class="btn-excluir">Status</button></td>
-                            </tr>
+
 
                         </tbody>
                     </table>
@@ -183,3 +123,200 @@
 </body>
 
 </html>
+
+<script>
+
+function buscarCep(){
+    const cepVar = cep.value;
+    
+    fetch(`https://viacep.com.br/ws/${cepVar}/json/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+            return resposta.json();
+
+        } else {
+          throw "Houve um erro ao tentar buscar o cep digitado!";
+        }
+      })
+      .then((resposta) => {
+        var endereco = resposta;
+            logradouro.value = endereco.logradouro;
+            bairro.value = endereco.bairro;
+            cidade.value = endereco.localidade;
+            uf.value = endereco.uf;
+
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+    }
+    
+
+
+function cadastrar(){
+    var nome_fantasiaVar = nome_fantasia.value;
+    var razao_socialVar= razao_social.value;
+    var cnpjVar = cnpj.value;
+    var statusVar = 'TRUE';
+    var numeroVar = numero.value;
+    var tipo_numVar = tipo_num.value;
+    var departamentoVar = departamento.value;
+    var apelidoVar = apelido.value;
+    var cepVar = cep.value;
+    var logradouroVar = logradouro.value;
+    var bairroVar = bairro.value ;
+    var cidadeVar = cidade.value;
+    var ufVar = uf.value;
+    var numeroEnderecoVar = numeroEndereco.value;
+    var complementoVar = complemento.value;
+
+
+   fetch("/empresas/cadastrarEmpresa", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nome_fantasiaServer: nome_fantasiaVar,
+        razao_socialServer: razao_socialVar,
+        cnpjServer: cnpjVar,
+        statusServer: statusVar,
+        numeroServer: numeroVar,
+        tipo_numServer: tipo_numVar,
+        departamentoServer: departamentoVar,
+        apelidoServer: apelidoVar,
+        cepServer : cepVar,
+        logradouroServer : logradouroVar,
+        bairroServer: bairroVar,
+        cidadeServer: cidadeVar,
+        ufServer: ufVar,
+        numeroEnderecoServer: numeroEnderecoVar,
+        complementoServer: complementoVar
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          alert("Empresa cadastrada com sucesso");
+
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });}
+
+
+    const select = document.getElementById("navigationSelect");
+
+    select.addEventListener("change", function () {
+        const url = this.value;
+        if (url) {
+            window.location.href = url;
+        }
+    });
+    
+    function carregarEmpresas() {
+        fetch("/empresas/listar")
+            .then((resposta) => 
+            {
+              
+              
+              
+              resposta.json()
+            })
+
+            .then(empresas => {
+
+                let tabela = document.getElementById("tabela_empresas");
+                tabela.innerHTML = ""; 
+
+                empresas.forEach(empresa => {
+
+                    let textoStatus = empresa.status ? "Ativo" : "Inativo";
+                    let classeStatus = empresa.status ? "btn-ativo" : "btn-inativo";
+                    const dataCriacao = empresa.data_criacao;
+
+                    var data = dataCriacao.split("T");
+                    var tempo = data[1].split(".");
+                    var hora = tempo[0];
+                    var dataSemHora = data[0].split("-");
+                    var dataFormatada = `${dataSemHora[2]}/${dataSemHora[1]}/${dataSemHora[0]} ${hora}`
+
+                    
+                    tabela.innerHTML += `
+                        <tr>
+                            <td>${empresa.id}</td>
+                            <td>${empresa.razao_social}</td>
+                            <td>${dataFormatada}</td>
+                            <td><button class="btn-excluir" onclick="deletarEmpresa(${empresa.id})">Excluir</button></td>
+                            <td><button class="${classeStatus}" onclick="atualizarStatus(${empresa.id})">${textoStatus}</button></td>
+                        </tr>
+                    `;
+                });
+            })
+            .catch(erro => {
+                console.log("Erro ao listar empresas:", erro);
+            });
+    }
+
+    function atualizarStatus(id){
+
+      fetch(`/empresas/atualizarStatus/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          alert("Status atualizado com sucesso");
+          carregarEmpresas();
+
+        } else {
+          throw "Houve um erro ao atualizar o status da empresa!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+    }
+
+
+    function deletarEmpresa(id){
+      fetch(`/empresas/deletarEmpresa/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          alert("Empresa deletada com sucesso");
+          carregarEmpresas();
+
+        } else {
+          throw "Houve um erro ao tentar deletar uma empresa!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+    }
+</script>
