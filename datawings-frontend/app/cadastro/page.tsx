@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 import {
   Container,
@@ -15,81 +15,104 @@ import {
 } from "@mui/material";
 
 import Navbar from "@/app/components/navbar";
-import Footer from "@/app/components/footer"
+import Footer from "@/app/components/footer";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 import { useSnackbar } from "notistack";
+import { cadastrarUsuario } from "@/app/services/usuarioService";
+
+const textFieldStyles = {
+  "& .MuiOutlinedInput-root": {
+    borderRadius: 2,
+    backgroundColor: "#0c1724",
+    color: "#fff",
+    "& fieldset": { borderColor: "#1f2a38" },
+    "&:hover fieldset": { borderColor: "#ff6600" },
+    "&.Mui-focused fieldset": { borderColor: "#ff6600" },
+  },
+  "& .MuiInputLabel-root": { color: "#ccc" },
+  "& .MuiOutlinedInput-input": { color: "#fff" },
+};
+
+const avaliarForcaSenha = (s: string) => {
+  if (!s) return "";
+  if (s.length < 6) return "Fraca";
+
+  const temNumero = /\d/.test(s);
+  const temEspecial = /[!@#$%^&*(),.?":{}|<>]/.test(s);
+
+  if (temNumero && temEspecial) return "Forte";
+  if (temNumero || temEspecial) return "Média";
+
+  return "Fraca";
+};
 
 export default function RegisterPage() {
   const { enqueueSnackbar } = useSnackbar();
 
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [confirmarSenha, setConfirmarSenha] = useState("");
+  const [form, setForm] = useState({
+    nome: "",
+    email: "",
+    codigoEmpresa: "",
+    senha: "",
+    confirmarSenha: "",
+  });
+
   const [forcaSenha, setForcaSenha] = useState("");
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [mostrarConfirmarSenha, setMostrarConfirmarSenha] = useState(false);
-
-  const steps = ["Dados Pessoais", "Código de Acesso", "Segurança"];
   const [activeStep, setActiveStep] = useState(0);
 
-  const textFieldStyles = {
-    "& .MuiOutlinedInput-root": {
-      borderRadius: 2,
-      backgroundColor: "#0c1724",
-      color: "#fff",
-      "& fieldset": { borderColor: "#1f2a38" },
-      "&:hover fieldset": { borderColor: "#ff6600" },
-      "&.Mui-focused fieldset": { borderColor: "#ff6600" },
-    },
-    "& .MuiInputLabel-root": { color: "#ccc" },
-    "& .MuiOutlinedInput-input": { color: "#fff" },
+  const steps = ["Dados Pessoais", "Código da Empresa", "Segurança"];
+
+  const updateField = (field: string, value: string) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const validarStep = () => {
+    if (activeStep === 0) {
+      if (!form.nome)
+        return enqueueSnackbar("O campo Nome é obrigatório", { variant: "warning" });
+      if (!form.email.includes("@"))
+        return enqueueSnackbar("Digite um email válido", { variant: "warning" });
+    }
+
+    if (activeStep === 1) {
+      if (!form.codigoEmpresa)
+        return enqueueSnackbar("O código da empresa é obrigatório", { variant: "warning" });
+
+      if (form.codigoEmpresa.length < 4)
+        return enqueueSnackbar("Código inválido (mínimo 4 caracteres)", { variant: "error" });
+    }
+
+    return true;
   };
 
   const handleNext = () => {
-    if (activeStep < steps.length - 1) {
-      setActiveStep((prev) => prev + 1);
-    } else {
-      handleSubmit();
-    }
+    if (!validarStep()) return;
+
+    if (activeStep < steps.length - 1) return setActiveStep(activeStep + 1);
+
+    handleSubmit();
   };
 
-  const handleBack = () => setActiveStep((prev) => prev - 1);
+  const handleBack = () => {
+    if (activeStep > 0) setActiveStep(activeStep - 1);
+  };
 
-  const handleSubmit = () => {
-    if (!nome)
-      return enqueueSnackbar("O campo Nome é obrigatório", {
-        variant: "warning",
-      });
+  const handleSubmit = async () => {
+    if (!form.senha)
+      return enqueueSnackbar("O campo Senha é obrigatório", { variant: "warning" });
 
-    if (!email.includes("@"))
-      return enqueueSnackbar("Digite um email válido", { variant: "error" });
-
-    if (!senha)
-      return enqueueSnackbar("O campo Senha é obrigatório", {
-        variant: "warning",
-      });
-
-    if (confirmarSenha !== senha)
+    if (form.senha !== form.confirmarSenha)
       return enqueueSnackbar("As senhas não coincidem", { variant: "error" });
 
-    enqueueSnackbar("Cadastro realizado com sucesso!", {
-      variant: "success",
-    });
-  };
-
-  const avaliarForcaSenha = (senha: string) => {
-    if (!senha) return "";
-    if (senha.length < 6) return "Fraca";
-
-    const temNumero = /\d/.test(senha);
-    const temEspecial = /[!@#$%^&*(),.?":{}|<>]/.test(senha);
-
-    if (temNumero && temEspecial) return "Forte";
-    if (temNumero || temEspecial) return "Média";
-
-    return "Fraca";
+    try {
+      await cadastrarUsuario(form);
+      enqueueSnackbar("Cadastro realizado com sucesso!", { variant: "success" });
+    } catch (error: any) {
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
   };
 
   return (
@@ -118,16 +141,16 @@ export default function RegisterPage() {
               Criar Conta
             </Typography>
 
-            {/* Stepper */}
+            {/* 🟧 STEPPER */}
             <Stepper
               activeStep={activeStep}
               alternativeLabel
               sx={{
                 mb: 4,
                 "& .MuiStepLabel-label": { color: "#ccc" },
-                "& .MuiStepIcon-root": { color: "#1f2a38" },
-                "& .MuiStepIcon-active": { color: "#ff6600"},
-                "& .MuiStepIcon-completed": { color: "#ff6600"},
+                "& .MuiStepIcon-root": { color: "#ccc" },
+                "& .MuiStepIcon-active": { color: "#ff6600" },
+                "& .MuiStepIcon-completed": { color: "#ff6600" },
               }}
             >
               {steps.map((label) => (
@@ -137,14 +160,15 @@ export default function RegisterPage() {
               ))}
             </Stepper>
 
-            <form style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            {/* FORM */}
+            <form onSubmit={(e) => e.preventDefault()} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
               {/* STEP 1 */}
               {activeStep === 0 && (
                 <>
                   <TextField
                     label="Nome"
-                    value={nome}
-                    onChange={(e) => setNome(e.target.value)}
+                    value={form.nome}
+                    onChange={(e) => updateField("nome", e.target.value)}
                     fullWidth
                     sx={textFieldStyles}
                   />
@@ -152,11 +176,11 @@ export default function RegisterPage() {
                   <TextField
                     label="Email"
                     type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    error={!email.includes("@") && email.length > 0}
+                    value={form.email}
+                    onChange={(e) => updateField("email", e.target.value)}
+                    error={!form.email.includes("@") && form.email.length > 0}
                     helperText={
-                      !email.includes("@") && email.length > 0
+                      !form.email.includes("@") && form.email.length > 0
                         ? "Digite um email válido"
                         : ""
                     }
@@ -169,9 +193,9 @@ export default function RegisterPage() {
               {/* STEP 2 */}
               {activeStep === 1 && (
                 <TextField
-                  label="Código de Acesso"
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
+                  label="Código da Empresa"
+                  value={form.codigoEmpresa}
+                  onChange={(e) => updateField("codigoEmpresa", e.target.value)}
                   fullWidth
                   sx={textFieldStyles}
                 />
@@ -183,9 +207,9 @@ export default function RegisterPage() {
                   <TextField
                     label="Senha"
                     type={mostrarSenha ? "text" : "password"}
-                    value={senha}
+                    value={form.senha}
                     onChange={(e) => {
-                      setSenha(e.target.value);
+                      updateField("senha", e.target.value);
                       setForcaSenha(avaliarForcaSenha(e.target.value));
                     }}
                     fullWidth
@@ -193,11 +217,7 @@ export default function RegisterPage() {
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
-                          <IconButton
-                            onClick={() => setMostrarSenha(!mostrarSenha)}
-                            edge="end"
-                            sx={{ color: "#ff6600" }}
-                          >
+                          <IconButton onClick={() => setMostrarSenha(!mostrarSenha)} edge="end" sx={{ color: "#ff6600" }}>
                             {mostrarSenha ? <VisibilityOff /> : <Visibility />}
                           </IconButton>
                         </InputAdornment>
@@ -224,25 +244,19 @@ export default function RegisterPage() {
                   <TextField
                     label="Confirmar Senha"
                     type={mostrarConfirmarSenha ? "text" : "password"}
-                    value={confirmarSenha}
-                    onChange={(e) => setConfirmarSenha(e.target.value)}
+                    value={form.confirmarSenha}
+                    onChange={(e) => updateField("confirmarSenha", e.target.value)}
                     fullWidth
                     sx={textFieldStyles}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
                           <IconButton
-                            onClick={() =>
-                              setMostrarConfirmarSenha(!mostrarConfirmarSenha)
-                            }
+                            onClick={() => setMostrarConfirmarSenha(!mostrarConfirmarSenha)}
                             edge="end"
                             sx={{ color: "#ff6600" }}
                           >
-                            {mostrarConfirmarSenha ? (
-                              <VisibilityOff />
-                            ) : (
-                              <Visibility />
-                            )}
+                            {mostrarConfirmarSenha ? <VisibilityOff /> : <Visibility />}
                           </IconButton>
                         </InputAdornment>
                       ),
@@ -251,14 +265,8 @@ export default function RegisterPage() {
                 </>
               )}
 
-              {/* Botões */}
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  mt: 2,
-                }}
-              >
+              {/* BOTÕES */}
+              <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
                 <Button
                   disabled={activeStep === 0}
                   onClick={handleBack}
@@ -268,10 +276,7 @@ export default function RegisterPage() {
                     textTransform: "none",
                     borderColor: "#ff6600",
                     color: "#ff6600",
-                    "&:hover": {
-                      borderColor: "#ff6600",
-                      backgroundColor: "rgba(255,102,0,0.1)",
-                    },
+                    "&:hover": { backgroundColor: "rgba(255,102,0,0.1)" },
                   }}
                 >
                   Voltar
@@ -284,7 +289,6 @@ export default function RegisterPage() {
                     borderRadius: 3,
                     backgroundColor: "#ff6600",
                     textTransform: "none",
-                    "&:hover": { backgroundColor: "#e45b00" },
                   }}
                 >
                   {activeStep === steps.length - 1 ? "Finalizar" : "Próximo"}
