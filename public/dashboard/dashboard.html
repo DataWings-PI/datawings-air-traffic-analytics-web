@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DataWings - Dashboard</title>
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" href="..//assets/icon/favicon-data.png">
+
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -13,78 +15,135 @@
 
 <body>
 
-    <!-- ====== CABEÇALHO ====== -->
-    <header class="header">
-        <div class="content">
-            <div class="logo">
-                <img src="../assets/logoLaranja-removebg-preview.png" alt="">
+    <section class="full-body">
+        <!-- ====== CABEÇALHO ====== -->
+        <div class="left-header">
+            <div class="content">
+                <div>
+                    <img class="logo" src="../assets/logoLaranja-removebg-preview.png" alt="">
+                </div>
+
+                <div class="user">
+                    <span>@usuário</span>
+                </div>
+
+                <h2 class="welcome-text">Estatísticas de voos</h2>
+
             </div>
-            <nav class="nav">
-                <select name="navigation" id="navigationSelect">
-                    <option value="./dashboard.html">Dashboard</option>
-                    <option value="./index.html">Home</option>
-                    <option value="./relatorio.html">Relatório</option>
-                </select>
-            </nav>
+
+            <div class="content2">
+
+                <a href="index.html">
+                    <button class="botao-sair">
+                        Sair
+                    </button>
+                </a>
+            </div>
         </div>
-        <div class="user">
-            <img src="../assets/perfil.png" id="perfilIcon" style="cursor: pointer;">
-            <span>@usuário</span>
+
+
+        <div class="middle">
+            <div class="texto-box">
+                <h3>
+                    Dados relacionados aos voos
+                </h3>
+
+                <button id="tabelaDadosVoos" class="botoes-modal">
+                    Tabela Dados dos voos
+                </button>
+            </div>
+
+            <div class="graficos-box">
+                <div class="cards-grafico-1">
+                    <canvas id="meuGraficoBarra1"></canvas>
+                </div>
+                <button id="tabelaLegendaJustificativas" class="botoes-modal">
+                    Tabela justificativa legendas
+                </button>
+
+                <div class="cards-grafico-2-1">
+                    <canvas id="meuGraficoBarra2"></canvas>
+                </div>
+            </div>
         </div>
-    </header>
 
-    <!-- ====== CONTEÚDO PRINCIPAL ====== -->
-    <main class="main">
-        <h2 class="welcome-text">Estatísticas de voos</h2>
+        <div class="last">
+            <div class="capa">
 
-        <section class="cards-container">
-            <div class="card">
-                <div class="card-bar"></div>
-                <p>Total de voos analisados</p>
-                <p class="subtitulo">100.000 Voos</p>
+                <div class="contain-parte-cima">
+                    <div class="divisao-pt0">
+                        <h3>
+                            Análise de setores do total de voos
+                        </h3>
+                    </div>
+                    <div class="divisao-pt1">
+
+                        <div class="card">
+                            <div class="card-bar1"></div>
+                            <p>Total de voos analisados</p>
+                            <p class="subtitulo" id="kpi1"></p>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-bar2"></div>
+                            <p>Voos sem nenhum atraso</p>
+                            <p class="subtitulo" id="kpi2">
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="divisao-pt2">
+                        <div class="card">
+                            <div class="card-bar4"></div>
+                            <p>Voos com atraso</p>
+                            <p class="subtitulo" id="kpi3">
+                            </p>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-bar5"></div>
+                            <p>Voos que foram cancelados</p>
+                            <p class="subtitulo" id="kpi4">10.000 voos | <span
+                                    style="color: #3A6EA5; font-weight: bolder;">10%</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="contain-parte-baixo">
+                    <canvas class="grafico-torta" id="meuGraficoPie"></canvas>
+                </div>
+
             </div>
+        </div>
 
-            <div class="card">
-                <div class="card-bar"></div>
-                <p>Voos sem nenhum atraso</p>
-                <p class="subtitulo">15.000 voos | 15% </p>
-            </div>
+    </section>
 
-            <div class="card">
-                <div class="card-bar"></div>
-                <p>Voos atrasados na partida</p>
-                <p class="subtitulo">30.000 voos | 30%</p>
-            </div>
+    <!-- ------------------------- Modais ----------------------- -->
 
-            <div class="card">
-                <div class="card-bar"></div>
-                <p>Voos atrasados na chegada</p>
-                <p class="subtitulo">45.000 voos | 45%</p>
-            </div>
+    <div id="modal2">
+        <div class="modal-tabela-conteudo">
 
-            <div class="card">
-                <div class="card-bar"></div>
-                <p>Voos que foram cancelados</p>
-                <p class="subtitulo">10.000 voos | 10%</p>
-            </div>
-        </section>
+            <span class="fechar" id="modal2-fechar">&times;</span>
 
-
-
-        <div class="contain-2">
-            <!-- Tabela -->
             <div class="tabela-scroll">
+
                 <table id="voosTable">
                     <thead>
                         <tr>
                             <th>Rota</th>
-                            <th>DT prevista</th>
+                            <th>Data prevista</th>
                             <th>Previsão Partida</th>
                             <th>Previsão Chegada</th>
                             <th>Partida</th>
                             <th>Chegada</th>
+                            <th>Atraso chegada</th>
                             <th>Atraso Partida</th>
-                            <th>Atraso Chegada</th>
+                            <th>Atraso Total</th>
+                            <th>Origem</th>
+                            <th>Destino</th>
+                            <th>Código Justificativa</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -95,8 +154,12 @@
                             <td>10:00</td>
                             <td>08:20</td>
                             <td>10:05</td>
-                            <td>5</td>
-                            <td>5</td>
+                            <td>1 min</td>
+                            <td>4 min</td>
+                            <td>5 min</td>
+                            <td>SP</td>
+                            <td>PE</td>
+                            <td>DG</td>
                         </tr>
                         <tr>
                             <td>102</td>
@@ -105,8 +168,13 @@
                             <td>11:00</td>
                             <td>09:10</td>
                             <td>11:05</td>
-                            <td>10</td>
-                            <td>5</td>
+                            <td>10 min</td>
+                            <td>20 min</td>
+                            <td>30 min</td>
+                            <td>SP</td>
+                            <td>PE</td>
+                            <td>AA</td>
+
                         </tr>
                         <tr>
                             <td>103</td>
@@ -115,8 +183,13 @@
                             <td>11:30</td>
                             <td>09:35</td>
                             <td>11:50</td>
-                            <td>5</td>
-                            <td>20</td>
+                            <td>10 min</td>
+                            <td>10 min</td>
+                            <td>20 min</td>
+                            <td>SP</td>
+                            <td>PE</td>
+                            <td>AA</td>
+
                         </tr>
                         <tr>
                             <td>104</td>
@@ -125,8 +198,12 @@
                             <td>12:00</td>
                             <td>10:05</td>
                             <td>12:10</td>
-                            <td>5</td>
-                            <td>10</td>
+                            <td>3 min</td>
+                            <td>7 min</td>
+                            <td>10 min</td>
+                            <td>PE</td>
+                            <td>SP</td>
+                            <td>AR</td>
                         </tr>
                         <tr>
                             <td>105</td>
@@ -135,8 +212,12 @@
                             <td>12:30</td>
                             <td>10:35</td>
                             <td>12:40</td>
-                            <td>5</td>
-                            <td>10</td>
+                            <td>5 min</td>
+                            <td>5 min</td>
+                            <td>10 min</td>
+                            <td>RJ</td>
+                            <td>RR</td>
+                            <td>AT</td>
                         </tr>
                         <tr>
                             <td>106</td>
@@ -145,8 +226,12 @@
                             <td>13:00</td>
                             <td>11:05</td>
                             <td>13:20</td>
-                            <td>5</td>
-                            <td>20</td>
+                            <td>7 min</td>
+                            <td>13 min</td>
+                            <td>20 min</td>
+                            <td>SP</td>
+                            <td>MG</td>
+                            <td>AF</td>
                         </tr>
                         <tr>
                             <td>107</td>
@@ -155,8 +240,12 @@
                             <td>13:30</td>
                             <td>11:35</td>
                             <td>13:45</td>
-                            <td>5</td>
-                            <td>15</td>
+                            <td>7 min</td>
+                            <td>8 min</td>
+                            <td>15 min</td>
+                            <td> RJ</td>
+                            <td> BA</td>
+                            <td>AS</td>
                         </tr>
                         <tr>
                             <td>108</td>
@@ -165,8 +254,12 @@
                             <td>14:00</td>
                             <td>12:05</td>
                             <td>14:10</td>
-                            <td>5</td>
-                            <td>10</td>
+                            <td>8 min</td>
+                            <td>2 min</td>
+                            <td>10 min</td>
+                            <td>DF</td>
+                            <td>AM</td>
+                            <td>AS</td>
                         </tr>
                         <tr>
                             <td>109</td>
@@ -175,8 +268,12 @@
                             <td>14:30</td>
                             <td>12:40</td>
                             <td>14:50</td>
-                            <td>10</td>
-                            <td>20</td>
+                            <td>10 min</td>
+                            <td>10 min</td>
+                            <td>20 min</td>
+                            <td>RS</td>
+                            <td>PR</td>
+                            <td>DF</td>
                         </tr>
                         <tr>
                             <td>110</td>
@@ -185,8 +282,12 @@
                             <td>15:00</td>
                             <td>13:05</td>
                             <td>15:10</td>
-                            <td>5</td>
-                            <td>10</td>
+                            <td>5 min</td>
+                            <td>5 min</td>
+                            <td>10 min</td>
+                            <td>GO</td>
+                            <td>PA</td>
+                            <td>GF</td>
                         </tr>
                         <tr>
                             <td>111</td>
@@ -195,8 +296,13 @@
                             <td>15:30</td>
                             <td>13:35</td>
                             <td>15:50</td>
-                            <td>5</td>
-                            <td>20</td>
+                            <td>6 min</td>
+                            <td>14 min</td>
+                            <td>20 min</td>
+                            <td>SP</td>
+                            <td>PE</td>
+                            <td>WS</td>
+
                         </tr>
                         <tr>
                             <td>112</td>
@@ -205,8 +311,180 @@
                             <td>16:00</td>
                             <td>14:05</td>
                             <td>16:10</td>
-                            <td>5</td>
-                            <td>10</td>
+                            <td>5 min</td>
+                            <td>5 min</td>
+                            <td>10 min</td>
+                            <td>SP</td>
+                            <td>PE</td>
+                            <td>WP</td>
+                        </tr>
+                        <tr>
+                            <td>112</td>
+                            <td>01/01/2025</td>
+                            <td>14:00</td>
+                            <td>16:00</td>
+                            <td>14:05</td>
+                            <td>16:10</td>
+                            <td>5 min</td>
+                            <td>5 min</td>
+                            <td>10 min</td>
+                            <td>SP</td>
+                            <td>PE</td>
+                            <td>WP</td>
+                        </tr>
+                        <tr>
+                            <td>112</td>
+                            <td>01/01/2025</td>
+                            <td>14:00</td>
+                            <td>16:00</td>
+                            <td>14:05</td>
+                            <td>16:10</td>
+                            <td>5 min</td>
+                            <td>5 min</td>
+                            <td>10 min</td>
+                            <td>SP</td>
+                            <td>PE</td>
+                            <td>WP</td>
+                        </tr>
+                        <tr>
+                            <td>112</td>
+                            <td>01/01/2025</td>
+                            <td>14:00</td>
+                            <td>16:00</td>
+                            <td>14:05</td>
+                            <td>16:10</td>
+                            <td>5 min</td>
+                            <td>5 min</td>
+                            <td>10 min</td>
+                            <td>SP</td>
+                            <td>PE</td>
+                            <td>WP</td>
+                        </tr>
+                        <tr>
+                            <td>112</td>
+                            <td>01/01/2025</td>
+                            <td>14:00</td>
+                            <td>16:00</td>
+                            <td>14:05</td>
+                            <td>16:10</td>
+                            <td>5 min</td>
+                            <td>5 min</td>
+                            <td>10 min</td>
+                            <td>SP</td>
+                            <td>PE</td>
+                            <td>WP</td>
+                        </tr>
+                        <tr>
+                            <td>112</td>
+                            <td>01/01/2025</td>
+                            <td>14:00</td>
+                            <td>16:00</td>
+                            <td>14:05</td>
+                            <td>16:10</td>
+                            <td>5 min</td>
+                            <td>5 min</td>
+                            <td>10 min</td>
+                            <td>SP</td>
+                            <td>PE</td>
+                            <td>WP</td>
+                        </tr>
+                        <tr>
+                            <td>112</td>
+                            <td>01/01/2025</td>
+                            <td>14:00</td>
+                            <td>16:00</td>
+                            <td>14:05</td>
+                            <td>16:10</td>
+                            <td>5 min</td>
+                            <td>5 min</td>
+                            <td>10 min</td>
+                            <td>SP</td>
+                            <td>PE</td>
+                            <td>WP</td>
+                        </tr>
+                        <tr>
+                            <td>112</td>
+                            <td>01/01/2025</td>
+                            <td>14:00</td>
+                            <td>16:00</td>
+                            <td>14:05</td>
+                            <td>16:10</td>
+                            <td>5 min</td>
+                            <td>5 min</td>
+                            <td>10 min</td>
+                            <td>SP</td>
+                            <td>PE</td>
+                            <td>WP</td>
+                        </tr>
+                        <tr>
+                            <td>112</td>
+                            <td>01/01/2025</td>
+                            <td>14:00</td>
+                            <td>16:00</td>
+                            <td>14:05</td>
+                            <td>16:10</td>
+                            <td>5 min</td>
+                            <td>5 min</td>
+                            <td>10 min</td>
+                            <td>SP</td>
+                            <td>PE</td>
+                            <td>WP</td>
+                        </tr>
+                        <tr>
+                            <td>112</td>
+                            <td>01/01/2025</td>
+                            <td>14:00</td>
+                            <td>16:00</td>
+                            <td>14:05</td>
+                            <td>16:10</td>
+                            <td>5 min</td>
+                            <td>5 min</td>
+                            <td>10 min</td>
+                            <td>SP</td>
+                            <td>PE</td>
+                            <td>WP</td>
+                        </tr>
+                        <tr>
+                            <td>112</td>
+                            <td>01/01/2025</td>
+                            <td>14:00</td>
+                            <td>16:00</td>
+                            <td>14:05</td>
+                            <td>16:10</td>
+                            <td>5 min</td>
+                            <td>5 min</td>
+                            <td>10 min</td>
+                            <td>SP</td>
+                            <td>PE</td>
+                            <td>WP</td>
+                        </tr>
+                        <tr>
+                            <td>112</td>
+                            <td>01/01/2025</td>
+                            <td>14:00</td>
+                            <td>16:00</td>
+                            <td>14:05</td>
+                            <td>16:10</td>
+                            <td>5 min</td>
+                            <td>5 min</td>
+                            <td>10 min</td>
+                            <td>SP</td>
+                            <td>PE</td>
+                            <td>WP</td>
+                        </tr>
+                        <tr>
+                            <td>112</td>
+                            <td>01/01/2025</td>
+                            <td>14:00</td>
+                            <td>16:00</td>
+                            <td>14:05</td>
+                            <td>16:10</td>
+                            <td>5 min</td>
+                            <td>5 min</td>
+                            <td>10 min</td>
+                            <td>SP</td>
+                            <td>PE</td>
+                            <td>WP</td>
                         </tr>
 
                     </tbody>
@@ -214,123 +492,635 @@
 
             </div>
 
-            <!-- Gráfico -->
-            <div class="grafico">
-                <canvas id="lineChart"></canvas>
-            </div>
         </div>
+    </div>
 
-        <!-- ===== MODAL ===== -->
-        <div class="modal" id="modal" style="display: none;">
-            <div class="modal-conteudo">
-                <span class="fechar" id="fechar">&times;</span>
+    <div id="modal3">
+        <div class="modal-tabela-conteudo">
 
-                <!-- Foto -->
-                <img src="../assets/perfil.png" alt="Usuário" class="usuario-foto">
+            <span class="fechar" id="modal3-fechar">&times;</span>
+            <div class="tabela-scroll">
 
-                <h2>@usuário</h2>
+                <table id="voosTable">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>AA</td>
+                            <td>ATRASO AEROPORTO DE ALTERNATIVA – ORDEM TÉCNICA</td>
+                        </tr>
+                        <tr>
+                            <td>AF</td>
+                            <td>FACILIDADES DO AEROPORTO - RESTRIÇÕES DE APOIO</td>
+                        </tr>
+                        <tr>
+                            <td>AG</td>
+                            <td>MIGRAÇÃO/ALFÂNDEGA/SAÚDE</td>
+                        </tr>
+                        <tr>
+                            <td>AI</td>
+                            <td>AEROPORTO DE ORIGEM INTERDITADO</td>
+                        </tr>
+                        <tr>
+                            <td>AJ</td>
+                            <td>AEROPORTO DE DESTINO INTERDITADO</td>
+                        </tr>
+                        <tr>
+                            <td>AM</td>
+                            <td>ATRASO AEROPORTO DE ALTERNATIVA – CONDIÇÕES METEOROLÓGICAS</td>
+                        </tr>
+                        <tr>
+                            <td>AS</td>
+                            <td>SEGURANÇA/PAX/CARGA/ALARME</td>
+                        </tr>
+                        <tr>
+                            <td>AR</td>
+                            <td>AEROPORTO COM RESTRIÇÕES OPERACIONAIS</td>
+                        </tr>
+                        <tr>
+                            <td>AT</td>
+                            <td>LIBERAÇÃO SERV. TRÁFEGO AÉREO/ANTECIPAÇÃO</td>
+                        </tr>
+                        <tr>
+                            <td>DF</td>
+                            <td>AVARIA DURANTE OPERAÇÕES EM VÔO</td>
+                        </tr>
+                        <tr>
+                            <td>DG</td>
+                            <td>AVARIA DURANTE OPERAÇÕES EM SOLO</td>
+                        </tr>
+                        <tr>
+                            <td>FP</td>
+                            <td>PLANO DE VÔO - APROVAÇÃO</td>
+                        </tr>
+                        <tr>
+                            <td>GF</td>
+                            <td>ABASTECIMENTO/DESTANQUEIO</td>
+                        </tr>
+                        <tr>
+                            <td>MA</td>
+                            <td>FALHA EQUIPO AUTOMOTIVO E DE ATENDIMENTO DE PAX</td>
+                        </tr>
+                        <tr>
+                            <td>MX</td>
+                            <td>ATRASOS NÃO ESPECÍFICOS – OUTROS</td>
+                        </tr>
+                        <tr>
+                            <td>OA</td>
+                            <td>AUTORIZADO</td>
+                        </tr>
+                        <tr>
+                            <td>RA</td>
+                            <td>CONEXÃO DE AERONAVE</td>
+                        </tr>
+                        <tr>
+                            <td>RI</td>
+                            <td>CONEXÃO AERONAVE/VOLTA – VÔO DE IDA NÃO PENALIZADO - AEROPORTO INTERDITADO</td>
+                        </tr>
+                        <tr>
+                            <td>RM</td>
+                            <td>CONEXÃO AERONAVE/VOLTA – VÔO DE IDA NÃO PENALIZADO - CONDIÇÕES METEOROLÓGICAS</td>
+                        </tr>
+                        <tr>
+                            <td>TC</td>
+                            <td>TROCA DE AERONAVE</td>
+                        </tr>
+                        <tr>
+                            <td>TD</td>
+                            <td>DEFEITOS DA AERONAVE</td>
+                        </tr>
+                        <tr>
+                            <td>WA</td>
+                            <td>ALTERNATIVA ABAIXO DOS LIMITES</td>
+                        </tr>
+                        <tr>
+                            <td>WI</td>
+                            <td>DEGELO E REMOÇÃO DE NEVE E/OU LAMA EM AERONAVE</td>
+                        </tr>
+                        <tr>
+                            <td>WR</td>
+                            <td>ATRASO DEVIDO RETORNO – CONDIÇÕES METEOROLÓGICAS</td>
+                        </tr>
+                        <tr>
+                            <td>WO</td>
+                            <td>AEROPORTO ORIGEM ABAIXO DOS LIMITES</td>
+                        </tr>
+                        <tr>
+                            <td>WP</td>
+                            <td>ATRASO DEVIDO RETORNO – ORDEM TÉCNICA</td>
+                        </tr>
+                        <tr>
+                            <td>WT</td>
+                            <td>AEROPORTO DESTINO ABAIXO DOS LIMITES</td>
+                        </tr>
+                        <tr>
+                            <td>WS</td>
+                            <td>REMOÇÃO GELO/ÁGUA/LAMA/AREIA EM AEROPORTO</td>
+                        </tr>
 
-                <!-- Formulário -->
-                <form id="formUsuario">
-                    <input type="text" name="nome" placeholder="Nome" required>
-                    <input type="email" name="email" placeholder="Email" required>
-                    <input type="text" name="telefone" placeholder="Telefone" required>
-                    <button type="submit">Atualizar</button>
-                </form>
+                        <tr>
+                            <td>XA</td>
+                            <td>PROGRAMADO – FERIADO NACIONAL</td>
+                        </tr>
+                        <tr>
+                            <td>XB</td>
+                            <td>AUTORIZADO (CANCELAMENTO)</td>
+                        </tr>
+                        <tr>
+                            <td>XI</td>
+                            <td>CANCELAMENTO – AEROPORTO DE ORIGEM INTERDITADO</td>
+                        </tr>
+                        <tr>
+                            <td>XJ</td>
+                            <td>CANCELAMENTO – AEROPORTO DE DESTINO INTERDITADO</td>
+                        </tr>
+                        <tr>
+                            <td>XL</td>
+                            <td>FALTA PAX COM PASSAGEM MARCADA – (LINHAS DOMÉSTICAS REGIONAIS)</td>
+                        </tr>
+                        <tr>
+                            <td>XM</td>
+                            <td>CANCELAMENTO – CONEXÃO/VOLTA – VÔO DE IDA CANCELADO – AEROPORTO INTERDITADO</td>
+                        </tr>
+                        <tr>
+                            <td>XN</td>
+                            <td>CANCELAMENTO POR MOTIVOS TÉCNICOS/OPERACIONAIS</td>
+                        </tr>
+                        <tr>
+                            <td>XO</td>
+                            <td>CANCELAMENTO – AEROPORTO ORIGEM ABAIXO LIMITES</td>
+                        </tr>
+                        <tr>
+                            <td>XT</td>
+                            <td>CANCELAMENTO – AEROPORTO DESTINO ABAIXO LIMITES</td>
+                        </tr>
+                        <tr>
+                            <td>XR</td>
+                            <td>CANCELAMENTO DE VÔOS EM CODE SHARING</td>
+                        </tr>
+                        <tr>
+                            <td>XS</td>
+                            <td>CANCELAMENTO – CONEXÃO/VOLTA – CONDIÇÕES METEOROLÓGICAS</td>
+                        </tr>
+
+                        <tr>
+                            <td>ST</td>
+                            <td>INCLUSÃO DE ETAPA DEVIDO CANCELAMENTO DE ESCALAS</td>
+                        </tr>
+                        <tr>
+                            <td>IR</td>
+                            <td>INCLUSÃO DE ETAPA (AEROPORTO ALTERNATIVA) – VÔO ESPECIAL RETORNO</td>
+                        </tr>
+                        <tr>
+                            <td>VR</td>
+                            <td>VÔO ESPECIAL DE RETORNO</td>
+                        </tr>
+                        <tr>
+                            <td>VE</td>
+                            <td>VÔO ESPECIAL DE EXPERIÊNCIA</td>
+                        </tr>
+                        <tr>
+                            <td>VI</td>
+                            <td>VÔO ESPECIAL DE INSTRUÇÃO</td>
+                        </tr>
+
+                        <tr>
+                            <td>HA</td>
+                            <td>AUTORIZADA (ALTERAÇÃO DE HORÁRIO)</td>
+                        </tr>
+                        <tr>
+                            <td>HB</td>
+                            <td>VÔO > 4H ATRASO – PANE AERONAVE</td>
+                        </tr>
+                        <tr>
+                            <td>HC</td>
+                            <td>VÔO > 4H ATRASO – AEROPORTO INTERDITADO</td>
+                        </tr>
+                        <tr>
+                            <td>HD</td>
+                            <td>ANTECIPAÇÃO DE HORÁRIO AUTORIZADA</td>
+                        </tr>
+                        <tr>
+                            <td>HI</td>
+                            <td>ANTECIPAÇÃO DE HORÁRIO – VÔOS INTERNACIONAIS</td>
+                        </tr>
+                    </tbody>
+                </table>
+
             </div>
+
         </div>
+    </div>
 
-    </main>
 
-    <!-- Script do Chart.js -->
+
+
+
+    <!-- IMPORTAR Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- IMPORTAR plugin de DataLabels -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
     <script>
-        // Pegar dados da tabela
-        const table = document.getElementById('voosTable');
-        const labels = [];
-        const atrasosChegada = [];
 
-        for (let i = 1; i < table.rows.length; i++) {
-            const row = table.rows[i];
-            labels.push(row.cells[0].innerText); // Rota como label
-            atrasosChegada.push(parseInt(row.cells[7].innerText)); // Atraso Chegada
-        }
+        // Pegando os ids
+        const fkEmpresa = localStorage.getItem('fkEmpresa');
 
-        const ctx = document.getElementById('lineChart').getContext('2d');
-        const lineChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Atraso Chegada (min)',
-                    data: atrasosChegada,
-                    borderColor: '#4a90e2',
-                    backgroundColor: 'rgba(74, 144, 226, 0.2)',
-                    fill: true,
-                    tension: 0.3,
-                    pointRadius: 5,
-                    pointBackgroundColor: '#4a90e2'
-                }]
-            },
+
+        
+        //Kpis
+
+    //KPI 1
+    fetch(`/voos/kpi1/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+    if (response.status === 204) {
+      alert('Nenhuma dado encontrada.');
+      return;
+    }
+    if (response.ok) {
+      response.json().then(function (resposta) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        exibirKpi1(resposta);
+        
+      });
+    } else {
+      console.error('Nenhum dado encontrado ou erro na API');
+    }
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ Kpi 1: ${error.message}`);
+    });
+
+    
+
+    function exibirKpi1(kpi1){
+        const kpi1_id = document.getElementById('kpi1');
+        kpi1_id.innerHTML = `${kpi1[0].total_voos} voos`;
+
+        
+    }
+
+    // KPI 2
+    fetch(`/voos/kpi2/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+    if (response.status === 204) {
+      alert('Nenhuma dado encontrada.');
+      return;
+    }
+    if (response.ok) {
+      response.json().then(function (resposta) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        exibirKpi2(resposta);
+      });
+    } else {
+      console.error('Nenhum dado encontrado ou erro na API');
+    }
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ Kpi 1: ${error.message}`);
+    });
+
+    
+
+    function exibirKpi2(kpi2){
+        const kpi2_id = document.getElementById('kpi2');
+        kpi2_id.innerHTML = `${kpi2[0].voos_sem_atraso} voos | <span
+        style="color: #3A6EA5; font-weight: bolder;">${kpi2[0].porcentagem}</span>`;
+
+        sessionStorage.PORCENTAGEM_KPI2 = kpi2[0].porcentagem;
+    }
+
+    // KPI 3
+    fetch(`/voos/kpi3/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+    if (response.status === 204) {
+      alert('Nenhuma dado encontrada.');
+      return;
+    }
+    if (response.ok) {
+      response.json().then(function (resposta) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        exibirKpi3(resposta);
+      });
+    } else {
+      console.error('Nenhum dado encontrado ou erro na API');
+    }
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ Kpi 3: ${error.message}`);
+    });
+
+    
+
+    function exibirKpi3(kpi3){
+        const kpi3_id = document.getElementById('kpi3');
+        kpi3_id.innerHTML = `${kpi3[0].voos_com_atraso} voos | <span
+        style="color: #3A6EA5; font-weight: bolder;">${kpi3[0].porcentagem}</span>`;
+    sessionStorage.PORCENTAGEM_KPI3 = kpi3[0].porcentagem;
+    }
+
+
+    // KPI 4
+    fetch(`/voos/kpi4/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+    if (response.status === 204) {
+      alert('Nenhuma dado encontrada.');
+      return;
+    }
+    if (response.ok) {
+      response.json().then(function (resposta) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        exibirKpi4(resposta);
+      });
+    } else {
+      console.error('Nenhum dado encontrado ou erro na API');
+    }
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ Kpi 4: ${error.message}`);
+    });
+
+    
+
+    function exibirKpi4(kpi4){
+        const kpi4_id = document.getElementById('kpi4');
+        kpi4_id.innerHTML = `${kpi4[0].voos_cancelados} voos | <span
+        style="color: #3A6EA5; font-weight: bolder;">${kpi4[0].porcentagem}</span>`;
+
+    sessionStorage.PORCENTAGEM_KPI4 = kpi4[0].porcentagem;
+    }
+
+        // ----------------- grafico DE TORTA -------------- //
+
+        // porcentagem grafico de torta
+        const porcentagens = [];
+
+        porcentagens.push(parseFloat(sessionStorage.PORCENTAGEM_KPI2.replace('%','')));
+        porcentagens.push(parseFloat(sessionStorage.PORCENTAGEM_KPI3.replace('%','')));
+        porcentagens.push(parseFloat(sessionStorage.PORCENTAGEM_KPI4.replace('%','')));
+
+
+        const DATA_COUNT = 5;
+        const NUMBER_CFG = { count: DATA_COUNT, min: 0, max: 100 };
+
+        const data = {
+            labels: ['sem atrasos', 'com atrasos', 'cancelados'],
+            datasets: [
+                {
+                    label: 'Dataset 1',
+                    data: porcentagens,
+                    backgroundColor: ['#36A2EB', '#FF6384', '#87ff63'],
+                }
+            ]
+        };
+
+        const config = {
+            type: 'pie',
+            data: data,
             options: {
                 responsive: true,
                 plugins: {
                     legend: {
-                        display: true,
-                        position: 'top'
+                        position: 'top',
                     },
-                    tooltip: {
-                        enabled: true
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Minutos de atraso'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Rota do voo'
+                    datalabels: {
+                        color: 'white',
+                        formatter: (value, ctx) => {
+                            const values = ctx.chart.data.datasets[0].data;
+                            const total = values.reduce((a, b) => a + b, 0);
+                            const percent = ((value / total) * 100).toFixed(1) + '%';
+                            return percent;
+                        },
+                        font: {
+                            weight: 'bold',
+                            size: 14
                         }
                     }
                 }
-            }
+            },
+            plugins: [ChartDataLabels]
+        };
+
+        const ctx = document.getElementById('meuGraficoPie');
+        new Chart(ctx, config);
+
+
+    // ----------------- grafico barra 1 -------------- //
+    const codigo_justificativa = [];
+    const qtd_vezes = [];
+    
+    fetch(`/voos/graficoJustificativas/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+    if (response.status === 204) {
+      alert('Nenhuma dado encontrada.');
+      return;
+    }
+    if (response.ok) {
+      response.json().then(function (resposta) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+        resposta.forEach(codigo => {
+            codigo_justificativa.push(codigo.codigo_justificativa);
         });
 
-        const select = document.getElementById("navigationSelect");
-
-        select.addEventListener("change", function () {
-            const url = this.value;
-            if (url) {
-                window.location.href = url;
-            }
+        resposta.forEach(qtd => {
+            qtd_vezes.push(qtd.qtd_vezes);
         });
 
-        // ===== LÓGICA DO MODAL =====
-        const perfilIcon = document.getElementById('perfilIcon'); // imagem do perfil
-        const modal = document.getElementById('modal');
-        const btnFechar = document.getElementById('fechar');
-        const form = document.getElementById('formUsuario');
+        exibirJustificativas(codigo_justificativa, qtd_vezes);
+    });
+} else {
+    console.error('Nenhum dado encontrado ou erro na API');
+}
+})
+.catch(function (error) {
+    console.error(`Erro na obtenção dos dados p/ Gráfico de top 10 justificativas: ${error.message}`);
+});
 
-        // Abrir modal ao clicar na imagem de perfil
-        perfilIcon.addEventListener('click', () => {
-            modal.style.display = 'flex';
-        });
 
-        // Fechar modal ao clicar no "X"
-        btnFechar.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
 
-        // Fechar modal ao clicar fora do conteúdo
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
+    function exibirJustificativas(codigo_justificativa, qtd_vezes){
+        
+    
+
+        const DATA_COUNTbar1 = 10;
+        const NUMBER_CFGbar1 = { count: DATA_COUNTbar1, min: 0, max: 100 };
+
+        const dataBar1 = {
+            labels: codigo_justificativa,
+            datasets: [
+                {
+                    data: qtd_vezes,
+                    backgroundColor: [
+                        '#36A2EB', '#FFCD56', '#FF6384',
+                        '#87ff63', '#9966FF', '#FF9F40',
+                        '#4BC0C0', '#C9CBCE', '#A9A9A9', '#DA70D6'
+                    ]
+                }
+            ]
+        };
+
+        const configBar1 = {
+            type: 'bar',
+            data: dataBar1,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: false,
+                    title: {
+                        display: true,
+                        text: 'Top 10 códigos de justificativas mais indicados'
+                    },
+                    datalabels: {
+                        anchor: 'centre',
+                        align: 'centre',
+                        color: 'white',
+                        font: {
+                            weight: 'bold',
+                            size: 12
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        };
+
+        const ctxBar1 = document.getElementById('meuGraficoBarra1');
+        new Chart(ctxBar1, configBar1);
+
+    }
+
+
+
+
+
+        // ---------------- grafico barra 2 --------------- //
+
+        const labels = ['SP / PE', 'PE / SP', 'RJ / RR', 'SP / MG',
+            'RJ / BA', 'DF / AM', 'RS / PR', 'GO / PA',
+            'RS / SP', 'RJ / MG'];
+
+        const data1 = [25, 14, 25, 32, 35, 40, 10, 22, 24, 20]; // Barras
+        const data2 = [32, 16, 27, 34, 37, 42, 12, 24, 26, 22]; // Linha
+
+        // 🔥 Novo dataset corrigido
+        const dataBar2 = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Quantidade de atrasos por rota',
+                    data: data1,
+                    backgroundColor: [
+                        '#FF6700'
+                    ],
+                    stack: 'combined',
+                    type: 'bar',
+                    order: 0,
+
+
+                    // 🔥 DataLabels para as barras
+                    datalabels: {
+                        anchor: 'center',
+                        align: 'center',
+                        color: 'white',
+                        font: {
+                            weight: 'bold',
+                            size: 12
+                        },
+
+                    }
+                },
+                {
+                    label: 'Média de tempo de atraso',
+                    data: data2,
+                    borderColor: '#36a2eb',
+                    backgroundColor: '#36a2eb',
+                    type: 'bar',
+                    fill: false,
+                    order: 1,
+
+
+                    // 🔥 DataLabels para a linha
+                    datalabels: {
+                        anchor: 'center',
+                        align: 'center',
+                        color: 'black',
+                        font: {
+                            weight: 'bold',
+                            size: 12
+                        },
+                    }
+                }
+            ]
+        };
+
+        const configBar2 = {
+            type: 'bar',
+            data: dataBar2,
+            options: {
+                responsive: true,
+
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Desempenho de Atrasos por Rota (Contagem e Média)'
+                    },
+
+                    // 🔥 Ativando DataLabels globalmente
+                    datalabels: {
+                        display: true
+                    }
+                },
+
+                scales: {
+                    y: {
+                        stacked: true,
+                        beginAtZero: true
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        };
+
+        // Inicializa o Gráfico
+        const ctxBar2 = document.getElementById('meuGraficoBarra2').getContext('2d');
+        new Chart(ctxBar2, configBar2);
+
+
+
+
+
+
+        const modal2 = document.getElementById("modal2");
+        const modal3 = document.getElementById("modal3");
+
+        const btnVoos = document.getElementById("tabelaDadosVoos");
+        const btnLegenda = document.getElementById("tabelaLegendaJustificativas");
+
+        const fechar2 = document.getElementById("modal2-fechar");
+        const fechar3 = document.getElementById("modal3-fechar");
+
+        // Abrir modal de voos
+        btnVoos.onclick = () => {
+            modal2.style.display = "block";
+        };
+
+        // Abrir modal de legendas
+        btnLegenda.onclick = () => {
+            modal3.style.display = "block";
+        };
+
+        // Fechar modais
+        fechar2.onclick = () => modal2.style.display = "none";
+        fechar3.onclick = () => modal3.style.display = "none";
+
+        // Fechar ao clicar fora
+        window.onclick = (e) => {
+            if (e.target === modal2) modal2.style.display = "none";
+            if (e.target === modal3) modal3.style.display = "none";
+        };
+
+    
     </script>
 </body>
 

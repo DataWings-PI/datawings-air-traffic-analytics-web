@@ -4,181 +4,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataWings - Dashboard</title>
+    <title>DataWings - Relatório</title>
     <link rel="stylesheet" href="css/relatorio.css">
+    <link rel="icon" href="..//assets/icon/favicon-data.png">
+
 
 </head>
 
 <body>
 
-    <!-- ====== CABEÇALHO ====== -->
-    <header class="header">
-        <div class="content">
-            <div class="logo">
-                <img src="../assets/logoLaranja-removebg-preview.png" alt="">
+    <section class="full-body">
+        <!-- ====== CABEÇALHO ====== -->
+        <div class="left-header">
+            <div class="content">
+                <div>
+                    <img class="logo" src="../assets/logoLaranja-removebg-preview.png" alt="">
+                </div>
+
+                <div class="user">
+                    <span>@usuário</span>
+                </div>
+
+                <h2 style="color: white; font-size: larger;" class="welcome-text">Página de relatório</h2>
+
             </div>
-            <nav class="nav">
-                <select name="navigation" id="navigationSelect">
-                    <option value="./relatorio.html">Relatório</option>
-                    <option value="./dashboard.html">Dashboard</option>
-                    <option value="./index.html">Home</option>
-                </select>
-            </nav>
+
+            <div class="content2">
+
+                <a href="./index.html   ">
+                    <button class="botao-sair">
+                        Sair
+                    </button>
+                </a>
+            </div>
         </div>
-        <div class="user">
-            <img src="../assets/perfil.png" id="perfilIcon" style="cursor: pointer;">
-            <span>@usuário</span>
-        </div>
-    </header>
 
-    <!-- ====== CONTEÚDO PRINCIPAL ====== -->
-    <main class="main">
-        <div class="contain-2">
-            <!-- Tabela -->
+        <!-- ====== CONTEÚDO PRINCIPAL ====== -->
+        <main class="main">
+            <div class="contain-2">
+                <!-- Tabela -->
 
-            <div class="form-relatorio">
-                <form class="card-relatorio">
-                    <h2>Novo relatório</h2>
+                <div class="form-relatorio">
+                    <form class="card-relatorio">
+                        <h2>Novo relatório</h2>
 
-                    <label for="nome-relatorio">Nome do relatório:</label>
-                    <input type="text" id="nome-relatorio" name="nome-relatorio" placeholder="Digite o nome">
+                        <label for="nome-relatorio">Nome do relatório:</label>
+                        <input type="text" id="nome-relatorio" name="nome-relatorio" placeholder="Digite o nome">
 
-                    <div class="datas">
-                        <div>
-                            <label for="data-inicio">data início</label>
-                            <input type="date" id="data-inicio" name="data-inicio">
+                        <div class="datas">
+                            <div>
+                                <label for="data-inicio">data início</label>
+                                <input type="date" id="data-inicio" name="data-inicio">
+                            </div>
+                            <div>
+                                <label for="data-final">data final</label>
+                                <input type="date" id="data-final" name="data-final">
+                            </div>
                         </div>
-                        <div>
-                            <label for="data-final">data final</label>
-                            <input type="date" id="data-final" name="data-final">
-                        </div>
-                    </div>
 
-                    <button type="submit">Criar</button>
+                        <button type="submit">Criar</button>
+                    </form>
+                </div>
+
+
+                <div class="tabela-scroll">
+                    <table id="voosTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome do Relátorio</th>
+                                <th>Criado em</th>
+                                <th>Abrir</th>
+                                <th>Excluir</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>01</td>
+                                <td>Relatório sobre atrasos no verão</td>
+                                <td>26/10/2025</td>
+                                <td><button class="btn-abrir">Abrir</button></td>
+                                <td><button class="btn-excluir">Excluir</button></td>
+                            </tr>
+                            <tr>
+                                <td>02</td>
+                                <td>Relatório de desempenho das rotas noturnas</td>
+                                <td>20/10/2025</td>
+                                <td><button class="btn-abrir">Abrir</button></td>
+                                <td><button class="btn-excluir">Excluir</button></td>
+                            </tr>
+                            <tr>
+                                <td>03</td>
+                                <td>Análise de atrasos por companhia aérea</td>
+                                <td>18/10/2025</td>
+                                <td><button class="btn-abrir">Abrir</button></td>
+                                <td><button class="btn-excluir">Excluir</button></td>
+                            </tr>
+                            <tr>
+                                <td>04</td>
+                                <td>Relatório de manutenção preventiva</td>
+                                <td>15/10/2025</td>
+                                <td><button class="btn-abrir">Abrir</button></td>
+                                <td><button class="btn-excluir">Excluir</button></td>
+                            </tr>
+                            <tr>
+                                <td>05</td>
+                                <td>Comparativo de voos internacionais</td>
+                                <td>10/10/2025</td>
+                                <td><button class="btn-abrir">Abrir</button></td>
+                                <td><button class="btn-excluir">Excluir</button></td>
+                            </tr>
+                            <tr>
+                                <td>06</td>
+                                <td>Relatório sobre consumo de combustível</td>
+                                <td>07/10/2025</td>
+                                <td><button class="btn-abrir">Abrir</button></td>
+                                <td><button class="btn-excluir">Excluir</button></td>
+                            </tr>
+                            <tr>
+                                <td>07</td>
+                                <td>Relatório de incidentes e emergências</td>
+                                <td>05/10/2025</td>
+                                <td><button class="btn-abrir">Abrir</button></td>
+                                <td><button class="btn-excluir">Excluir</button></td>
+                            </tr>
+                            <tr>
+                                <td>08</td>
+                                <td>Análise de tempo médio de embarque</td>
+                                <td>02/10/2025</td>
+                                <td><button class="btn-abrir">Abrir</button></td>
+                                <td><button class="btn-excluir">Excluir</button></td>
+                            </tr>
+                            <tr>
+                                <td>09</td>
+                                <td>Relatório de satisfação dos passageiros</td>
+                                <td>28/09/2025</td>
+                                <td><button class="btn-abrir">Abrir</button></td>
+                                <td><button class="btn-excluir">Excluir</button></td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>Relatório de clima e impacto nas rotas</td>
+                                <td>25/09/2025</td>
+                                <td><button class="btn-abrir">Abrir</button></td>
+                                <td><button class="btn-excluir">Excluir</button></td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>Relatório financeiro trimestral</td>
+                                <td>22/09/2025</td>
+                                <td><button class="btn-abrir">Abrir</button></td>
+                                <td><button class="btn-excluir">Excluir</button></td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td>Relatório de desempenho operacional anual</td>
+                                <td>20/09/2025</td>
+                                <td><button class="btn-abrir">Abrir</button></td>
+                                <td><button class="btn-excluir">Excluir</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <div class="modal" id="modal" style="display: none;">
+            <div class="modal-conteudo">
+                <span class="fechar" id="fechar">&times;</span>
+
+                <!-- Foto -->
+                <img src="../assets/perfil.png" alt="Usuário" class="usuario-foto">
+
+                <h2>@usuário</h2>
+
+                <!-- Formulário -->
+                <form id="formUsuario">
+                    <input type="text" name="nome" placeholder="Nome" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="text" name="telefone" placeholder="Telefone" required>
+                    <button type="submit">Atualizar</button>
                 </form>
             </div>
-
-
-            <div class="tabela-scroll">
-                <table id="voosTable">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome do Relátorio</th>
-                            <th>Criado em</th>
-                            <th>Abrir</th>
-                            <th>Excluir</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>01</td>
-                            <td>Relatório sobre atrasos no verão</td>
-                            <td>26/10/2025</td>
-                            <td><button class="btn-abrir">Abrir</button></td>
-                            <td><button class="btn-excluir">Excluir</button></td>
-                        </tr>
-                        <tr>
-                            <td>02</td>
-                            <td>Relatório de desempenho das rotas noturnas</td>
-                            <td>20/10/2025</td>
-                            <td><button class="btn-abrir">Abrir</button></td>
-                            <td><button class="btn-excluir">Excluir</button></td>
-                        </tr>
-                        <tr>
-                            <td>03</td>
-                            <td>Análise de atrasos por companhia aérea</td>
-                            <td>18/10/2025</td>
-                            <td><button class="btn-abrir">Abrir</button></td>
-                            <td><button class="btn-excluir">Excluir</button></td>
-                        </tr>
-                        <tr>
-                            <td>04</td>
-                            <td>Relatório de manutenção preventiva</td>
-                            <td>15/10/2025</td>
-                            <td><button class="btn-abrir">Abrir</button></td>
-                            <td><button class="btn-excluir">Excluir</button></td>
-                        </tr>
-                        <tr>
-                            <td>05</td>
-                            <td>Comparativo de voos internacionais</td>
-                            <td>10/10/2025</td>
-                            <td><button class="btn-abrir">Abrir</button></td>
-                            <td><button class="btn-excluir">Excluir</button></td>
-                        </tr>
-                        <tr>
-                            <td>06</td>
-                            <td>Relatório sobre consumo de combustível</td>
-                            <td>07/10/2025</td>
-                            <td><button class="btn-abrir">Abrir</button></td>
-                            <td><button class="btn-excluir">Excluir</button></td>
-                        </tr>
-                        <tr>
-                            <td>07</td>
-                            <td>Relatório de incidentes e emergências</td>
-                            <td>05/10/2025</td>
-                            <td><button class="btn-abrir">Abrir</button></td>
-                            <td><button class="btn-excluir">Excluir</button></td>
-                        </tr>
-                        <tr>
-                            <td>08</td>
-                            <td>Análise de tempo médio de embarque</td>
-                            <td>02/10/2025</td>
-                            <td><button class="btn-abrir">Abrir</button></td>
-                            <td><button class="btn-excluir">Excluir</button></td>
-                        </tr>
-                        <tr>
-                            <td>09</td>
-                            <td>Relatório de satisfação dos passageiros</td>
-                            <td>28/09/2025</td>
-                            <td><button class="btn-abrir">Abrir</button></td>
-                            <td><button class="btn-excluir">Excluir</button></td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>Relatório de clima e impacto nas rotas</td>
-                            <td>25/09/2025</td>
-                            <td><button class="btn-abrir">Abrir</button></td>
-                            <td><button class="btn-excluir">Excluir</button></td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>Relatório financeiro trimestral</td>
-                            <td>22/09/2025</td>
-                            <td><button class="btn-abrir">Abrir</button></td>
-                            <td><button class="btn-excluir">Excluir</button></td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>Relatório de desempenho operacional anual</td>
-                            <td>20/09/2025</td>
-                            <td><button class="btn-abrir">Abrir</button></td>
-                            <td><button class="btn-excluir">Excluir</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
-    </main>
-
-    <div class="modal" id="modal" style="display: none;">
-        <div class="modal-conteudo">
-            <span class="fechar" id="fechar">&times;</span>
-
-            <!-- Foto -->
-            <img src="../assets/perfil.png" alt="Usuário" class="usuario-foto">
-
-            <h2>@usuário</h2>
-
-            <!-- Formulário -->
-            <form id="formUsuario">
-                <input type="text" name="nome" placeholder="Nome" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="text" name="telefone" placeholder="Telefone" required>
-                <button type="submit">Atualizar</button>
-            </form>
-        </div>
-    </div>
+    </section>
 
 
 </body>
