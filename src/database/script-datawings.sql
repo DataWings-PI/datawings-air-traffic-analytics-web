@@ -1,7 +1,6 @@
 CREATE DATABASE IF NOT EXISTS datawings;
 USE datawings; 
  
-USE datawings; 
  
 CREATE TABLE log_java (
 	id INT PRIMARY KEY auto_increment,
@@ -13,7 +12,6 @@ CREATE TABLE log_java (
 	mensagem VARCHAR(255) NOT NULL,
 	categoria ENUM('ERRO', 'CARGA') NOT NULL
 );
- 
  
  
  
@@ -33,10 +31,7 @@ INSERT INTO empresa (nome_fantasia, razao_social, cnpj, status) VALUES
 ("Stefas","Stefas LTDA","12345678901234", 1);
  
  
- 
-INSERT INTO empresa (nome_fantasia, razao_social, cnpj, status) VALUES
-("Stefas","Stefas LTDA","12345678901234", 1);
- 
+
  
 CREATE TABLE voo (
     id INT PRIMARY KEY auto_increment,
@@ -95,11 +90,6 @@ CREATE TABLE endereco_empresa(
 INSERT INTO endereco_empresa(apelido, logradouro, numero, complemento, bairro, cep, cidade, uf, fk_empresa) VALUES
 ("Trabalho","Travessa José Marciano Pontes", "16","arvore na frente da casa","barro branco", "08473573","São Paulo", "SP", 1);
  
- 
- 
-INSERT INTO endereco_empresa(apelido, logradouro, numero, complemento, bairro, cep, cidade, uf, fk_empresa) VALUES
-("Trabalho","Travessa José Marciano Pontes", "16","arvore na frente da casa","barro branco", "08473573","São Paulo", "SP", 1);
- 
 CREATE TABLE codigo (
     id INT PRIMARY KEY auto_increment,
     token_ativacao CHAR(6) NOT NULL,
@@ -109,10 +99,7 @@ CREATE TABLE codigo (
     fk_empresa INT NOT NULL,
     FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
 );
- 
-INSERT INTO codigo(token_ativacao, data_validade, data_criacao, status, fk_empresa) VALUES
-("ABC123", "2026-03-16", "2026-01-15 09:00:00.123", "ativo", 1);
- 
+
  
 INSERT INTO codigo(token_ativacao, data_validade, data_criacao, status, fk_empresa) VALUES
 ("ABC123", "2026-03-16", "2026-01-15 09:00:00.123", "ativo", 1);
@@ -121,13 +108,6 @@ CREATE TABLE role (
     id INT PRIMARY KEY auto_increment,
     nome VARCHAR(45) NOT NULL
 );
- 
- 
-INSERT INTO role(nome) VALUES
-("ADMIN"),
-("USER");
- 
-  
  
  
  
@@ -149,12 +129,6 @@ CREATE TABLE usuario (
     FOREIGN KEY (fk_role) REFERENCES role(id),
     FOREIGN KEY (fk_codigo) REFERENCES codigo(id)
 );
- 
- 
-INSERT INTO usuario(nome_completo, email, senha, fk_role, fk_empresa, fk_codigo) VALUES
-("Otavio", "otavio@gmail.com", "ta1234", 1, 1, 1);
- 
- 
  
 INSERT INTO usuario(nome_completo, email, senha, fk_role, fk_empresa, fk_codigo) VALUES
 ("Otavio", "otavio@gmail.com", "ta1234", 1, 1, 1);
