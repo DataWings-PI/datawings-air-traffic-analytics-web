@@ -77,7 +77,39 @@ function buscarJustificativas(req, res) {
     } else {
         res
         .status(404)
-        .json({ mensagem: `Kpi 4 não encotrada no banco` });
+        .json({ mensagem: `Justificativas não encotrada no banco` });
+    }
+  });
+}
+
+function buscarDesempenho(req, res) {
+  var fkEmpresa = req.params.id;
+
+  vooModel.buscarDesempenho(fkEmpresa).then((resultado) => {
+    if (resultado.length > 0) {
+        vooModel.buscarDesempenho(fkEmpresa).then((resultado) => {
+        res.status(201).json(resultado);
+      });
+    } else {
+        res
+        .status(404)
+        .json({ mensagem: `Desempenho não encotrado no banco` });
+    }
+  });
+}
+
+function buscarVoos(req, res) {
+  var fkEmpresa = req.params.id;
+
+  vooModel.buscarVoos(fkEmpresa).then((resultado) => {
+    if (resultado.length > 0) {
+        vooModel.buscarVoos(fkEmpresa).then((resultado) => {
+        res.status(201).json(resultado);
+      });
+    } else {
+        res
+        .status(404)
+        .json({ mensagem: `Voos não encotrados no banco` });
     }
   });
 }
@@ -87,6 +119,8 @@ module.exports = {
     buscarKpi2,
     buscarKpi3,
     buscarKpi4,
-    buscarJustificativas
+    buscarJustificativas,
+    buscarDesempenho,
+    buscarVoos
     
 }

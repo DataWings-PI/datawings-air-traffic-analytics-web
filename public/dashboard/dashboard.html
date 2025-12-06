@@ -132,7 +132,7 @@
                 <table id="voosTable">
                     <thead>
                         <tr>
-                            <th>Rota</th>
+                            <th>Número Voo</th>
                             <th>Data prevista</th>
                             <th>Previsão Partida</th>
                             <th>Previsão Chegada</th>
@@ -146,7 +146,7 @@
                             <th>Código Justificativa</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody_voos">
                         <tr>
                             <td>101</td>
                             <td>01/01/2025</td>
@@ -996,12 +996,47 @@
 
         // ---------------- grafico barra 2 --------------- //
 
-        const labels = ['SP / PE', 'PE / SP', 'RJ / RR', 'SP / MG',
-            'RJ / BA', 'DF / AM', 'RS / PR', 'GO / PA',
-            'RS / SP', 'RJ / MG'];
+        const rotas = [];
+        const quantidade_atrasos = [];
+        const media_atrasos = [];
 
-        const data1 = [25, 14, 25, 32, 35, 40, 10, 22, 24, 20]; // Barras
-        const data2 = [32, 16, 27, 34, 37, 42, 12, 24, 26, 22]; // Linha
+        fetch(`/voos/graficoDesempenho/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+        if (response.status === 204) {
+      alert('Nenhuma dado encontrada.');
+      return;
+    }
+    if (response.ok) {
+      response.json().then(function (resposta) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+        resposta.forEach(rotaAtual => {
+            rotas.push(rotaAtual.rota);
+        });
+
+        resposta.forEach(qtd=> {
+            quantidade_atrasos.push(qtd.quantidade_atrasos);
+        });
+
+        resposta.forEach(media_atraso=> {
+            media_atrasos.push(parseFloat(media_atraso.media_atraso));
+        });
+
+        exibirDesempenho(rotas, quantidade_atrasos,media_atrasos);
+    });
+} else {
+    console.error('Nenhum dado encontrado ou erro na API');
+}
+})
+.catch(function (error) {
+    console.error(`Erro na obtenção dos dados p/ Gráfico de top 10 justificativas: ${error.message}`);
+});
+
+        function exibirDesempenho(rotas, quantidade_atrasos, media_atrasos){
+
+        const labels = rotas;
+
+        const data1 = quantidade_atrasos; // Barras
+        const data2 = media_atrasos; // Linha
 
         // 🔥 Novo dataset corrigido
         const dataBar2 = {
@@ -1085,7 +1120,53 @@
         // Inicializa o Gráfico
         const ctxBar2 = document.getElementById('meuGraficoBarra2').getContext('2d');
         new Chart(ctxBar2, configBar2);
+    }
 
+    // ---------------- tabela voos --------------- //
+
+    fetch(`/voos/tabelaVoos/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+        if (response.status === 204) {
+      alert('Nenhuma dado encontrada.');
+      return;
+    }
+    if (response.ok) {
+      response.json().then(function (resposta) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+        exibirVoos(resposta);
+    });
+} else {
+    console.error('Nenhum dado encontrado ou erro na API');
+}
+})
+.catch(function (error) {
+    console.error(`Erro na obtenção dos dados p/ Gráfico de top 10 justificativas: ${error.message}`);
+});
+
+    function exibirVoos(resposta){
+        const tbody_voos = document.getElementById("tbody_voos");
+        let voos = "";
+
+        resposta.forEach(resposta=>{ 
+            voos += `<tr>
+                            <td>${resposta.numero_voo}</td>
+                            <td>${resposta.data_prevista}</td>
+                            <td>${resposta.previsao_partida}</td>
+                            <td>${resposta.previsao_chegada}</td>
+                            <td>${resposta.partida}</td>
+                            <td>${resposta.chegada}</td>
+                            <td>${resposta.atraso_chegada}</td>
+                            <td>${resposta.atraso_partida}</td>
+                            <td>${resposta.atraso_total}</td>
+                            <td>${resposta.origem}</td>
+                            <td>${resposta.destino}</td>
+                            <td>${resposta.codigo_justificativa}</td>
+                        </tr>\n`
+        })
+
+        tbody_voos.innerHTML = voos;
+
+    }
 
 
 
