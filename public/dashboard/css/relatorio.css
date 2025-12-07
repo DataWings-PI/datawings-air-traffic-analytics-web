@@ -181,7 +181,7 @@ tbody tr:nth-child(even) {
 
 .btn-editar:hover {
   background-color: #D4AC0D;;
-  box-shadow: ;
+  box-shadow: 0 0 6px rgba(167, 169, 22, 0.6);
   transform: scale(1.05);
 }
 

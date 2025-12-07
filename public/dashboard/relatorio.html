@@ -6,73 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DataWings - Relatório</title>
     <link rel="stylesheet" href="css/relatorio.css">
-    <link rel="icon" href="..//assets/icon/favicon-data.png">
-
-
+    <link rel="icon" href="../assets/icon/favicon-data.png">
 </head>
 
 <body>
 
     <section class="full-body">
-        <!-- ====== CABEÇALHO ====== -->
         <div class="left-header">
             <div class="content">
-                <div>
-                    <img class="logo" src="../assets/logoLaranja-removebg-preview.png" alt="">
-                </div>
-
+                <img class="logo" src="../assets/logoLaranja-removebg-preview.png" alt="">
                 <div class="user">
                     <span>@usuário</span>
                 </div>
-
                 <h2 style="color: white; font-size: larger;" class="welcome-text">Página de relatório</h2>
-
             </div>
-
             <div class="content2">
-
-                <a href="./index.html   ">
-                    <button class="botao-sair">
-                        Sair
-                    </button>
+                <a href="./index.html">
+                    <button class="botao-sair">Sair</button>
                 </a>
             </div>
         </div>
 
-        <!-- ====== CONTEÚDO PRINCIPAL ====== -->
         <main class="main">
             <div class="contain-2">
-                <!-- Tabela -->
 
                 <div class="form-relatorio">
-                    <form class="card-relatorio">
+                    <form class="card-relatorio" id="formRelatorio">
                         <h2>Novo relatório</h2>
-
                         <label for="nome-relatorio">Nome do relatório:</label>
-                        <input type="text" id="nome-relatorio" name="nome-relatorio" placeholder="Digite o nome">
-
+                        <input type="text" id="nome-relatorio" name="nome-relatorio" placeholder="Digite o nome"
+                            required>
                         <div class="datas">
                             <div>
                                 <label for="data-inicio">Data início</label>
-                                <input type="date" id="data-inicio" name="data-inicio">
+                                <input type="date" id="data-inicio" name="data-inicio" required>
                             </div>
                             <div>
                                 <label for="data-final">Data final</label>
-                                <input type="date" id="data-final" name="data-final">
+                                <input type="date" id="data-final" name="data-final" required>
                             </div>
                         </div>
-
                         <button type="submit">Criar</button>
                     </form>
                 </div>
-
 
                 <div class="tabela-scroll">
                     <table id="voosTable">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nome do Relátorio</th>
+                                <th>Nome do Relatório</th>
                                 <th>Criado em</th>
                                 <th>Abrir</th>
                                 <th>Editar</th>
@@ -80,164 +63,71 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>01</td>
-                                <td>Relatório sobre atrasos no verão</td>
-                                <td>26/10/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-editar">Editar</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>02</td>
-                                <td>Relatório de desempenho das rotas noturnas</td>
-                                <td>20/10/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-editar">Editar</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>03</td>
-                                <td>Análise de atrasos por companhia aérea</td>
-                                <td>18/10/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-editar">Editar</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>04</td>
-                                <td>Relatório de manutenção preventiva</td>
-                                <td>15/10/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-editar">Editar</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>05</td>
-                                <td>Comparativo de voos internacionais</td>
-                                <td>10/10/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-editar">Editar</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>06</td>
-                                <td>Relatório sobre consumo de combustível</td>
-                                <td>07/10/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-editar">Editar</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>07</td>
-                                <td>Relatório de incidentes e emergências</td>
-                                <td>05/10/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-editar">Editar</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>08</td>
-                                <td>Análise de tempo médio de embarque</td>
-                                <td>02/10/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-editar">Editar</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>09</td>
-                                <td>Relatório de satisfação dos passageiros</td>
-                                <td>28/09/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-editar">Editar</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>Relatório de clima e impacto nas rotas</td>
-                                <td>25/09/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-editar">Editar</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>11</td>
-                                <td>Relatório financeiro trimestral</td>
-                                <td>22/09/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-editar">Editar</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                <td>Relatório de desempenho operacional anual</td>
-                                <td>20/09/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-editar">Editar</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
+                            <!-- relatórios -->
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </main>
-
-        <div class="modal" id="modal" style="display: none;">
-            <div class="modal-conteudo">
-                <span class="fechar" id="fechar">&times;</span>
-
-                <!-- Foto -->
-                <img src="../assets/perfil.png" alt="Usuário" class="usuario-foto">
-
-                <h2>@usuário</h2>
-
-                <!-- Formulário -->
-                <form id="formUsuario">
-                    <input type="text" name="nome" placeholder="Nome" required>
-                    <input type="email" name="email" placeholder="Email" required>
-                    <input type="text" name="telefone" placeholder="Telefone" required>
-                    <button type="submit">Atualizar</button>
-                </form>
-            </div>
-        </div>
     </section>
 
+    <script>
+        async function carregarRelatorios() {
+            const fk_usuario = sessionStorage.getItem("usuarioId");
+            if (!fk_usuario) {
+                console.log("Usuário não está logado");
+                return;
+            }
+
+            const response = await fetch(`http://localhost:3000/relatorios/${fk_usuario}`);
+            const relatorios = await response.json();
+            console.log("Relatórios recebidos:", relatorios);
+
+            const tbody = document.querySelector("#voosTable tbody");
+            tbody.innerHTML = "";
+
+            if (!relatorios || (Array.isArray(relatorios) && relatorios.length === 0)) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Ainda não há relatórios criados</td></tr>`;
+                return;
+            }
+
+            relatorios.forEach(r => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+            <td>${r.id}</td>
+            <td>${r.nome}</td>
+            <td>${r.criado_em}</td>
+            <td><button class="btn-abrir" data-id="${r.id}">Abrir</button></td>
+            <td><button class="btn-editar" data-id="${r.id}">Editar</button></td>
+            <td><button class="btn-excluir" data-id="${r.id}">Excluir</button></td>
+        `;
+                tbody.appendChild(tr);
+            });
+        }
+
+
+        // Formulário de criação
+        const formRelatorio = document.getElementById("formRelatorio");
+        formRelatorio.addEventListener("submit", async e => {
+            e.preventDefault();
+            const nome = document.getElementById("nome-relatorio").value;
+            const dataInicio = document.getElementById("data-inicio").value;
+            const dataFinal = document.getElementById("data-final").value;
+
+            await fetch("http://localhost:3000/relatorio", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nome, dataInicio, dataFinal })
+            });
+
+            formRelatorio.reset();
+            carregarRelatorios();
+        });
+
+        carregarRelatorios();
+    </script>
 
 </body>
 
 </html>
-
-<script>
-    const select = document.getElementById("navigationSelect");
-
-    select.addEventListener("change", function () {
-        const url = this.value;
-        if (url) {
-            window.location.href = url;
-        }
-    });
-
-    // ===== LÓGICA DO MODAL =====
-    const perfilIcon = document.getElementById('perfilIcon'); // imagem do perfil
-    const modal = document.getElementById('modal');
-    const btnFechar = document.getElementById('fechar');
-    const form = document.getElementById('formUsuario');
-
-    // Abrir modal ao clicar na imagem de perfil
-    perfilIcon.addEventListener('click', () => {
-        modal.style.display = 'flex';
-    });
-
-    // Fechar modal ao clicar no "X"
-    btnFechar.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    // Fechar modal ao clicar fora do conteúdo
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-</script>
-</script>
