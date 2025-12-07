@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slack</title>
+    <style>
+        .grupo-desabilitado {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body onload="controlarOpcoesSecundarias()">
+    
+    <h2>Deseja receber notificações?</h2>
+    <input type="radio" name="notificacaoGeral" id="notificacaoOn_input" value="1" onchange="controlarOpcoesSecundarias()" checked>Sim</input>
+    <input type="radio" name="notificacaoGeral" id="notificacaoOff_input" value="0" onchange="controlarOpcoesSecundarias()">Não</input>
+    <br>
+    
+    <div id="grupoAtrasos">
+        <h2>Deseja receber notificações sobre <u>atrasos</u> de voôs?</h2>
+        <input type="radio" name="notificacaoAtrasos" id="atrasoOn_input" value="1">Sim</input>
+        <input type="radio" name="notificacaoAtrasos" id="atrasoOff_input" value="0" checked>Não</input>
+    </div>
+    <br>
+
+    <div id="grupoCancelamentos">
+        <h2>Deseja receber notificações sobre <u>cancelamento</u> de voôs?</h2>
+        <input type="radio" name="notificacaoCancelamento" id="cancelamentoOn_input" value="1">Sim</input>
+        <input type="radio" name="notificacaoCancelamento" id="cancelamentoOff_input" value="0" checked>Não</input>
+    </div>
+    
+    <button onclick="ligarDesligar()">Aplicar</button>
+
+</body>
+</html>
+
+<script>
+    /**
+     * Função auxiliar para obter o valor selecionado de um grupo de radio buttons.
+     * @param {string} name - O valor do atributo 'name' do grupo de rádio.
+     * @returns {string | null} O valor ('value') do botão de rádio selecionado, ou null se nenhum estiver selecionado.
+     */
+    function getRadioValue(name) {
+        // Seleciona todos os rádio buttons com o 'name' especificado
+        const radios = document.getElementsByName(name);
+        
+        // Itera sobre eles e retorna o valor do que estiver marcado
+        for (let i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                return radios[i].value;
+            }
+        }
+        return null; // Retorna null se nenhum estiver selecionado
+    }
+
+    /**
+     * Controla o estado (habilitado/desabilitado) dos grupos de notificações secundárias.
+     */
+    function controlarOpcoesSecundarias() {
+        // Verifica se o "Não" geral está selecionado
+        const naoGeralSelecionado = document.getElementById('notificacaoOff_input').checked;
+        
+        // Seleciona os contêineres e os inputs dos grupos secundários
+        const grupoAtrasos = document.getElementById('grupoAtrasos');
+        const grupoCancelamentos = document.getElementById('grupoCancelamentos');
+        
+        const inputsSecundarios = document.querySelectorAll(
+            'input[name="notificacaoAtrasos"], input[name="notificacaoCancelamento"]'
+        );
+
+        // Aplica a lógica de desabilitar/habilitar
+        inputsSecundarios.forEach(input => {
+            input.disabled = naoGeralSelecionado; 
+            
+            // Se estiver desabilitando, garante que o input esteja desmarcado
+            if (naoGeralSelecionado) {
+                input.checked = false;
+            }
+        });
+
+        // Aplica a classe CSS para o efeito visual de desabilitado
+        if (naoGeralSelecionado) {
+            grupoAtrasos.classList.add('grupo-desabilitado');
+            grupoCancelamentos.classList.add('grupo-desabilitado');
+        } else {
+            grupoAtrasos.classList.remove('grupo-desabilitado');
+            grupoCancelamentos.classList.remove('grupo-desabilitado');
+        }
+    }
+
+
+    /**
+     * Função original de envio de dados, refatorada para obter os valores corretos.
+     */
+    function ligarDesligar() {
+    var statusNotif = getRadioValue('notificacaoGeral');
+    var statusAtraso = getRadioValue('notificacaoAtrasos');
+    var statusCancelamento = getRadioValue('notificacaoCancelamento');
+    
+
+    fetch("/usuarios/ligarDesligar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        statusServer: statusNotif,
+        atrasoServer: statusAtraso,
+        cancelServer: statusCancelamento,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          cardErro.style.display = "block";
+          mensagem_erro.innerHTML =
+            "Parâmetros definidos, você receberá as notificações desejadas!";
+        } else {
+          throw "Houve um erro ao definir seus parâmetros...";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+    return false;
+  }
+
+
+</script>

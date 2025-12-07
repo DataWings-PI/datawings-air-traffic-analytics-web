@@ -26,7 +26,28 @@ function cadastrar(nome, email, telefone, senha, fkEmpresa) {
     return database.executar(instrucaoSql);
 }
 
+function ligarDesligar(statusNotif, statusAtraso, statusCancelamento) {
+    
+    var instrucaoSql = `
+        INSERT INTO slack (StatusNotif, statusAtraso, statusCancelamento) 
+        VALUES ('${statusNotif}', '${statusAtraso}', '${statusCancelamento}');
+    `
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+/* function mudarStatus(status) {
+
+    var instrucaoSql = `
+    UPDATE slack WHERE 
+    `
+} */
+
+
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    ligarDesligar
 };
