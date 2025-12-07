@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Marvel:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-
 :root {
   --azul-escuro: #000814;
   --azul-n2: #004E98;
@@ -12,8 +11,6 @@
   --fonte-principal: 'Montserrat';
 }
 
-
-/* ===== RESET BÁSICO ===== */
 * {
   margin: 0;
   padding: 0;
@@ -27,9 +24,6 @@ body {
   overflow-x: hidden;
 }
 
-
-/* ===== CONTEÚDO PRINCIPAL ===== */
-
 .full-body {
   width: 100%;
   height: 100vh;
@@ -37,15 +31,12 @@ body {
   flex-direction: row;
 }
 
-/* ---- LADO ESQUERDO ------------------------------ */
-
 .left-header {
   height: 100%;
   width: 15%;
   background-color: var(--azul-escuro);
   display: flex;
   flex-direction: column;
-
 }
 
 .content {
@@ -65,7 +56,6 @@ body {
   justify-content: end;
   align-items: center;
   color: white;
-
 }
 
 .logo {
@@ -74,7 +64,6 @@ body {
 
 h2 {
   font-size: 20px;
-
 }
 
 .botao-sair {
@@ -88,14 +77,10 @@ h2 {
 }
 
 .botao-sair:hover {
-  background-color: #FF6700;
-  border: solid 1px #FF6700;
-
+  background-color: var(--laranja);
+  border: solid 1px var(--laranja);
 }
 
-/* ----------------- LADO DIREITO --------------------- */
-
-/* ===== CONTEÚDO PRINCIPAL ===== */
 .main {
   width: 85%;
   display: flex;
@@ -111,7 +96,8 @@ h2 {
 
 table {
   border-collapse: collapse;
-  width: 900px;
+  width: 100%;
+  max-width: 100%;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -119,10 +105,10 @@ table {
   text-align: center;
 }
 
-th,
-td {
-  padding: 5px 5px;
+th, td {
+  padding: 12px 15px;
   text-align: left;
+  font-size: 14px;
 }
 
 thead {
@@ -143,36 +129,31 @@ tbody tr:nth-child(even) {
   background-color: #fafafa;
 }
 
-/* ===== CONTAINER DA TABELA COM SCROLL ===== */
 .tabela-scroll {
   max-height: 550px;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: auto;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* mantém o cabeçalho fixo */
 .tabela-scroll thead tr {
   position: sticky;
   top: 0;
   background-color: #4a90e2;
   color: #fff;
-  z-index: 1;
+  z-index: 2;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* ===== CONTAINER TABELA + GRÁFICO ===== */
 .contain-2 {
   display: flex;
   gap: 30px;
-  /* espaço entre tabela e gráfico */
   margin-top: 30px;
   height: 470px;
 }
 
-/* ===== BOTÕES DA TABELA ===== */
-.btn-abrir,
-.btn-excluir {
+.btn-abrir, .btn-excluir, .btn-editar {
   border: none;
   border-radius: 10px;
   padding: 6px 15px;
@@ -181,9 +162,9 @@ tbody tr:nth-child(even) {
   cursor: pointer;
   transition: all 0.3s ease;
   color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Botão Abrir (azul) */
 .btn-abrir {
   background-color: #4a90e2;
 }
@@ -191,9 +172,19 @@ tbody tr:nth-child(even) {
 .btn-abrir:hover {
   background-color: #357ac9;
   box-shadow: 0 0 6px rgba(74, 144, 226, 0.6);
+  transform: scale(1.05);
 }
 
-/* Botão Excluir (vermelho/laranja) */
+.btn-editar {
+  background-color: #F1C40F;
+}
+
+.btn-editar:hover {
+  background-color: #D4AC0D;;
+  box-shadow: ;
+  transform: scale(1.05);
+}
+
 .btn-excluir {
   background-color: #ff5c5c;
 }
@@ -201,77 +192,87 @@ tbody tr:nth-child(even) {
 .btn-excluir:hover {
   background-color: #ff4040;
   box-shadow: 0 0 6px rgba(255, 92, 92, 0.6);
+  transform: scale(1.05);
 }
 
 .form-relatorio {
+  width: 360px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 300px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  max-height: 300px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  height: 300px;
+  margin-bottom: 30px;
 }
 
 .card-relatorio {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  width: 280px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
 }
 
 .card-relatorio h2 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 15px;
-  color: #000;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--azul-escuro);
+  text-align: left;
 }
 
 .card-relatorio label {
-  align-self: flex-start;
-  font-size: 13px;
-  margin-bottom: 5px;
-  color: #000;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: var(--azul-n2);
+  font-weight: 500;
 }
 
 .card-relatorio input {
   width: 100%;
   border: none;
-  border-radius: 20px;
-  background-color: #e4e4e4;
-  padding: 8px 12px;
-  margin-bottom: 10px;
-  font-size: 13px;
+  border-radius: 12px;
+  background-color: #f1f1f1;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .card-relatorio .datas {
   display: flex;
   justify-content: space-between;
-  width: 100%;
   gap: 10px;
 }
 
+.card-relatorio .datas input {
+  flex: 1;
+}
+
 .card-relatorio button {
-  background-color: #ffa559;
-  color: #000;
+  background-color: var(--laranja);
+  color: var(--branco);
   border: none;
   border-radius: 20px;
-  padding: 8px 20px;
+  padding: 10px 20px;
+  width: 100px;
   cursor: pointer;
-  font-weight: 600;
-  margin-top: 10px;
-  transition: background-color 0.3s;
+  font-weight: 700;
+  font-size: 15px;
+  margin: 10px auto 0;
+  display: block;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
 }
 
 .card-relatorio button:hover {
-  background-color: #ff9343;
+  background-color: #e05500;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(255, 102, 0, 0.5);
 }
 
-/* ===== MODAL ===== */
 .modal {
   display: none;
   position: fixed;
@@ -308,7 +309,6 @@ tbody tr:nth-child(even) {
     transform: scale(0.9);
     opacity: 0;
   }
-
   to {
     transform: scale(1);
     opacity: 1;
@@ -331,7 +331,7 @@ tbody tr:nth-child(even) {
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 15px;
-  border: 2px solid #ff6600;
+  border: 2px solid var(--laranja);
 }
 
 .modal-conteudo form {
@@ -377,4 +377,32 @@ tbody tr:nth-child(even) {
 
 .btn-abrir-modal:hover {
   background-color: #e05500;
+}
+
+@media (max-width: 768px) {
+  .full-body {
+    flex-direction: column;
+  }
+
+  .left-header {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .main {
+    width: 100%;
+    padding: 20px;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  .btn-abrir, .btn-excluir {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
 }
