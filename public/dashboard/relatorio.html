@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
     <section class="full-body">
         <div class="left-header">
             <div class="content">
@@ -18,7 +17,7 @@
                 <div class="user">
                     <span>@usuário</span>
                 </div>
-                <h2 style="color: white; font-size: larger;" class="welcome-text">Página de relatório</h2>
+                <h2 class="welcome-text">Página de relatório</h2>
             </div>
             <div class="content2">
                 <a href="./index.html">
@@ -62,70 +61,795 @@
                                 <th>Excluir</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <!-- relatórios -->
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
+
+                <div class="modal" id="modalDashboard">
+                    <div class="modal-conteudo dashboard-modal">
+                        <span class="fechar" id="fecharDashboard">&times;</span>
+                        <h2>Dashboard do Relatório</h2>
+                        <div class="dashboard-info">
+                            <p><strong>Relatório:</strong> <span id="dashboardNome"></span></p>
+                            <p><strong>Período:</strong> <span id="dashboardPeriodo"></span></p>
+                        </div>
+
+                        <div id="dashboardContent" class="dashboard-content">
+                        </div>
+
+                        <div class="modal-acoes">
+                            <button onclick="imprimirDashboard()" class="btn-imprimir">Imprimir</button>
+                            <button onclick="fecharDashboardModal()" class="btn-fechar">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
         </main>
     </section>
 
+    <div class="modal" id="modalEditar">
+        <div class="modal-conteudo">
+            <span class="fechar" id="fecharEditar">&times;</span>
+            <h2>Editar Relatório</h2>
+            <form id="formEditar">
+                <label for="editar-nome">Nome</label>
+                <input type="text" id="editar-nome" required>
+                <label for="editar-data-inicio">Data Início</label>
+                <input type="date" id="editar-data-inicio" required>
+                <label for="editar-data-final">Data Final</label>
+                <input type="date" id="editar-data-final" required>
+
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </div>
+
     <script>
+        let idEditando;
+        let relatorioAtual = null;
+        const modalEditar = document.getElementById("modalEditar");
+        const fecharEditar = document.getElementById("fecharEditar");
+        const formEditar = document.getElementById("formEditar");
+        const modalDashboard = document.getElementById("modalDashboard");
+        const fecharDashboard = document.getElementById("fecharDashboard");
+        const dashboardContent = document.getElementById("dashboardContent");
+        const dashboardNome = document.getElementById("dashboardNome");
+        const dashboardPeriodo = document.getElementById("dashboardPeriodo");
+
+        document.addEventListener('DOMContentLoaded', function () {
+            inicializarEventos();
+            carregarRelatorios();
+        });
+
+        function inicializarEventos() {
+            fecharEditar.addEventListener("click", () => modalEditar.style.display = "none");
+            fecharDashboard.addEventListener("click", fecharDashboardModal);
+
+            window.addEventListener("click", e => {
+                if (e.target === modalEditar) modalEditar.style.display = "none";
+                if (e.target === modalDashboard) fecharDashboardModal();
+            });
+
+            const formRelatorio = document.getElementById("formRelatorio");
+            formRelatorio.addEventListener("submit", criarRelatorio);
+            formEditar.addEventListener("submit", salvarEdicao);
+        }
+
+        function fecharDashboardModal() {
+            modalDashboard.style.display = "none";
+            dashboardContent.innerHTML = '';
+            relatorioAtual = null;
+        }
+
         async function carregarRelatorios() {
-            const fk_usuario = sessionStorage.getItem("usuarioId");
-            if (!fk_usuario) {
-                console.log("Usuário não está logado");
-                return;
+            try {
+                const fk_usuario = sessionStorage.getItem("usuarioId") || 1;
+                const response = await fetch(`http://localhost:8080/relatorios/listar/${fk_usuario}`);
+
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP: ${response.status}`);
+                }
+
+                const relatorios = await response.json();
+                const tbody = document.querySelector("#voosTable tbody");
+                tbody.innerHTML = "";
+
+                if (!relatorios || relatorios.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Ainda não há relatórios criados</td></tr>`;
+                    return;
+                }
+
+                relatorios.forEach(r => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                <td>${r.id}</td>
+                <td>${r.nome}</td>
+                <td>${r.criado_em}</td>
+                <td><button class="btn-dashboard" data-id="${r.id}" data-nome="${r.nome}" data-inicio="${r.data_inicio}" data-final="${r.data_final}">Abrir</button></td>
+                <td><button class="btn-editar" data-id="${r.id}">Editar</button></td>
+                <td><button class="btn-excluir" data-id="${r.id}">Excluir</button></td>
+            `;
+                    tbody.appendChild(tr);
+                });
+
+                adicionarEventosBotoes();
+            } catch (error) {
+                console.error("Erro ao carregar relatórios:", error);
+                const tbody = document.querySelector("#voosTable tbody");
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: red;">Erro ao carregar relatórios</td></tr>`;
             }
+        }
 
-            const response = await fetch(`http://localhost:3000/relatorios/${fk_usuario}`);
-            const relatorios = await response.json();
-            console.log("Relatórios recebidos:", relatorios);
-
+        function adicionarEventosBotoes() {
             const tbody = document.querySelector("#voosTable tbody");
-            tbody.innerHTML = "";
 
-            if (!relatorios || (Array.isArray(relatorios) && relatorios.length === 0)) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Ainda não há relatórios criados</td></tr>`;
-                return;
-            }
+            tbody.querySelectorAll(".btn-dashboard").forEach(btn => {
+                btn.addEventListener("click", abrirDashboard);
+            });
 
-            relatorios.forEach(r => {
-                const tr = document.createElement("tr");
-                tr.innerHTML = `
-            <td>${r.id}</td>
-            <td>${r.nome}</td>
-            <td>${r.criado_em}</td>
-            <td><button class="btn-abrir" data-id="${r.id}">Abrir</button></td>
-            <td><button class="btn-editar" data-id="${r.id}">Editar</button></td>
-            <td><button class="btn-excluir" data-id="${r.id}">Excluir</button></td>
-        `;
-                tbody.appendChild(tr);
+            tbody.querySelectorAll(".btn-editar").forEach(btn => {
+                btn.addEventListener("click", editarRelatorio);
+            });
+
+            tbody.querySelectorAll(".btn-excluir").forEach(btn => {
+                btn.addEventListener("click", excluirRelatorio);
             });
         }
 
+        async function abrirDashboard(e) {
+            const id = e.target.dataset.id;
+            const nome = e.target.dataset.nome;
+            const dataInicio = e.target.dataset.inicio;
+            const dataFinal = e.target.dataset.final;
+            const fk_usuario = sessionStorage.getItem("usuarioId") || 1;
 
-        // Formulário de criação
-        const formRelatorio = document.getElementById("formRelatorio");
-        formRelatorio.addEventListener("submit", async e => {
+            try {
+                const response = await fetch(`http://localhost:8080/relatorios/mostrar/${id}?fk_usuario=${fk_usuario}`);
+                const relatorio = await response.json();
+
+                relatorioAtual = {
+                    id: id,
+                    nome: relatorio.nome || nome,
+                    dataInicio: relatorio.data_inicio || dataInicio,
+                    dataFinal: relatorio.data_final || dataFinal,
+                    fk_usuario: fk_usuario
+                };
+
+                dashboardNome.textContent = relatorioAtual.nome;
+                dashboardPeriodo.textContent = `${relatorioAtual.dataInicio} a ${relatorioAtual.dataFinal}`;
+
+                await carregarDashboardComFiltros(relatorioAtual);
+                modalDashboard.style.display = "flex";
+
+            } catch (error) {
+                console.error("Erro ao carregar dados do relatório:", error);
+                alert("Erro ao abrir dashboard: " + error.message);
+            }
+        }
+
+        async function carregarDashboardComFiltros(relatorioData) {
+            try {
+                dashboardContent.innerHTML = '<div style="text-align: center; padding: 20px;">Carregando dashboard com filtros...</div>';
+
+                const fkEmpresa = relatorioData.fk_usuario;
+                const formatarDataParaAPI = (dataStr) => {
+                    if (!dataStr) return '';
+                    if (dataStr.includes('/')) {
+                        const partes = dataStr.split('/');
+                        return `${partes[2]}-${partes[1]}-${partes[0]}`;
+                    }
+                    return dataStr;
+                };
+
+                const dataInicio = formatarDataParaAPI(relatorioData.dataInicio);
+                const dataFinal = formatarDataParaAPI(relatorioData.dataFinal);
+
+                const response = await fetch('dashboard.html');
+                const html = await response.text();
+                dashboardContent.innerHTML = html;
+
+                setTimeout(() => {
+                    inicializarGraficosDashboardComFiltros(fkEmpresa, dataInicio, dataFinal);
+                }, 500);
+
+            } catch (error) {
+                console.error("Erro ao carregar dashboard com filtros:", error);
+                dashboardContent.innerHTML = getDashboardHTML();
+                setTimeout(() => {
+                    if (relatorioData) {
+                        const fkEmpresa = relatorioData.fk_usuario;
+                        const dataInicio = relatorioData.dataInicio.split('/').reverse().join('-');
+                        const dataFinal = relatorioData.dataFinal.split('/').reverse().join('-');
+                        inicializarGraficosDashboardComFiltros(fkEmpresa, dataInicio, dataFinal);
+                    }
+                }, 500);
+            }
+        }
+
+        function getDashboardHTML() {
+            return `
+    <section class="full-body">
+        <div class="left-header">
+            <div class="content">
+                <div class="user">
+                    <span>Relatório: ${relatorioAtual.nome}</span>
+                </div>
+                <h2 class="welcome-text">Estatísticas de voos</h2>
+            </div>
+        </div>
+
+        <div class="middle">
+            <div class="texto-box">
+                <h3>Dados relacionados aos voos</h3>
+                <button id="tabelaDadosVoosModal" class="botoes-modal">Tabela Dados dos voos</button>
+            </div>
+            
+            <div class="graficos-box">
+                <div class="cards-grafico-1">
+                    <canvas id="meuGraficoBarra1Modal"></canvas>
+                </div>
+                <button id="tabelaLegendaJustificativasModal" class="botoes-modal">Tabela justificativa legendas</button>
+                
+                <div class="cards-grafico-2-1">
+                    <canvas id="meuGraficoBarra2Modal"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="last">
+            <div class="capa">
+                <div class="contain-parte-cima">
+                    <div class="divisao-pt0">
+                        <h3>Análise de setores do total de voos</h3>
+                    </div>
+                    <div class="divisao-pt1">
+                        <div class="card">
+                            <div class="card-bar1"></div>
+                            <p>Total de voos analisados</p>
+                            <p class="subtitulo" id="kpi1Modal"></p>
+                        </div>
+                        <div class="card">
+                            <div class="card-bar2"></div>
+                            <p>Voos sem nenhum atraso</p>
+                            <p class="subtitulo" id="kpi2Modal"></p>
+                        </div>
+                    </div>
+                    <div class="divisao-pt2">
+                        <div class="card">
+                            <div class="card-bar4"></div>
+                            <p>Voos com atraso</p>
+                            <p class="subtitulo" id="kpi3Modal"></p>
+                        </div>
+                        <div class="card">
+                            <div class="card-bar5"></div>
+                            <p>Voos que foram cancelados</p>
+                            <p class="subtitulo" id="kpi4Modal"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contain-parte-baixo">
+                    <canvas class="grafico-torta" id="meuGraficoPieModal"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>`;
+        }
+
+        function inicializarGraficosDashboardComFiltros(fkEmpresa, dataInicio, dataFinal) {
+            console.log("Inicializando gráficos com filtros:", { fkEmpresa, dataInicio, dataFinal });
+
+            carregarKPIsComFiltro(fkEmpresa, dataInicio, dataFinal);
+            carregarGraficoJustificativasComFiltro(fkEmpresa, dataInicio, dataFinal);
+            carregarGraficoDesempenhoComFiltro(fkEmpresa, dataInicio, dataFinal);
+            carregarTabelaVoosComFiltro(fkEmpresa, dataInicio, dataFinal);
+            carregarTabelaLegendas();
+            configurarEventosDashboardModal();
+        }
+
+        async function carregarKPIsComFiltro(fkEmpresa, dataInicio, dataFinal) {
+            try {
+                console.log("Carregando KPIs com filtro:", { fkEmpresa, dataInicio, dataFinal });
+
+                const kpi1 = await fetch(`http://localhost:8080/relatorios/kpi1/${fkEmpresa}?dataInicio=${dataInicio}&dataFinal=${dataFinal}`).then(r => r.json());
+                const kpi1Elem = document.getElementById('kpi1Modal');
+                if (kpi1Elem && kpi1[0]) {
+                    kpi1Elem.innerHTML = `${kpi1[0].total_voos || 0} voos`;
+                }
+
+                const kpi2 = await fetch(`http://localhost:8080/relatorios/kpi2/${fkEmpresa}?dataInicio=${dataInicio}&dataFinal=${dataFinal}`).then(r => r.json());
+                const kpi2Elem = document.getElementById('kpi2Modal');
+                if (kpi2Elem && kpi2[0]) {
+                    kpi2Elem.innerHTML = `${kpi2[0].voos_sem_atraso} voos | <span style="color: #3A6EA5; font-weight: bold;">${kpi2[0].porcentagem}</span>`;
+                    sessionStorage.PORCENTAGEM_KPI2_MODAL = kpi2[0].porcentagem;
+                }
+
+                const kpi3 = await fetch(`http://localhost:8080/relatorios/kpi3/${fkEmpresa}?dataInicio=${dataInicio}&dataFinal=${dataFinal}`).then(r => r.json());
+                const kpi3Elem = document.getElementById('kpi3Modal');
+                if (kpi3Elem && kpi3[0]) {
+                    kpi3Elem.innerHTML = `${kpi3[0].voos_com_atraso} voos | <span style="color: #3A6EA5; font-weight: bold;">${kpi3[0].porcentagem}</span>`;
+                    sessionStorage.PORCENTAGEM_KPI3_MODAL = kpi3[0].porcentagem;
+                }
+
+                const kpi4 = await fetch(`http://localhost:8080/relatorios/kpi4/${fkEmpresa}?dataInicio=${dataInicio}&dataFinal=${dataFinal}`).then(r => r.json());
+                const kpi4Elem = document.getElementById('kpi4Modal');
+                if (kpi4Elem && kpi4[0]) {
+                    kpi4Elem.innerHTML = `${kpi4[0].voos_cancelados} voos | <span style="color: #3A6EA5; font-weight: bold;">${kpi4[0].porcentagem}</span>`;
+                    sessionStorage.PORCENTAGEM_KPI4_MODAL = kpi4[0].porcentagem;
+                }
+
+                setTimeout(carregarGraficoTortaComFiltro, 100);
+
+            } catch (error) {
+                console.error("Erro ao carregar KPIs com filtro:", error);
+            }
+        }
+
+        function carregarGraficoTortaComFiltro() {
+            const porcentagens = [];
+            porcentagens.push(parseFloat((sessionStorage.PORCENTAGEM_KPI2_MODAL || '0%').replace('%', '')));
+            porcentagens.push(parseFloat((sessionStorage.PORCENTAGEM_KPI3_MODAL || '0%').replace('%', '')));
+            porcentagens.push(parseFloat((sessionStorage.PORCENTAGEM_KPI4_MODAL || '0%').replace('%', '')));
+
+            const data = {
+                labels: ['sem atrasos', 'com atrasos', 'cancelados'],
+                datasets: [{
+                    data: porcentagens,
+                    backgroundColor: ['#36A2EB', '#FF6384', '#87ff63']
+                }]
+            };
+
+            const config = {
+                type: 'pie',
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                        datalabels: {
+                            color: 'white',
+                            formatter: (value, ctx) => {
+                                const values = ctx.chart.data.datasets[0].data;
+                                const total = values.reduce((a, b) => a + b, 0);
+                                return total > 0 ? ((value / total) * 100).toFixed(1) + '%' : '0%';
+                            },
+                            font: { weight: 'bold', size: 14 }
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels]
+            };
+
+            const ctx = document.getElementById('meuGraficoPieModal');
+            if (ctx) {
+                if (ctx.chart) {
+                    ctx.chart.destroy();
+                }
+                ctx.chart = new Chart(ctx, config);
+            }
+        }
+
+        async function carregarGraficoJustificativasComFiltro(fkEmpresa, dataInicio, dataFinal) {
+            try {
+                const resposta = await fetch(`http://localhost:8080/relatorios/justificativas/${fkEmpresa}?dataInicio=${dataInicio}&dataFinal=${dataFinal}`).then(r => r.json());
+                const codigo_justificativa = resposta.map(codigo => codigo.codigo_justificativa);
+                const qtd_vezes = resposta.map(qtd => qtd.qtd_vezes);
+
+                const dataBar1 = {
+                    labels: codigo_justificativa,
+                    datasets: [{
+                        data: qtd_vezes,
+                        backgroundColor: [
+                            '#36A2EB', '#FFCD56', '#FF6384',
+                            '#87ff63', '#9966FF', '#FF9F40',
+                            '#4BC0C0', '#C9CBCE', '#A9A9A9', '#DA70D6'
+                        ]
+                    }]
+                };
+
+                const configBar1 = {
+                    type: 'bar',
+                    data: dataBar1,
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: false,
+                            title: { display: true, text: 'Top 10 códigos de justificativas mais indicados' },
+                            datalabels: { anchor: 'centre', align: 'centre', color: 'white', font: { weight: 'bold', size: 12 } }
+                        }
+                    },
+                    plugins: [ChartDataLabels]
+                };
+
+                const ctxBar1 = document.getElementById('meuGraficoBarra1Modal');
+                if (ctxBar1) {
+                    if (ctxBar1.chart) {
+                        ctxBar1.chart.destroy();
+                    }
+                    ctxBar1.chart = new Chart(ctxBar1, configBar1);
+                }
+            } catch (error) {
+                console.error("Erro no gráfico de justificativas com filtro:", error);
+            }
+        }
+
+        async function carregarGraficoDesempenhoComFiltro(fkEmpresa, dataInicio, dataFinal) {
+            try {
+                const resposta = await fetch(`http://localhost:8080/relatorios/desempenho/${fkEmpresa}?dataInicio=${dataInicio}&dataFinal=${dataFinal}`).then(r => r.json());
+                const rotas = resposta.map(rota => rota.rota);
+                const quantidade_atrasos = resposta.map(qtd => qtd.quantidade_atrasos);
+                const media_atrasos = resposta.map(media => parseFloat(media.media_atraso));
+
+                const dataBar2 = {
+                    labels: rotas,
+                    datasets: [
+                        {
+                            label: 'Quantidade de atrasos por rota',
+                            data: quantidade_atrasos,
+                            backgroundColor: ['#FF6700'],
+                            type: 'bar',
+                            datalabels: { anchor: 'center', align: 'center', color: 'white', font: { weight: 'bold', size: 12 } }
+                        },
+                        {
+                            label: 'Média de tempo de atraso em min',
+                            data: media_atrasos,
+                            borderColor: '#36a2eb',
+                            backgroundColor: '#36a2eb',
+                            type: 'bar',
+                            datalabels: { anchor: 'center', align: 'center', color: 'black', font: { weight: 'bold', size: 12 } }
+                        }
+                    ]
+                };
+
+                const configBar2 = {
+                    type: 'bar',
+                    data: dataBar2,
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            title: { display: true, text: 'Desempenho de Atrasos por Rota (Contagem e Média)' },
+                            datalabels: { display: true }
+                        },
+                        scales: { y: { stacked: true, beginAtZero: true } }
+                    },
+                    plugins: [ChartDataLabels]
+                };
+
+                const ctxBar2 = document.getElementById('meuGraficoBarra2Modal');
+                if (ctxBar2) {
+                    if (ctxBar2.chart) {
+                        ctxBar2.chart.destroy();
+                    }
+                    ctxBar2.chart = new Chart(ctxBar2.getContext('2d'), configBar2);
+                }
+            } catch (error) {
+                console.error("Erro no gráfico de desempenho com filtro:", error);
+            }
+        }
+
+        async function carregarTabelaVoosComFiltro(fkEmpresa, dataInicio, dataFinal) {
+            try {
+                const resposta = await fetch(`http://localhost:8080/relatorios/voos/${fkEmpresa}?dataInicio=${dataInicio}&dataFinal=${dataFinal}`).then(r => r.json());
+                const tbody = document.getElementById("tbodyVoosModal");
+                if (!tbody) return;
+
+                let voos = "";
+                resposta.forEach(voo => {
+                    voos += `<tr>
+                <td>${voo.numero_voo}</td>
+                <td>${voo.data_prevista}</td>
+                <td>${voo.previsao_partida}</td>
+                <td>${voo.previsao_chegada}</td>
+                <td>${voo.partida}</td>
+                <td>${voo.chegada}</td>
+                <td>${voo.atraso_chegada}</td>
+                <td>${voo.atraso_partida}</td>
+                <td>${voo.atraso_total}</td>
+                <td>${voo.origem}</td>
+                <td>${voo.destino}</td>
+                <td>${voo.codigo_justificativa}</td>
+            </tr>`;
+                });
+                tbody.innerHTML = voos;
+            } catch (error) {
+                console.error("Erro ao carregar tabela de voos com filtro:", error);
+            }
+        }
+
+        function carregarTabelaLegendas() {
+            const legendas = [
+                { codigo: "AA", descricao: "ATRASO AEROPORTO DE ALTERNATIVA – ORDEM TÉCNICA" },
+                { codigo: "AF", descricao: "FACILIDADES DO AEROPORTO - RESTRIÇÕES DE APOIO" },
+                { codigo: "AG", descricao: "MIGRAÇÃO/ALFÂNDEGA/SAÚDE" },
+                { codigo: "AI", descricao: "AEROPORTO DE ORIGEM INTERDITADO" },
+                { codigo: "AJ", descricao: "AEROPORTO DE DESTINO INTERDITADO" },
+                { codigo: "AM", descricao: "ATRASO AEROPORTO DE ALTERNATIVA – CONDIÇÕES METEOROLÓGICAS" },
+                { codigo: "AS", descricao: "SEGURANÇA/PAX/CARGA/ALARME" },
+                { codigo: "AR", descricao: "AEROPORTO COM RESTRIÇÕES OPERACIONAIS" },
+                { codigo: "AT", descricao: "LIBERAÇÃO SERV. TRÁFEGO AÉREO/ANTECIPAÇÃO" },
+                { codigo: "DF", descricao: "AVARIA DURANTE OPERAÇÕES EM VÔO" },
+                { codigo: "DG", descricao: "AVARIA DURANTE OPERAÇÕES EM SOLO" },
+                { codigo: "FP", descricao: "PLANO DE VÔO - APROVAÇÃO" },
+                { codigo: "GF", descricao: "ABASTECIMENTO/DESTANQUEIO" },
+                { codigo: "MA", descricao: "FALHA EQUIPO AUTOMOTIVO E DE ATENDIMENTO DE PAX" },
+                { codigo: "MX", descricao: "ATRASOS NÃO ESPECÍFICOS – OUTROS" },
+                { codigo: "OA", descricao: "AUTORIZADO" },
+                { codigo: "RA", descricao: "CONEXÃO DE AERONAVE" },
+                { codigo: "RI", descricao: "CONEXÃO AERONAVE/VOLTA – VÔO DE IDA NÃO PENALIZADO - AEROPORTO INTERDITADO" },
+                { codigo: "RM", descricao: "CONEXÃO AERONAVE/VOLTA – VÔO DE IDA NÃO PENALIZADO - CONDIÇÕES METEOROLÓGICAS" },
+                { codigo: "TC", descricao: "TROCA DE AERONAVE" },
+                { codigo: "TD", descricao: "DEFEITOS DA AERONAVE" },
+                { codigo: "WA", descricao: "ALTERNATIVA ABAIXO DOS LIMITES" },
+                { codigo: "WI", descricao: "DEGELO E REMOÇÃO DE NEVE E/OU LAMA EM AERONAVE" },
+                { codigo: "WR", descricao: "ATRASO DEVIDO RETORNO – CONDIÇÕES METEOROLÓGICAS" },
+                { codigo: "WO", descricao: "AEROPORTO ORIGEM ABAIXO DOS LIMITES" },
+                { codigo: "WP", descricao: "ATRASO DEVIDO RETORNO – ORDEM TÉCNICA" },
+                { codigo: "WT", descricao: "AEROPORTO DESTINO ABAIXO DOS LIMITES" },
+                { codigo: "WS", descricao: "REMOÇÃO GELO/ÁGUA/LAMA/AREIA EM AEROPORTO" },
+                { codigo: "XA", descricao: "PROGRAMADO – FERIADO NACIONAL" },
+                { codigo: "XB", descricao: "AUTORIZADO (CANCELAMENTO)" },
+                { codigo: "XI", descricao: "CANCELAMENTO – AEROPORTO DE ORIGEM INTERDITADO" },
+                { codigo: "XJ", descricao: "CANCELAMENTO – AEROPORTO DE DESTINO INTERDITADO" },
+                { codigo: "XL", descricao: "FALTA PAX COM PASSAGEM MARCADA – (LINHAS DOMÉSTICAS REGIONAIS)" },
+                { codigo: "XM", descricao: "CANCELAMENTO – CONEXÃO/VOLTA – VÔO DE IDA CANCELADO – AEROPORTO INTERDITADO" },
+                { codigo: "XN", descricao: "CANCELAMENTO POR MOTIVOS TÉCNICOS/OPERACIONAIS" },
+                { codigo: "XO", descricao: "CANCELAMENTO – AEROPORTO ORIGEM ABAIXO LIMITES" },
+                { codigo: "XT", descricao: "CANCELAMENTO – AEROPORTO DESTINO ABAIXO LIMITES" },
+                { codigo: "XR", descricao: "CANCELAMENTO DE VÔOS EM CODE SHARING" },
+                { codigo: "XS", descricao: "CANCELAMENTO – CONEXÃO/VOLTA – CONDIÇÕES METEOROLÓGICAS" },
+                { codigo: "ST", descricao: "INCLUSÃO DE ETAPA DEVIDO CANCELAMENTO DE ESCALAS" },
+                { codigo: "IR", descricao: "INCLUSÃO DE ETAPA (AEROPORTO ALTERNATIVA) – VÔO ESPECIAL RETORNO" },
+                { codigo: "VR", descricao: "VÔO ESPECIAL DE RETORNO" },
+                { codigo: "VE", descricao: "VÔO ESPECIAL DE EXPERIÊNCIA" },
+                { codigo: "VI", descricao: "VÔO ESPECIAL DE INSTRUÇÃO" },
+                { codigo: "HA", descricao: "AUTORIZADA (ALTERAÇÃO DE HORÁRIO)" },
+                { codigo: "HB", descricao: "VÔO > 4H ATRASO – PANE AERONAVE" },
+                { codigo: "HC", descricao: "VÔO > 4H ATRASO – AEROPORTO INTERDITADO" },
+                { codigo: "HD", descricao: "ANTECIPAÇÃO DE HORÁRIO AUTORIZADA" },
+                { codigo: "HI", descricao: "ANTECIPAÇÃO DE HORÁRIO – VÔOS INTERNACIONAIS" }
+            ];
+
+            const tbody = document.getElementById("tbodyLegendasModal");
+            if (!tbody) return;
+
+            let html = "";
+            legendas.forEach(legenda => {
+                html += `<tr><td>${legenda.codigo}</td><td>${legenda.descricao}</td></tr>`;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function configurarEventosDashboardModal() {
+            const btnVoosModal = document.getElementById('tabelaDadosVoosModal');
+            const btnLegendasModal = document.getElementById('tabelaLegendaJustificativasModal');
+
+            if (btnVoosModal) {
+                btnVoosModal.addEventListener('click', () => {
+                    document.getElementById('modalVoosModal').style.display = 'block';
+                });
+            }
+
+            if (btnLegendasModal) {
+                btnLegendasModal.addEventListener('click', () => {
+                    document.getElementById('modalLegendasModal').style.display = 'block';
+                });
+            }
+        }
+
+        function imprimirDashboard() {
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+        <html>
+            <head>
+                <title>Dashboard - ${relatorioAtual?.nome || 'Relatório'}</title>
+                <style>
+                    body { font-family: Arial, sans-serif; margin: 20px; }
+                    h1 { color: #333; }
+                    .dashboard-info { background: #f5f5f5; padding: 10px; margin-bottom: 20px; }
+                    canvas { max-width: 100%; }
+                    table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+                    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                    th { background-color: #f2f2f2; }
+                </style>
+            </head>
+            <body>
+                <h1>Dashboard do Relatório</h1>
+                <div class="dashboard-info">
+                    <p><strong>Relatório:</strong> ${relatorioAtual?.nome || 'N/A'}</p>
+                    <p><strong>Período:</strong> ${relatorioAtual?.dataInicio || 'N/A'} a ${relatorioAtual?.dataFinal || 'N/A'}</p>
+                </div>
+                ${dashboardContent.innerHTML}
+            </body>
+        </html>
+    `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        async function criarRelatorio(e) {
             e.preventDefault();
             const nome = document.getElementById("nome-relatorio").value;
             const dataInicio = document.getElementById("data-inicio").value;
             const dataFinal = document.getElementById("data-final").value;
+            const fk_usuario = sessionStorage.getItem("usuarioId") || 1;
 
-            await fetch("http://localhost:3000/relatorio", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ nome, dataInicio, dataFinal })
-            });
+            console.log("Valores a enviar:", { nome, dataInicio, dataFinal, fk_usuario });
 
-            formRelatorio.reset();
-            carregarRelatorios();
-        });
+            if (!nome.trim()) {
+                alert("Por favor, informe um nome para o relatório");
+                return;
+            }
 
-        carregarRelatorios();
+            if (!dataInicio || !dataFinal) {
+                alert("Por favor, informe as datas de início e final");
+                return;
+            }
+
+            if (new Date(dataInicio) > new Date(dataFinal)) {
+                alert("A data de início não pode ser posterior à data final");
+                return;
+            }
+
+            try {
+                const dadosParaEnviar = {
+                    nome: nome,
+                    dataInicio: dataInicio,
+                    dataFinal: dataFinal,
+                    fk_usuario: parseInt(fk_usuario)
+                };
+
+                console.log("JSON a enviar:", JSON.stringify(dadosParaEnviar));
+
+                const response = await fetch("http://localhost:8080/relatorios/criar", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify(dadosParaEnviar)
+                });
+
+                console.log("Status da resposta:", response.status);
+
+                if (!response.ok) {
+                    let errorText = "";
+                    try {
+                        errorText = await response.text();
+                        console.error("Texto do erro:", errorText);
+                    } catch {
+                        errorText = "Não foi possível ler o erro";
+                    }
+                    throw new Error(`Erro HTTP: ${response.status} - ${errorText}`);
+                }
+
+                const result = await response.json();
+                console.log("Resposta do servidor:", result);
+
+                document.getElementById("formRelatorio").reset();
+                carregarRelatorios();
+                alert("Relatório criado com sucesso!");
+
+            } catch (error) {
+                console.error("Erro detalhado ao criar relatório:", error);
+                alert(`Erro ao criar relatório: ${error.message}`);
+            }
+        }
+
+        async function editarRelatorio(e) {
+            idEditando = e.target.dataset.id;
+            const fk_usuario = sessionStorage.getItem("usuarioId") || 1;
+
+            try {
+                const res = await fetch(`http://localhost:8080/relatorios/mostrar/${idEditando}?fk_usuario=${fk_usuario}`);
+                if (!res.ok) throw new Error(`Erro HTTP: ${res.status}`);
+
+                const data = await res.json();
+                let relatorio;
+
+                if (Array.isArray(data) && data.length > 0) {
+                    relatorio = data[0];
+                } else if (typeof data === 'object' && data !== null) {
+                    relatorio = data;
+                } else {
+                    throw new Error("Formato de dados inválido");
+                }
+
+                document.getElementById("editar-nome").value = relatorio.nome || "";
+
+                const formatarDataParaInput = (dataString) => {
+                    if (!dataString) return "";
+                    dataString = dataString.toString().trim();
+                    if (/^\d{4}-\d{2}-\d{2}$/.test(dataString)) return dataString;
+                    if (/^\d{2}\/\d{2}\/\d{4}$/.test(dataString)) {
+                        const partes = dataString.split("/");
+                        return `${partes[2]}-${partes[1].padStart(2, '0')}-${partes[0].padStart(2, '0')}`;
+                    }
+                    return "";
+                };
+
+                document.getElementById("editar-data-inicio").value = formatarDataParaInput(relatorio.data_inicio || relatorio.dataInicio || "");
+                document.getElementById("editar-data-final").value = formatarDataParaInput(relatorio.data_final || relatorio.dataFinal || "");
+                modalEditar.style.display = "flex";
+            } catch (error) {
+                console.error("Erro ao buscar relatório para edição:", error);
+                alert("Erro ao carregar dados para edição.");
+            }
+        }
+
+        async function salvarEdicao(e) {
+            e.preventDefault();
+            const nome = document.getElementById("editar-nome").value;
+            const dataInicio = document.getElementById("editar-data-inicio").value;
+            const dataFinal = document.getElementById("editar-data-final").value;
+            const fk_usuario = sessionStorage.getItem("usuarioId") || 1;
+
+            if (!nome.trim()) {
+                alert("Por favor, informe um nome para o relatório");
+                return;
+            }
+
+            if (!dataInicio || !dataFinal) {
+                alert("Por favor, informe as datas de início e final");
+                return;
+            }
+
+            if (new Date(dataInicio) > new Date(dataFinal)) {
+                alert("A data de início não pode ser posterior à data final");
+                return;
+            }
+
+            try {
+                const response = await fetch("http://localhost:8080/relatorios/atualizarRelatorio", {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        idRelatorio: idEditando,
+                        nome,
+                        dataInicio,
+                        dataFinal,
+                        fk_usuario
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Erro HTTP ${response.status}: ${errorText}`);
+                }
+
+                await response.json();
+                modalEditar.style.display = "none";
+                carregarRelatorios();
+                alert("Relatório atualizado com sucesso!");
+            } catch (error) {
+                console.error("Erro ao atualizar relatório:", error);
+                alert("Erro ao atualizar relatório: " + error.message);
+            }
+        }
+
+        async function excluirRelatorio(e) {
+            const id = e.target.dataset.id;
+            const fk_usuario = sessionStorage.getItem("usuarioId") || 1;
+
+            if (confirm("Tem certeza que deseja excluir este relatório?")) {
+                try {
+                    const response = await fetch(`http://localhost:8080/relatorios/deletar/${id}?fk_usuario=${fk_usuario}`, {
+                        method: "DELETE"
+                    });
+
+                    if (response.ok) {
+                        alert("Relatório excluído com sucesso!");
+                        carregarRelatorios();
+                    } else {
+                        throw new Error("Erro ao excluir relatório");
+                    }
+                } catch (error) {
+                    console.error("Erro ao excluir relatório:", error);
+                    alert("Erro ao excluir relatório");
+                }
+            }
+        }
     </script>
 
 </body>

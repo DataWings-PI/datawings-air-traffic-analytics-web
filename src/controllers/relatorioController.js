@@ -1,84 +1,211 @@
-var relatorioModel = require("../models/relatorioModel");
+const relatorioModel = require("../models/relatorioModel");
 
 function criarRelatorio(req, res) {
-    var { nome, dataInicio, dataFinal, query } = req.body;
-    var fk_usuario = req.session.usuarioId; // ou req.body.fk_usuario, dependendo da sua autenticação
+    const { nome, dataInicio, dataFinal, fk_usuario } = req.body;
 
-    relatorioModel.criarRelatorio(nome, dataInicio, dataFinal, query, fk_usuario)
+    if (!nome || !dataInicio || !dataFinal || !fk_usuario) {
+        return res.status(400).json({ erro: "Todos os campos são obrigatórios" });
+    }
+
+    relatorioModel.criarRelatorio(nome, dataInicio, dataFinal, fk_usuario)
         .then(resultado => {
             res.status(201).json({ mensagem: "Relatório criado com sucesso", id: resultado.insertId });
         })
         .catch(erro => {
-            console.error(erro);
-            res.status(500).json({ erro: "Erro ao criar relatório" });
+            console.error("Erro ao criar relatório:", erro);
+            res.status(500).json({ erro: "Erro ao criar relatório", detalhes: erro.sqlMessage || erro.message });
         });
 }
 
-function atualizarQuery(req, res) {
-    var { idRelatorio, novaQuery } = req.body;
-
-    relatorioModel.atualizarQueryRelatorio(idRelatorio, novaQuery)
-        .then(resultado => {
-            res.json({ mensagem: "Query atualizada com sucesso" });
-        })
+function atualizarRelatorio(req, res){
+    const { idRelatorio, nome, dataInicio, dataFinal } = req.body;
+    
+    relatorioModel.atualizarRelatorio(idRelatorio, nome, dataInicio, dataFinal)
+        .then(() => res.json({ mensagem: "Relatório atualizado com sucesso" }))
         .catch(erro => {
-            console.error(erro);
-            res.status(500).json({ erro: "Erro ao atualizar query" });
+            console.error("Erro ao atualizar relatório:", erro);
+            res.status(500).json({ erro: "Erro ao atualizar relatório" });
         });
 }
 
 function deletarRelatorio(req, res) {
-    var idRelatorio = req.params.id;
+    const idRelatorio = req.params.id;
 
     relatorioModel.deletarRelatorio(idRelatorio)
-        .then(resultado => {
-            res.json({ mensagem: "Relatório deletado com sucesso" });
-        })
+        .then(() => res.json({ mensagem: "Relatório deletado com sucesso" }))
         .catch(erro => {
-            console.error(erro);
+            console.error("Erro ao deletar relatório:", erro);
             res.status(500).json({ erro: "Erro ao deletar relatório" });
         });
 }
 
 function mostrarRelatorio(req, res) {
-    var idRelatorio = req.params.id;
-    var fk_usuario = req.session.usuarioId;
+    const idRelatorio = req.params.id;
+    const fk_usuario = req.query.fk_usuario || 1;
 
     relatorioModel.mostrarRelatorio(idRelatorio, fk_usuario)
         .then(resultado => {
-            if (resultado.length === 0) {
-                res.status(404).json({ mensagem: "Relatório não encontrado" });
-            } else {
-                res.json(resultado[0]);
+            if (!resultado || resultado.length === 0) {
+                return res.status(404).json({ mensagem: "Relatório não encontrado" });
             }
+            res.json(resultado[0]);
         })
         .catch(erro => {
-            console.error(erro);
+            console.error("Erro ao buscar relatório:", erro);
             res.status(500).json({ erro: "Erro ao buscar relatório" });
         });
 }
 
 function listarRelatorios(req, res) {
-    var fk_usuario = req.session.usuarioId;
+    const fk_usuario = req.params.fk_usuario;
 
     relatorioModel.listarRelatorios(fk_usuario)
-        .then(resultado => {
-            if (resultado.length === 0) {
-                res.json({ mensagem: "Nenhum relatório criado" });
-            } else {
-                res.json(resultado);
-            }
-        })
+        .then(resultado => res.json(resultado || []))
         .catch(erro => {
-            console.error(erro);
+            console.error("Erro no listarRelatorios:", erro);
             res.status(500).json({ erro: "Erro ao listar relatórios" });
+        });
+}
+
+function buscarKpi1(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    const { dataInicio, dataFinal } = req.query;
+
+    relatorioModel.buscarKpi1(fkEmpresa, dataInicio, dataFinal)
+        .then(resultado => res.json(resultado))
+        .catch(erro => {
+            console.error("Erro no KPI 1:", erro);
+            res.status(500).json({ erro: "Erro ao buscar KPI 1" });
+        });
+}
+
+function buscarKpi2(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    const { dataInicio, dataFinal } = req.query;
+
+    relatorioModel.buscarKpi2(fkEmpresa, dataInicio, dataFinal)
+        .then(resultado => res.json(resultado))
+        .catch(erro => {
+            console.error("Erro no KPI 2:", erro);
+            res.status(500).json({ erro: "Erro ao buscar KPI 2" });
+        });
+}
+
+function buscarKpi3(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    const { dataInicio, dataFinal } = req.query;
+
+    relatorioModel.buscarKpi3(fkEmpresa, dataInicio, dataFinal)
+        .then(resultado => res.json(resultado))
+        .catch(erro => {
+            console.error("Erro no KPI 3:", erro);
+            res.status(500).json({ erro: "Erro ao buscar KPI 3" });
+        });
+}
+
+function buscarKpi4(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    const { dataInicio, dataFinal } = req.query;
+
+    relatorioModel.buscarKpi4(fkEmpresa, dataInicio, dataFinal)
+        .then(resultado => res.json(resultado))
+        .catch(erro => {
+            console.error("Erro no KPI 4:", erro);
+            res.status(500).json({ erro: "Erro ao buscar KPI 4" });
+        });
+}
+
+function buscarJustificativas(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    const { dataInicio, dataFinal } = req.query;
+
+    relatorioModel.buscarJustificativas(fkEmpresa, dataInicio, dataFinal)
+        .then(resultado => res.json(resultado))
+        .catch(erro => {
+            console.error("Erro nas justificativas:", erro);
+            res.status(500).json({ erro: "Erro ao buscar justificativas" });
+        });
+}
+
+function buscarDesempenho(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    const { dataInicio, dataFinal } = req.query;
+
+    relatorioModel.buscarDesempenho(fkEmpresa, dataInicio, dataFinal)
+        .then(resultado => res.json(resultado))
+        .catch(erro => {
+            console.error("Erro no desempenho:", erro);
+            res.status(500).json({ erro: "Erro ao buscar desempenho" });
+        });
+}
+
+function buscarVoos(req, res) {
+    const fkEmpresa = req.params.fkEmpresa;
+    const { dataInicio, dataFinal } = req.query;
+
+    relatorioModel.buscarVoos(fkEmpresa, dataInicio, dataFinal)
+        .then(resultado => res.json(resultado))
+        .catch(erro => {
+            console.error("Erro nos voos:", erro);
+            res.status(500).json({ erro: "Erro ao buscar voos" });
+        });
+}
+
+function buscarDashboardPorRelatorio(req, res) {
+    const idRelatorio = req.params.idRelatorio;
+    const fk_usuario = req.query.fk_usuario;
+
+    relatorioModel.mostrarRelatorio(idRelatorio, fk_usuario)
+        .then(relatorio => {
+            if (relatorio.length === 0) {
+                throw new Error("Relatório não encontrado");
+            }
+            
+            const relatorioData = relatorio[0];
+            const dataInicio = relatorioData.data_inicio;
+            const dataFinal = relatorioData.data_final;
+            const fkEmpresa = fk_usuario;
+
+            return Promise.all([
+                relatorioModel.buscarKpi1(fkEmpresa, dataInicio, dataFinal),
+                relatorioModel.buscarKpi2(fkEmpresa, dataInicio, dataFinal),
+                relatorioModel.buscarKpi3(fkEmpresa, dataInicio, dataFinal),
+                relatorioModel.buscarKpi4(fkEmpresa, dataInicio, dataFinal),
+                relatorioModel.buscarJustificativas(fkEmpresa, dataInicio, dataFinal),
+                relatorioModel.buscarDesempenho(fkEmpresa, dataInicio, dataFinal),
+                relatorioModel.buscarVoos(fkEmpresa, dataInicio, dataFinal)
+            ]).then(([kpi1, kpi2, kpi3, kpi4, justificativas, desempenho, voos]) => ({
+                relatorio: relatorioData,
+                dashboard: {
+                    kpi1: kpi1[0] || {},
+                    kpi2: kpi2[0] || {},
+                    kpi3: kpi3[0] || {},
+                    kpi4: kpi4[0] || {},
+                    justificativas: justificativas,
+                    desempenho: desempenho,
+                    voos: voos
+                }
+            }));
+        })
+        .then(resultado => res.json(resultado))
+        .catch(erro => {
+            console.error("Erro na dashboard por relatório:", erro);
+            res.status(500).json({ erro: erro.message });
         });
 }
 
 module.exports = {
     criarRelatorio,
-    atualizarQuery,
+    atualizarRelatorio,
     deletarRelatorio,
     mostrarRelatorio,
-    listarRelatorios
+    listarRelatorios,
+    buscarKpi1,
+    buscarKpi2,
+    buscarKpi3,
+    buscarKpi4,
+    buscarJustificativas,
+    buscarDesempenho,
+    buscarVoos,
+    buscarDashboardPorRelatorio
 };
