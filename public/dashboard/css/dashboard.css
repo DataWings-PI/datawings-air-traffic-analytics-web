@@ -223,7 +223,7 @@ h2 {
   top: 0;
   height: 100%;
   width: 20px;
-  background-color: #4eb64e;
+  background-color: #003459;
 }
 
 .card-bar4 {
@@ -232,7 +232,7 @@ h2 {
   top: 0;
   height: 100%;
   width: 20px;
-  background-color: var(--red);
+  background-color: #90E0EF;
 }
 
 .card-bar5 {
@@ -241,7 +241,7 @@ h2 {
   top: 0;
   height: 100%;
   width: 20px;
-  background-color: var(--laranja);
+  background-color: #00A8E8;
 }
 
 .divisao-pt0{
