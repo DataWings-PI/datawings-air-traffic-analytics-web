@@ -1,0 +1,5 @@
+[00:00:00.626] Server  LOG      ✓ Ready in 437ms
+[11:44:47.184] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/Users/macbook/Desktop/study/ADS/2ADS/DataWings/datawings-air-traffic-analytics-web/datawings-frontend/app'
+[11:44:47.185] Server  ERROR    ⨯ "unhandledRejection:" Error: ENOENT: no such file or directory, scandir '/Users/macbook/Desktop/study/ADS/2ADS/DataWings/datawings-air-traffic-analytics-web/datawings-frontend/app'
+[11:44:47.186] Server  ERROR    ⨯ "unhandledRejection: " Error: ENOENT: no such file or directory, scandir '/Users/macbook/Desktop/study/ADS/2ADS/DataWings/datawings-air-traffic-analytics-web/datawings-frontend/app'
+[11:44:47.220] Server  LOG      ✓ Compiled in 52ms
