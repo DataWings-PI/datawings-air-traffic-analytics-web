@@ -9,6 +9,7 @@
   --branco: #FFFFFF;
   --preto: #000000;
   --laranja: #FF6700;
+  --red: #dd4444;
   --fonte-principal: 'Montserrat';
 }
 
@@ -213,7 +214,7 @@ h2 {
   top: 0;
   height: 100%;
   width: 20px;
-  background-color: var(--laranja );
+  background-color: var(--azul-escuro );
 }
 
 .card-bar2 {
@@ -222,18 +223,8 @@ h2 {
   top: 0;
   height: 100%;
   width: 20px;
-  background-color: #36A2EB;
+  background-color: #4eb64e;
 }
-
-.card-bar3 {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 20px;
-  background-color: #FFCD56;
-}
-
 
 .card-bar4 {
   position: absolute;
@@ -241,7 +232,7 @@ h2 {
   top: 0;
   height: 100%;
   width: 20px;
-  background-color: #FF6384;
+  background-color: var(--red);
 }
 
 .card-bar5 {
@@ -250,7 +241,7 @@ h2 {
   top: 0;
   height: 100%;
   width: 20px;
-  background-color: #87ff63;
+  background-color: var(--laranja);
 }
 
 .divisao-pt0{
