@@ -70,7 +70,7 @@ function buscarKpi1(fkEmpresa, dataInicio, dataFinal) {
         COUNT(*) AS total_voos
         FROM voo 
         WHERE fk_empresa = ${fkEmpresa} 
-        AND DATE(partida_prevista) BETWEEN '${dataInicioMySQL}' AND '${dataFinalMySQL}'`;
+        AND DATE(partida_real) BETWEEN '${dataInicioMySQL}' AND '${dataFinalMySQL}'`;
     
     console.log("KPI 1 com filtro:", { fkEmpresa, dataInicio, dataFinal });
     return database.executar(instrucaoSql);
@@ -87,7 +87,7 @@ function buscarKpi2(fkEmpresa, dataInicio, dataFinal) {
         WHERE tempo_atraso = 0 
         AND situacao_voo <> 'CANCELADO' 
         AND fk_empresa = ${fkEmpresa} 
-        AND DATE(partida_prevista) BETWEEN '${dataInicioMySQL}' AND '${dataFinalMySQL}'`;
+        AND DATE(partida_real) BETWEEN '${dataInicioMySQL}' AND '${dataFinalMySQL}'`;
     
     console.log("KPI 2 com filtro:", { fkEmpresa, dataInicio, dataFinal });
     return database.executar(instrucaoSql);
@@ -104,7 +104,7 @@ function buscarKpi3(fkEmpresa, dataInicio, dataFinal) {
         WHERE tempo_atraso > 0
         AND situacao_voo <> 'CANCELADO' 
         AND fk_empresa = ${fkEmpresa} 
-        AND DATE(partida_prevista) BETWEEN '${dataInicioMySQL}' AND '${dataFinalMySQL}'`;
+        AND DATE(partida_real) BETWEEN '${dataInicioMySQL}' AND '${dataFinalMySQL}'`;
     
     console.log("KPI 3 com filtro:", { fkEmpresa, dataInicio, dataFinal });
     return database.executar(instrucaoSql);
@@ -120,7 +120,7 @@ function buscarKpi4(fkEmpresa, dataInicio, dataFinal) {
         FROM voo
         WHERE situacao_voo = 'CANCELADO' 
         AND fk_empresa = ${fkEmpresa} 
-        AND DATE(partida_prevista) BETWEEN '${dataInicioMySQL}' AND '${dataFinalMySQL}'`;
+        AND DATE(partida_real) BETWEEN '${dataInicioMySQL}' AND '${dataFinalMySQL}'`;
     
     console.log("KPI 4 com filtro:", { fkEmpresa, dataInicio, dataFinal });
     return database.executar(instrucaoSql);
@@ -134,7 +134,7 @@ function buscarJustificativas(fkEmpresa, dataInicio, dataFinal) {
         FROM voo
         WHERE tempo_atraso > 0 
         AND fk_empresa = ${fkEmpresa} 
-        AND DATE(partida_prevista) BETWEEN '${dataInicioMySQL}' AND '${dataFinalMySQL}'
+        AND DATE(partida_real) BETWEEN '${dataInicioMySQL}' AND '${dataFinalMySQL}'
         GROUP BY codigo_justificativa 
         ORDER BY qtd_vezes DESC
         LIMIT 10`;
@@ -154,7 +154,7 @@ function buscarDesempenho(fkEmpresa, dataInicio, dataFinal) {
         FROM voo
         WHERE tempo_atraso > 0 
         AND fk_empresa = ${fkEmpresa} 
-        AND DATE(partida_prevista) BETWEEN '${dataInicioMySQL}' AND '${dataFinalMySQL}'
+        AND DATE(partida_real) BETWEEN '${dataInicioMySQL}' AND '${dataFinalMySQL}'
         GROUP BY uf_origem, uf_destino
         ORDER BY quantidade_atrasos DESC
         LIMIT 10`;
@@ -181,7 +181,7 @@ function buscarVoos(fkEmpresa, dataInicio, dataFinal) {
         codigo_justificativa 
         FROM voo 
         WHERE fk_empresa = ${fkEmpresa} 
-        AND DATE(partida_prevista) BETWEEN '${dataInicioMySQL}' AND '${dataFinalMySQL}'
+        AND DATE(partida_real) BETWEEN '${dataInicioMySQL}' AND '${dataFinalMySQL}'
         ORDER BY id DESC 
         LIMIT 100`;
     
