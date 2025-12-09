@@ -78,22 +78,24 @@ body {
 h2 {
   font-size: 20px;
   color: white;
-
 }
 
 .botao-sair {
-  width: 150px;
+  width: 90px;
   height: 50px;
   font-family: var(--fonte-principal);
   font-size: larger;
   cursor: pointer;
-  border: solid 1px white;
+  border: solid 1.5px #e70000;
+  color: #e70000;
+  background-color: #dd444467;
+  border-radius: 7px;
   transition: 0.4s;
 }
 
 .botao-sair:hover {
-  background-color: #FF6700;
-  border: solid 1px #FF6700;
+  background-color: var(--red);
+  border: solid 1px #e70000;
 
 }
 
@@ -118,9 +120,9 @@ h2 {
 /* ===== CARDS ===== */
 .cards-container {
   display: flex;
-  justify-content: center;
+  align-items: center;
   gap: 40px;
-  flex-wrap: wrap;
+  height: 100%;
 }
 
 .card {
