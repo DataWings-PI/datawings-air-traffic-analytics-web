@@ -19,4 +19,8 @@ router.delete("/deletar/:id", (req, res) => {
     usuarioController.deletar(req, res);
 });
 
+router.post("/ligarDesligar", function (req, res) {
+    usuarioController.ligarDesligar(req, res);
+})
+
 module.exports = router;

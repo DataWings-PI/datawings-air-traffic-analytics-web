@@ -54,6 +54,29 @@ function cadastrar(req, res) {
     });
 }
 
+function ligarDesligar(req, res) {
+    var statusNotif = req.body.statusServer;
+    var statusAtraso = req.body.atrasoServer;
+    var statusCancelamento = req.body.cancelServer;
+
+    if (statusNotif == undefined) {
+        res.status(400).send("O campo não pode estar em branco");
+    } else if (statusAtraso == undefined || statusCancelamento == undefined) {
+        res.status(400).send("Selecione ao menos um tipo de notificação.");
+    } else {
+        // Envia para o model
+        usuarioModel.ligarDesligar(statusNotif, statusAtraso, statusCancelamento)
+            .then(function (resultado) {
+                res.json(resultado);
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao determinar os parâmetros. Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+}
+
 function atualizar(req, res) {
   const id = req.params.id;
   const nome = req.body.nome;
@@ -106,8 +129,9 @@ function deletar(req, res) {
 }
 
 module.exports = {
-  autenticar,
-  cadastrar,
-  atualizar,
-  deletar,
+    autenticar,
+    cadastrar,
+    atualizar,
+    deletar,
+    ligarDesligar
 };
