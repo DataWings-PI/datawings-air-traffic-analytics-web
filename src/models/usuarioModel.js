@@ -37,7 +37,29 @@ function cadastrar(nome, email, senha, codigoAtivacao) {
     });
 }
 
+function atualizar(id, nome, email, senha) {
+    const sql = `
+        UPDATE usuario
+        SET nome_completo = '${nome}',
+            email = '${email}',
+            senha = '${senha}'
+        WHERE id = ${id};
+    `;
+
+    return database.executar(sql);
+}
+
+function deletar(id) {
+    const sql = `
+        DELETE FROM usuario
+        WHERE id = ${id};
+    `;
+    return database.executar(sql);
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    atualizar,
+    deletar
 };

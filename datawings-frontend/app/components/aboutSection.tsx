@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
 import { Box, Container, Typography } from "@mui/material";
+import Image from "next/image";
 
 export default function AboutSection() {
   return (
@@ -31,13 +31,14 @@ export default function AboutSection() {
             </Typography>
           </Box>
 
-          {/* Imagem (placeholder) */}
-          <Box
-            sx={{
-              width: { xs: "100%", md: "50%" },
-              height: 300,
-              backgroundColor: "#d6d6d6",
-              borderRadius: "10px",
+          <Image
+            src="/analise_dados_dashboard.png"
+            width={600}
+            height={300}
+            alt="Ícone"
+            style={{
+              borderRadius: "12px",
+              objectFit: "cover",
             }}
           />
         </Box>

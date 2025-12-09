@@ -113,7 +113,7 @@ export default function ContactSection() {
                 fontSize: "15px",
               }}
             >
-              whatsApp
+              WhatsApp
             </button>
           </Box>
         </Box>

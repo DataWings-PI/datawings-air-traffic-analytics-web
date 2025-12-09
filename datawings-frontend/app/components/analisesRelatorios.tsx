@@ -14,7 +14,7 @@ export default function AnalisesRelatorios() {
 
         <Typography sx={{ color: "#4A4A4A", maxWidth: "700px", mb: 6 }}>
           Após o processo de ETL, nosso sistema é capaz de gerar dashboards
-          personalizados e relatórios específicos, com filtros por data e
+          e relatórios específicos, com filtros por data e
           métricas configuráveis. Assim, cada empresa visualiza exatamente o
           que precisa, no formato e no momento certos.
         </Typography>
@@ -34,12 +34,12 @@ export default function AnalisesRelatorios() {
         >
           {/* TEXTO */}
           <Box sx={{ flex: 1 }}>
-            <Typography variant="h5" fontWeight="bold" mb={2}>
-              Geração de Dashboards Inteligentes
+            <Typography variant="h4" fontWeight="bold" mb={2}>
+              Geração de Dashboards 
             </Typography>
 
-            <Typography sx={{ color: "#d1d1d1" }}>
-              Dê vida aos seus dados! Crie dashboards personalizados com
+            <Typography sx={{ color: "#d1d1d1",  fontSize: 18, fontWeight: 500 }}>
+              Dê vida aos seus dados! visualize dashboards com
               poucos cliques e acompanhe métricas em tempo real. Visualize
               tendências, compare períodos e tome decisões com base em
               informações concretas.
@@ -78,7 +78,7 @@ export default function AnalisesRelatorios() {
             <Typography sx={{ color: "#d1d1d1", fontSize: 18, fontWeight: 500 }}>
               Crie relatórios personalizados de forma simples e rápida,
               escolhendo exatamente o que deseja analisar. Nosso sistema permite
-              filtrar informações por data, categoria e indicador, além de
+              filtrar informações por data e indicador, além de
               comparar períodos e resultados para identificar padrões e
               oportunidades.
             </Typography>

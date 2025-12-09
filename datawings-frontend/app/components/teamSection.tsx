@@ -5,13 +5,24 @@ import Image from "next/image";
 
 export default function TeamSection() {
   const equipe = [
-    { nome: "Otavio de Araújo", cargo: "Desenvolvedor Back-end" },
-    { nome: "Thalita Lourenço", cargo: "Scrum Master" },
-    { nome: "Vinicius Oliveira", cargo: "Desenvolvedor Front-end" },
-    { nome: "Gustavo Costa", cargo: "Product Owner" },
-    { nome: "Gabriel Niedo", cargo: "Desenvolvedor Back-end" },
+    {
+      nome: "Otavio de Araújo",
+      cargo: "Desenvolvedor Back-end",
+      foto: "/otavio.jpg",
+    },
+    { nome: "Thalita Lourenço", cargo: "Scrum Master", foto: "/thalita.jpg" },
+    {
+      nome: "Vinicius Oliveira",
+      cargo: "Desenvolvedor Front-end",
+      foto: "/vinicius.jpg",
+    },
+    { nome: "Gustavo Costa", cargo: "Product Owner", foto: "/gustavo.jpg" },
+    {
+      nome: "Gabriel Niedo",
+      cargo: "Desenvolvedor Back-end",
+      foto: "/niedo.jpg",
+    },
   ];
-
   return (
     <Box sx={{ py: 10, px: 2 }}>
       {/* TÍTULO */}
@@ -43,14 +54,21 @@ export default function TeamSection() {
             {/* FOTO CIRCULAR */}
             <Box
               sx={{
-                width: 110,
-                height: 110,
-                backgroundColor: "#d9d9d9",
+                width: 150,
+                height: 150,
                 borderRadius: "50%",
+                overflow: "hidden",
                 mx: "auto",
                 mb: 2,
+                position: "relative",
               }}
-            />
+            >
+              <Image
+                src={pessoa.foto}
+                alt={pessoa.nome}
+                fill
+              />
+            </Box>
 
             {/* NOME */}
             <Typography sx={{ fontWeight: 600, fontSize: "16px" }}>
