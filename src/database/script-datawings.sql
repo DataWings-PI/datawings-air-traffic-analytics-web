@@ -56,8 +56,8 @@ CREATE TABLE slack (
 	id INT PRIMARY KEY auto_increment,
     status_notificacao TINYINT,
     status_atraso TINYINT,
-    status_cancelamento TINYINT
-    descricao VARCHAR(255);
+    status_cancelamento TINYINT,
+    descricao VARCHAR(255),
     fk_usuario INT,
     FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
 );
