@@ -67,8 +67,8 @@
                     </table>
                 </div>
 
-                <div class="modal" id="modalDashboard">
-                    <div class="modal-conteudo dashboard-modal">
+                <div class="modalDash" id="modalDashboard">
+                    <div class="modalDash-conteudo dashboard-modal">
                         <span class="fechar" id="fecharDashboard">&times;</span>
                         <h2>Dashboard do Relatório</h2>
                         <div class="dashboard-info">
@@ -272,94 +272,91 @@
 
         function getDashboardHTML() {
             return `
-<section class="full-body">
-    <div class="left-header">
-        <div class="content">
-            <div class="user">
-                <span>Relatório: ${relatorioAtual.nome}</span>
-            </div>
-            <h2 class="welcome-text">Estatísticas de voos</h2>
-        </div>
-    </div>
-
-    <div class="middle">
-        <div class="texto-box">
-            <h3>Dados relacionados aos voos</h3>
-            <button id="tabelaDadosVoosModal" class="botoes-modal">Tabela Dados dos voos</button>
-        </div>
-        
-        <div class="graficos-box">
-            <div class="cards-grafico-1" style="height: 300px; width: 100%;">
-                <canvas id="meuGraficoBarra1Modal" style="display: block; box-sizing: border-box;"></canvas>
-            </div>
-            <button id="tabelaLegendaJustificativasModal" class="botoes-modal">Tabela justificativa legendas</button>
-            
-            <div class="cards-grafico-2-1" style="height: 300px; width: 100%;">
-                <canvas id="meuGraficoBarra2Modal" style="display: block; box-sizing: border-box;"></canvas>
-            </div>
-        </div>
-    </div>
-
-    <div class="last">
-        <div class="capa">
-            <div class="contain-parte-cima">
-                <div class="divisao-pt0">
-                    <h3>Análise de setores do total de voos</h3>
-                </div>
-                <div class="divisao-pt1">
-                    <div class="card">
-                        <div class="card-bar1"></div>
-                        <p>Total de voos analisados</p>
-                        <p class="subtitulo" id="kpi1Modal">Carregando...</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-bar2"></div>
-                        <p>Voos sem nenhum atraso</p>
-                        <p class="subtitulo" id="kpi2Modal">Carregando...</p>
-                    </div>
-                </div>
-                <div class="divisao-pt2">
-                    <div class="card">
-                        <div class="card-bar4"></div>
-                        <p>Voos com atraso</p>
-                        <p class="subtitulo" id="kpi3Modal">Carregando...</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-bar5"></div>
-                        <p>Voos que foram cancelados</p>
-                        <p class="subtitulo" id="kpi4Modal">Carregando...</p>
-                    </div>
-                </div>
+<section class="full-body" style="width: 100%; height: 90vh; display: flex; flex-direction: row;">
+    
+    <div style="display: flex; width: 85%; height: 100%;">
+        <div class="middle" style="height: 100%; width: 50%; background-color: white; padding: 1%;">
+            <div class="texto-box" style="height: 10%; display: flex; justify-content: space-around; align-items: center;">
+                <h3 style="color: #000814; font-size: 18px;">Dados relacionados aos voos</h3>
+                <button id="tabelaDadosVoosModal" class="botoes-modal" style="background-color: #000814; color: #FFFFFF; border: solid 1px #000814; font-size: 14px; font-family: 'Montserrat'; height: 30px; width: 180px; border-radius: 10px; cursor: pointer; transition: 0.4s;">Tabela Dados dos voos</button>
             </div>
             
-            <div class="contain-parte-baixo" style="height: 300px; width: 100%;">
-                <canvas class="grafico-torta" id="meuGraficoPieModal" style="display: block; box-sizing: border-box;"></canvas>
+            <div class="graficos-box" style="height: 90%; display: flex; flex-direction: column; justify-content: space-around; align-items: center;">
+                <div class="cards-grafico-1" style="width: 90%; height: 45%; display: flex; justify-content: center; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 10px;">
+                    <canvas id="meuGraficoBarra1Modal" style="display: block; box-sizing: border-box; width: 100% !important; height: 100% !important;"></canvas>
+                </div>
+                
+                <button id="tabelaLegendaJustificativasModal" class="botoes-modal" style="background-color: #000814; color: #FFFFFF; border: solid 1px #000814; font-size: 14px; font-family: 'Montserrat'; height: 30px; width: 200px; border-radius: 10px; cursor: pointer; transition: 0.4s; margin: 5px 0;">Tabela justificativa legendas</button>
+                
+                <div class="cards-grafico-2-1" style="width: 90%; height: 45%; display: flex; justify-content: center; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 10px;">
+                    <canvas id="meuGraficoBarra2Modal" style="display: block; box-sizing: border-box; width: 100% !important; height: 100% !important;"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="last" style="height: 100%; width: 50%; background-color: white; padding: 1%;">
+            <div class="capa" style="border: solid 2px #000814; height: 100%; width: 100%; padding: 2%; border-radius: 10px;">
+                <div class="contain-parte-cima" style="height: 40%; width: 100%; display: flex; flex-direction: column;">
+                    <div class="divisao-pt0" style="height: 20%; width: 100%; display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
+                        <h3 style="color: #000814; font-size: 18px;">Análise de setores do total de voos</h3>
+                    </div>
+                    <div class="divisao-pt1" style="height: 40%; width: 100%; display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
+                        <div class="card" style="width: 200px; height: 80px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); display: flex; align-items: center; justify-content: center; text-align: center; flex-direction: column; position: relative; overflow: hidden; color: #000; text-decoration-line: none; font-size: 13px; padding: 30px;">
+                            <div class="card-bar1" style="position: absolute; left: 0; top: 0; height: 100%; width: 20px; background-color: #FF6700;"></div>
+                            <p style="margin: 0; font-weight: bold;">Total de voos analisados</p>
+                            <p class="subtitulo" id="kpi1Modal" style="margin: 5px 0 0 0; font-size: 14px; color: #3A6EA5;">Carregando...</p>
+                        </div>
+                        <div class="card" style="width: 200px; height: 80px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); display: flex; align-items: center; justify-content: center; text-align: center; flex-direction: column; position: relative; overflow: hidden; color: #000; text-decoration-line: none; font-size: 13px; padding: 30px;">
+                            <div class="card-bar2" style="position: absolute; left: 0; top: 0; height: 100%; width: 20px; background-color: #36A2EB;"></div>
+                            <p style="margin: 0; font-weight: bold;">Voos sem nenhum atraso</p>
+                            <p class="subtitulo" id="kpi2Modal" style="margin: 5px 0 0 0; font-size: 14px; color: #3A6EA5;">Carregando...</p>
+                        </div>
+                    </div>
+                    <div class="divisao-pt2" style="height: 40%; width: 100%; display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
+                        <div class="card" style="width: 200px; height: 80px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); display: flex; align-items: center; justify-content: center; text-align: center; flex-direction: column; position: relative; overflow: hidden; color: #000; text-decoration-line: none; font-size: 13px; padding: 30px;">
+                            <div class="card-bar4" style="position: absolute; left: 0; top: 0; height: 100%; width: 20px; background-color: #FF6384;"></div>
+                            <p style="margin: 0; font-weight: bold;">Voos com atraso</p>
+                            <p class="subtitulo" id="kpi3Modal" style="margin: 5px 0 0 0; font-size: 14px; color: #3A6EA5;">Carregando...</p>
+                        </div>
+                        <div class="card" style="width: 200px; height: 80px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); display: flex; align-items: center; justify-content: center; text-align: center; flex-direction: column; position: relative; overflow: hidden; color: #000; text-decoration-line: none; font-size: 13px; padding: 30px;">
+                            <div class="card-bar5" style="position: absolute; left: 0; top: 0; height: 100%; width: 20px; background-color: #87ff63;"></div>
+                            <p style="margin: 0; font-weight: bold;">Voos que foram cancelados</p>
+                            <p class="subtitulo" id="kpi4Modal" style="margin: 5px 0 0 0; font-size: 14px; color: #3A6EA5;">Carregando...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contain-parte-baixo" style="height: 60%; width: 100%; display: flex; justify-content: center; align-items: center;">
+                    <div style="width: 325px; height: 325px; display: flex; justify-content: center; align-items: center;">
+                        <canvas class="grafico-torta" id="meuGraficoPieModal" style="display: block; box-sizing: border-box; width: 100% !important; height: 100% !important;"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Modais -->
-<div id="modalVoosModal" class="modal" style="display:none;">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Dados dos Voos</h2>
+<div id="modalVoosModal" class="modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); justify-content: center; align-items: center; z-index: 1000;">
+    <div class="modal-content" style="background-color: #fff; border-radius: 12px; padding: 25px; width: 90%; max-width: 1400px; text-align: center; position: relative; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); max-height: 90vh; overflow-y: auto;">
+        <span class="close" style="position: absolute; top: 7px; right: 15px; font-size: 40px; font-weight: bold; color: #FF6700; cursor: pointer;">&times;</span>
+        <h2 style="color: #000814; margin-bottom: 20px;">Dados dos Voos</h2>
         <div class="table-container">
-            <table>
-                <thead>
+            <table style="border-collapse: collapse; width: 100%; background-color: #ffffff; border-radius: 12px; overflow: hidden;">
+                <thead style="background-color: #4a90e2; color: #ffffff;">
                     <tr>
-                        <th>Número Voo</th>
-                        <th>Data Prevista</th>
-                        <th>Previsão Partida</th>
-                        <th>Previsão Chegada</th>
-                        <th>Partida Real</th>
-                        <th>Chegada Real</th>
-                        <th>Atraso Chegada</th>
-                        <th>Atraso Partida</th>
-                        <th>Atraso Total</th>
-                        <th>Origem</th>
-                        <th>Destino</th>
-                        <th>Código Justificativa</th>
+                        <th style="padding: 10px; text-align: center;">Número Voo</th>
+                        <th style="padding: 10px; text-align: center;">Data Prevista</th>
+                        <th style="padding: 10px; text-align: center;">Previsão Partida</th>
+                        <th style="padding: 10px; text-align: center;">Previsão Chegada</th>
+                        <th style="padding: 10px; text-align: center;">Partida Real</th>
+                        <th style="padding: 10px; text-align: center;">Chegada Real</th>
+                        <th style="padding: 10px; text-align: center;">Atraso Chegada</th>
+                        <th style="padding: 10px; text-align: center;">Atraso Partida</th>
+                        <th style="padding: 10px; text-align: center;">Atraso Total</th>
+                        <th style="padding: 10px; text-align: center;">Origem</th>
+                        <th style="padding: 10px; text-align: center;">Destino</th>
+                        <th style="padding: 10px; text-align: center;">Código Justificativa</th>
                     </tr>
                 </thead>
                 <tbody id="tbodyVoosModal">
@@ -370,19 +367,19 @@
     </div>
 </div>
 
-<div id="modalLegendasModal" class="modal" style="display:none;">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Legendas das Justificativas</h2>
+<div id="modalLegendasModal" class="modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); justify-content: center; align-items: center; z-index: 1000;">
+    <div class="modal-content" style="background-color: #fff; border-radius: 12px; padding: 25px; width: 90%; max-width: 1200px; text-align: center; position: relative; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); max-height: 90vh; overflow-y: auto;">
+        <span class="close" style="position: absolute; top: 7px; right: 15px; font-size: 40px; font-weight: bold; color: #FF6700; cursor: pointer;">&times;</span>
+        <h2 style="color: #000814; margin-bottom: 20px;">Legendas das Justificativas</h2>
         <div class="table-container">
-            <table>
-                <thead>
+            <table style="border-collapse: collapse; width: 100%; background-color: #ffffff; border-radius: 12px; overflow: hidden;">
+                <thead style="background-color: #000814; color: #ffffff;">
                     <tr>
-                        <th>Código</th>
-                        <th>Descrição</th>
+                        <th style="padding: 10px; text-align: center; width: 100px;">Código</th>
+                        <th style="padding: 10px; text-align: left;">Descrição</th>
                     </tr>
                 </thead>
-                <tbody id="tbodyLegendasModal">
+                <tbody id="tbodyLegendasModal" style="text-align: left;">
                     <!-- Dados serão inseridos aqui -->
                 </tbody>
             </table>
