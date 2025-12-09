@@ -1,60 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Marvel:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+:root {
+  --azul-escuro: #000814;
+  --azul-n2: #004E98;
+  --azul-n1: #3A6EA5;
+  --cinza: #EBEBEB;
+  --branco: #FFFFFF;
+  --preto: #000000;
+  --laranja: #FF6700;
+  --fonte-principal: 'Montserrat';
+}
+
+
 /* ===== RESET BÁSICO ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: var(--fonte-principal);
   background-color: #ffffff;
   height: 100vh;
   overflow-x: hidden;
-} /* ===== CABEÇALHO ===== */
-.header {
-  background-color: #000814; /* azul bem escuro */
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 70px;
-  position: relative;
-  z-index: 2;
 }
-.header .content {
+
+
+/* ===== CONTEÚDO PRINCIPAL ===== */
+
+.full-body {
+  width: 100%;
+  height: 100vh;
   display: flex;
-  gap: 20px;
-  align-items: center;
+  flex-direction: row;
 }
-.logo img {
+
+/* ---- LADO ESQUERDO ------------------------------ */
+
+.left-header {
+  height: 100%;
+  width: 15%;
+  background-color: var(--azul-escuro);
+  display: flex;
+  flex-direction: column;
+
+}
+
+.content {
+  height: 50%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+}
+
+.content2 {
+  padding: 10%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+
+}
+
+.logo {
   width: 200px;
 }
-.content select {
-  border: none;
-  color: #333;
-  font-size: 15px;
+
+h2 {
+  font-size: 20px;
+  color: white;
+}
+
+.botao-sair {
+  width: 90px;
+  height: 50px;
+  font-family: var(--fonte-principal);
+  font-size: larger;
   cursor: pointer;
-  background: none;
-  color: #fff;
+  border: solid 1.5px #e70000;
+  color: #e70000;
+  background-color: #dd444467;
+  border-radius: 7px;
+  transition: 0.4s;
 }
-.content option {
-  background-color: #ffffff;
-  color: #111827;
-  font-size: 15px;
-  padding: 10px;
+
+.botao-sair:hover {
+  background-color: var(--red);
+  border: solid 1px #e70000;
+
 }
-.user {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+
+#meuSelect {
+  width: 180px;
+  padding: 10px 12px;
+  padding-right: 35px;
+  border-radius: 8px;
+  border: 1px solid #ff6a00;
+  background-color: #0d1117;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: var(--fonte-principal);
+  cursor: pointer;
+  outline: none;
+  transition: 0.3s ease;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image: url(../../assets/arrow-down-sign-to-navigate.png);
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 14px;
 }
-.user img {
-  width: 50px;
-} /* ===== CONTEÚDO PRINCIPAL ===== */
+
+#meuSelect:hover {
+  border-color: #ff8533;
+}
+
+#meuSelect:focus {
+  box-shadow: 0 0 8px rgba(255, 106, 0, 0.6);
+  border-color: #ff6a00;
+}
+
+#meuSelect option {
+  background-color: #0d1117;
+  color: white;
+}
+
+
+
+/* ----------------- LADO DIREITO --------------------- */
+
+/* ===== CONTEÚDO PRINCIPAL ===== */
 .main {
+  width: 85%;
   display: flex;
   flex-direction: column;
   padding: 10px 80px;
 }
+
 .welcome-text {
   font-size: 28px;
   color: #000;
@@ -70,22 +161,27 @@ table {
   overflow: hidden;
   text-align: center;
 }
+
 th,
 td {
   padding: 5px 5px;
   text-align: left;
 }
+
 thead {
   background-color: #4a90e2;
   color: #ffffff;
 }
+
 tbody tr {
   border-bottom: 1px solid #e0e0e0;
   transition: background-color 0.3s;
 }
+
 tbody tr:hover {
   background-color: #f0f8ff;
 }
+
 tbody tr:nth-child(even) {
   background-color: #fafafa;
 }
@@ -111,7 +207,8 @@ tbody tr:nth-child(even) {
 /* ===== CONTAINER TABELA + GRÁFICO ===== */
 .contain-2 {
   display: flex;
-  gap: 30px; /* espaço entre tabela e gráfico */
+  gap: 30px;
+  /* espaço entre tabela e gráfico */
   margin-top: 30px;
   height: 470px;
 }
