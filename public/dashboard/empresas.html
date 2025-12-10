@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DataWings - Empresas</title>
-  <link rel="stylesheet" href="css/empresas.css">
+  <link rel="stylesheet" href="css/empresas.css ">
   <link rel="icon" href="..//assets/icon/favicon-data.png">
 
 
@@ -21,7 +21,7 @@
           <img class="logo" src="../assets/logoLaranja-removebg-preview.png" alt="">
         </div>
 
-        <h2 style="color: white; font-size: larger;" class="welcome-text">Página de cadastro das empresa</h2>
+        <h2 style="color: white; font-size: larger;" class="welcome-text">Página de cadastro das empresas</h2>
 
       </div>
 
@@ -120,11 +120,11 @@
                 <td>10/01/2025 14:32</td>
 
                 <td>
-                  <button class="btn-ativo">Adicionar</button>
+                  <button class="btn-ativo" id="openModal">Adicionar</button>
                 </td>
 
                 <td>
-                  <button class="btn-inativo">Formulário</button>
+                  <button class="btn-form" id="openModalView">Formulário</button>
                 </td>
 
                 <td>
@@ -146,7 +146,7 @@
                 </td>
 
                 <td>
-                  <button class="btn-inativo">Formulário</button>
+                  <button class="btn-form">Formulário</button>
                 </td>
 
                 <td>
@@ -168,7 +168,7 @@
                 </td>
 
                 <td>
-                  <button class="btn-inativo">Formulário</button>
+                  <button class="btn-form">Formulário</button>
                 </td>
 
                 <td>
@@ -188,11 +188,307 @@
     </main>
   </section>
 
+  <!-- MODAIS ------------------------ -->
+
+  <div id="modalOverlay" class="modal-overlay">
+    <div class="modal-content">
+
+      <span class="close-modal" id="closeModal">&times;</span>
+
+      <h3>Adicionar Endereço e Contato <br>
+        <span style="color: #3A6EA5;" id="usuario">usuário</span>
+      </h3>
+      <br>
+
+      <form id="formDados">
+
+
+
+        <h3>Contato</h3>
+        <br>
+      
+        <div class="form-group">
+          <label>Telefone:</label>
+          <input type="text" name="numero_contato" required>
+        </div>
+
+        <div class="form-group">
+          <label>Tipo:</label>
+          <select name="tipo_numero">
+            <option value="fixo">Fixo</option>
+            <option value="móvel">Móvel</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Departamento:</label>
+          <input type="text" name="departamento" required>
+        </div>
+
+        <br>
+        <h3>Endereço</h3>
+        <br>
+        <div class="form-group">
+          <label>Apelido:</label>
+          <input type="text" name="apelido" required>
+        </div>
+
+        <div class="form-group">
+          <label>CEP:</label>
+          <input type="text" name="cep" required>
+        </div>
+
+        <div class="form-group">
+          <label>Logradouro:</label>
+          <input type="text" name="logradouro" required>
+        </div>
+
+        <div class="form-group">
+          <label>Bairro:</label>
+          <input type="text" name="numero" required>
+        </div>
+
+        <div class="form-group">
+          <label>Cidade:</label>
+          <input type="text" name="complemento">
+        </div>
+
+        <div class="form-group">
+          <label>Unidade Federativa</label>
+          <input type="text" name="bairro" required>
+        </div>
+
+        <div class="form-group">
+          <label>Numero:</label>
+          <input type="text" name="bairro" required>
+        </div>
+
+        <div class="form-group">
+          <label>Complemento:</label>
+          <input type="text" name="cidade" required>
+        </div>
+
+        <button type="submit" class="btn-salvar">Salvar</button>
+      </form>
+
+    </div>
+  </div>
+
+
+
+
+  <!-- -------------------- MODAL DA TABELA ---------------- -->
+
+
+  <div id="modalViewOverlay" class="modal-overlay">
+    <div class="modal-content modal-view">
+
+      <span class="close-modal" id="closeModalView">&times;</span>
+
+      <h3>Dados cadastrados<br>
+        <br>
+
+        <h3>Empresa</h3>
+        <br>
+        <table class="tabela-info">
+          <tr>
+            <th>Nome Fantasia</th>
+            <td id="v-nomefantasia">Super Tech Solutions</td>
+          </tr>
+
+          <tr>
+            <th>Razão Social</th>
+            <td id="v-razaosocial">Super Tech Solutions LTDA</td>
+          </tr>
+
+          <tr>
+            <th>CNPJ</th>
+            <td id="v-cnpj">28.394.552/0001-63</td>
+          </tr>
+
+          <tr>
+            <th>Contato</th>
+            <td id="v-contato">Suporte</td>
+          </tr>
+
+          <tr>
+            <th>Telefone</th>
+            <td id="v-telefone">(11) 94823-7654</td>
+          </tr>
+
+          <tr>
+            <th>Tipo do Número</th>
+            <td id="v-tipo-numero">Móvel</td>
+          </tr>
+
+          <tr>
+            <th>Departamento</th>
+            <td id="v-departamento">Comercial</td>
+          </tr>
+
+          <tr>
+            <th>Apelido</th>
+            <td id="v-apelido">Matriz</td>
+          </tr>
+
+          <tr>
+            <th>CEP</th>
+            <td id="v-cep">04567-220</td>
+          </tr>
+
+          <tr>
+            <th>Logradouro</th>
+            <td id="v-logradouro">Avenida das Nações Unidas</td>
+          </tr>
+
+          <tr>
+            <th>Bairro</th>
+            <td id="v-bairro">Brooklin</td>
+          </tr>
+
+          <tr>
+            <th>Cidade</th>
+            <td id="v-cidade">São Paulo</td>
+          </tr>
+
+          <tr>
+            <th>Unidade Federativa</th>
+            <td id="v-uf">SP</td>
+          </tr>
+
+          <tr>
+            <th>Número</th>
+            <td id="v-numero">1020</td>
+          </tr>
+
+          <tr>
+            <th>Complemento</th>
+            <td id="v-complemento">Conjunto 504</td>
+          </tr>
+        </table>
+
+        <br>
+        <hr>
+        <br>
+
+        <h3>Contato</h3>
+        <br>
+        <table class="tabela-info">
+          <tr>
+            <th>Nome Fantasia</th>
+            <td id="v-nomefantasia">Roalding</td>
+          </tr>
+          <tr>
+            <th>CNPJ</th>
+            <td id="v-cnpj">59.603.108/0001-11</td>
+          </tr>
+          <tr>
+            <th>Departamento</th>
+            <td id="v-departamento">Financeiro</td>
+          </tr>
+          <tr>
+            <th>Número</th>
+            <td id="v-numero-contato">11987654321</td>
+          </tr>
+          <tr>
+            <th>Tipo</th>
+            <td id="v-tipo-numero">móvel</td>
+          </tr>
+        </table>
+
+        <h3>Endereço</h3>
+        <br>
+        <table class="tabela-info">
+          <tr>
+            <th>Apelido</th>
+            <td id="v-apelido">Casa</td>
+          </tr>
+          <tr>
+            <th>Logradouro</th>
+            <td id="v-logradouro">Rua das Flores</td>
+          </tr>
+          <tr>
+            <th>Número</th>
+            <td id="v-numero">120</td>
+          </tr>
+          <tr>
+            <th>Complemento</th>
+            <td id="v-complemento">Apto 302</td>
+          </tr>
+          <tr>
+            <th>Bairro</th>
+            <td id="v-bairro">Centro</td>
+          </tr>
+          <tr>
+            <th>CEP</th>
+            <td id="v-cep">12345678</td>
+          </tr>
+          <tr>
+            <th>Cidade</th>
+            <td id="v-cidade">São Paulo</td>
+          </tr>
+          <tr>
+            <th>UF</th>
+            <td id="v-uf">SP</td>
+          </tr>
+        </table>
+
+
+
+    </div>
+  </div>
+
 </body>
 
 </html>
 
 <script>
+
+  // Modais ------------------------------------------------------
+
+
+  const openModal = document.getElementById("openModal");
+  const closeModal = document.getElementById("closeModal");
+  const modalOverlay = document.getElementById("modalOverlay");
+
+  openModal.onclick = () => {
+    modalOverlay.style.display = "flex";
+  };
+
+  closeModal.onclick = () => {
+    modalOverlay.style.display = "none";
+  };
+
+  window.onclick = (event) => {
+    if (event.target === modalOverlay) {
+      modalOverlay.style.display = "none";
+    }
+  };
+
+  const openModalView = document.getElementById("openModalView");
+  const closeModalView = document.getElementById("closeModalView");
+  const modalViewOverlay = document.getElementById("modalViewOverlay");
+
+  openModalView.onclick = () => {
+    modalViewOverlay.style.display = "flex";
+  };
+
+  closeModalView.onclick = () => {
+    modalViewOverlay.style.display = "none";
+  };
+
+  // Fechar clicando fora
+  window.addEventListener("click", (e) => {
+    if (e.target === modalViewOverlay) {
+      modalViewOverlay.style.display = "none";
+    }
+  });
+
+
+  // ------------------------------------------
+
+
+
+
 
   function buscarCep() {
     const cepVar = cep.value;
