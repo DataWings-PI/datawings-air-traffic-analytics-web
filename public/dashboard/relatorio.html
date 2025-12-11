@@ -6,29 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DataWings - Relatório</title>
     <link rel="stylesheet" href="css/relatorio.css">
-    <link rel="icon" href="..//assets/icon/favicon-data.png">
-
-
+    <link rel="icon" href="../assets/icon/favicon-data.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 </head>
 
 <body>
-
     <section class="full-body">
-        <!-- ====== CABEÇALHO ====== -->
         <div class="left-header">
             <div class="content">
-                <div>
-                    <img class="logo" src="../assets/logoLaranja-removebg-preview.png" alt="">
-                </div>
-
+                <img class="logo" src="../assets/logoLaranja-removebg-preview.png" alt="">
                 <div class="user">
                     <span id="nome"></span>
                 </div>
-
-                <h2 style="color: white; font-size: larger;" class="welcome-text">Página de relatório</h2>
-
+                <h2 class="welcome-text">Página de relatório</h2>
             </div>
-
             <div class="content2">
 
                 <select id="meuSelect" onchange="window.location.href = this.value;">
@@ -45,155 +37,310 @@
             </div>
         </div>
 
-        <!-- ====== CONTEÚDO PRINCIPAL ====== -->
         <main class="main">
             <div class="contain-2">
-                <!-- Tabela -->
 
                 <div class="form-relatorio">
-                    <form class="card-relatorio">
+                    <form class="card-relatorio" id="formRelatorio">
                         <h2>Novo relatório</h2>
-
                         <label for="nome-relatorio">Nome do relatório:</label>
-                        <input type="text" id="nome-relatorio" name="nome-relatorio" placeholder="Digite o nome">
-
+                        <input type="text" id="nome-relatorio" name="nome-relatorio" placeholder="Digite o nome"
+                            required>
                         <div class="datas">
                             <div>
-                                <label for="data-inicio">data início</label>
-                                <input type="date" id="data-inicio" name="data-inicio">
+                                <label for="data-inicio">Data início</label>
+                                <input type="date" id="data-inicio" name="data-inicio" required>
                             </div>
                             <div>
-                                <label for="data-final">data final</label>
-                                <input type="date" id="data-final" name="data-final">
+                                <label for="data-final">Data final</label>
+                                <input type="date" id="data-final" name="data-final" required>
                             </div>
                         </div>
-
                         <button type="submit">Criar</button>
                     </form>
                 </div>
-
 
                 <div class="tabela-scroll">
                     <table id="voosTable">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nome do Relátorio</th>
+                                <th>Nome do Relatório</th>
                                 <th>Criado em</th>
                                 <th>Abrir</th>
+                                <th>Editar</th>
                                 <th>Excluir</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>01</td>
-                                <td>Relatório sobre atrasos no verão</td>
-                                <td>26/10/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>02</td>
-                                <td>Relatório de desempenho das rotas noturnas</td>
-                                <td>20/10/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>03</td>
-                                <td>Análise de atrasos por companhia aérea</td>
-                                <td>18/10/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>04</td>
-                                <td>Relatório de manutenção preventiva</td>
-                                <td>15/10/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>05</td>
-                                <td>Comparativo de voos internacionais</td>
-                                <td>10/10/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>06</td>
-                                <td>Relatório sobre consumo de combustível</td>
-                                <td>07/10/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>07</td>
-                                <td>Relatório de incidentes e emergências</td>
-                                <td>05/10/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>08</td>
-                                <td>Análise de tempo médio de embarque</td>
-                                <td>02/10/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>09</td>
-                                <td>Relatório de satisfação dos passageiros</td>
-                                <td>28/09/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>Relatório de clima e impacto nas rotas</td>
-                                <td>25/09/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>11</td>
-                                <td>Relatório financeiro trimestral</td>
-                                <td>22/09/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                <td>Relatório de desempenho operacional anual</td>
-                                <td>20/09/2025</td>
-                                <td><button class="btn-abrir">Abrir</button></td>
-                                <td><button class="btn-excluir">Excluir</button></td>
-                            </tr>
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
+
+                <div class="modalDash" id="modalDashboard">
+                    <div class="modalDash-conteudo dashboard-modal">
+                        <span class="fechar" id="fecharDashboard">&times;</span>
+                        <h2>Dashboard do Relatório</h2>
+                        <div class="dashboard-info">
+                            <p><strong>Relatório:</strong> <span id="dashboardNome"></span></p>
+                            <p><strong>Período:</strong> <span id="dashboardPeriodo"></span></p>
+                        </div>
+
+                        <div id="dashboardContent" class="dashboard-content">
+                        </div>
+
+                        <div class="modal-acoes">
+                            <button onclick="imprimirDashboard()" class="btn-imprimir">Imprimir</button>
+                            <button onclick="fecharDashboardModal()" class="btn-fechar">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </main>
+    </section>
 
-        <div class="modal" id="modal" style="display: none;">
-            <div class="modal-conteudo">
-                <span class="fechar" id="fechar">&times;</span>
+    <div class="modal" id="modalEditar">
+        <div class="modal-conteudo">
+            <span class="fechar" id="fecharEditar">&times;</span>
+            <h2>Editar Relatório</h2>
+            <form id="formEditar">
+                <label for="editar-nome">Nome</label>
+                <input type="text" id="editar-nome" required>
+                <label for="editar-data-inicio">Data Início</label>
+                <input type="date" id="editar-data-inicio" required>
+                <label for="editar-data-final">Data Final</label>
+                <input type="date" id="editar-data-final" required>
 
-                <!-- Foto -->
-                <img src="../assets/perfil.png" alt="Usuário" class="usuario-foto">
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </div>
 
-                <h2>@usuário</h2>
+    <script>
+        let idEditando;
+        let relatorioAtual = null;
+        const modalEditar = document.getElementById("modalEditar");
+        const fecharEditar = document.getElementById("fecharEditar");
+        const formEditar = document.getElementById("formEditar");
+        const modalDashboard = document.getElementById("modalDashboard");
+        const fecharDashboard = document.getElementById("fecharDashboard");
+        const dashboardContent = document.getElementById("dashboardContent");
+        const dashboardNome = document.getElementById("dashboardNome");
+        const dashboardPeriodo = document.getElementById("dashboardPeriodo");
+        let porcentagensKPI = { kpi2: 0, kpi3: 0, kpi4: 0 };
 
-                <!-- Formulário -->
-                <form id="formUsuario">
-                    <input type="text" name="nome" placeholder="Nome" required>
-                    <input type="email" name="email" placeholder="Email" required>
-                    <input type="text" name="telefone" placeholder="Telefone" required>
-                    <button type="submit">Atualizar</button>
-                </form>
+        document.addEventListener('DOMContentLoaded', function () {
+            inicializarEventos();
+            carregarRelatorios();
+        });
+
+        function inicializarEventos() {
+            fecharEditar.addEventListener("click", () => modalEditar.style.display = "none");
+            fecharDashboard.addEventListener("click", fecharDashboardModal);
+
+            window.addEventListener("click", e => {
+                if (e.target === modalEditar) modalEditar.style.display = "none";
+                if (e.target === modalDashboard) fecharDashboardModal();
+            });
+
+            const formRelatorio = document.getElementById("formRelatorio");
+            formRelatorio.addEventListener("submit", criarRelatorio);
+            formEditar.addEventListener("submit", salvarEdicao);
+        }
+
+        function fecharDashboardModal() {
+            modalDashboard.style.display = "none";
+            dashboardContent.innerHTML = '';
+            relatorioAtual = null;
+        }
+
+        async function carregarRelatorios() {
+            try {
+                const fk_usuario = sessionStorage.getItem("usuarioId") || 1;
+                const response = await fetch(`http://localhost:8080/relatorios/listar/${fk_usuario}`);
+
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP: ${response.status}`);
+                }
+
+                const relatorios = await response.json();
+                const tbody = document.querySelector("#voosTable tbody");
+                tbody.innerHTML = "";
+
+                if (!relatorios || relatorios.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Ainda não há relatórios criados</td></tr>`;
+                    return;
+                }
+
+                relatorios.forEach(r => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                <td>${r.id}</td>
+                <td>${r.nome}</td>
+                <td>${r.criado_em}</td>
+                <td><button class="btn-dashboard" data-id="${r.id}" data-nome="${r.nome}" data-inicio="${r.data_inicio}" data-final="${r.data_final}">Abrir</button></td>
+                <td><button class="btn-editar" data-id="${r.id}">Editar</button></td>
+                <td><button class="btn-excluir" data-id="${r.id}">Excluir</button></td>
+            `;
+                    tbody.appendChild(tr);
+                });
+
+                adicionarEventosBotoes();
+            } catch (error) {
+                console.error("Erro ao carregar relatórios:", error);
+                const tbody = document.querySelector("#voosTable tbody");
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: red;">Erro ao carregar relatórios</td></tr>`;
+            }
+        }
+
+        function adicionarEventosBotoes() {
+            const tbody = document.querySelector("#voosTable tbody");
+
+            tbody.querySelectorAll(".btn-dashboard").forEach(btn => {
+                btn.addEventListener("click", abrirDashboard);
+            });
+
+            tbody.querySelectorAll(".btn-editar").forEach(btn => {
+                btn.addEventListener("click", editarRelatorio);
+            });
+
+            tbody.querySelectorAll(".btn-excluir").forEach(btn => {
+                btn.addEventListener("click", excluirRelatorio);
+            });
+        }
+
+        async function abrirDashboard(e) {
+            const id = e.target.dataset.id;
+            const nome = e.target.dataset.nome;
+            const dataInicio = e.target.dataset.inicio;
+            const dataFinal = e.target.dataset.final;
+            const fk_usuario = sessionStorage.getItem("usuarioId") || 1;
+
+            try {
+                const response = await fetch(`http://localhost:8080/relatorios/mostrar/${id}?fk_usuario=${fk_usuario}`);
+                const relatorio = await response.json();
+
+                relatorioAtual = {
+                    id: id,
+                    nome: relatorio.nome || nome,
+                    dataInicio: relatorio.data_inicio || dataInicio,
+                    dataFinal: relatorio.data_final || dataFinal,
+                    fk_usuario: fk_usuario
+                };
+
+                dashboardNome.textContent = relatorioAtual.nome;
+                dashboardPeriodo.textContent = `${relatorioAtual.dataInicio} a ${relatorioAtual.dataFinal}`;
+
+                await carregarDashboardComFiltros(relatorioAtual);
+                modalDashboard.style.display = "flex";
+
+            } catch (error) {
+                console.error("Erro ao carregar dados do relatório:", error);
+                alert("Erro ao abrir dashboard: " + error.message);
+            }
+        }
+
+        async function carregarDashboardComFiltros(relatorioData) {
+            try {
+                dashboardContent.innerHTML = '<div style="text-align: center; padding: 20px;">Carregando dashboard com filtros...</div>';
+
+                const fkEmpresa = relatorioData.fk_usuario;
+                const formatarDataParaAPI = (dataStr) => {
+                    if (!dataStr) return '';
+                    if (dataStr.includes('/')) {
+                        const partes = dataStr.split('/');
+                        return `${partes[2]}-${partes[1]}-${partes[0]}`;
+                    }
+                    return dataStr;
+                };
+
+                const dataInicio = formatarDataParaAPI(relatorioData.dataInicio);
+                const dataFinal = formatarDataParaAPI(relatorioData.dataFinal);
+
+                dashboardContent.innerHTML = getDashboardHTML();
+
+                setTimeout(() => {
+                    verificarElementosDashboard();
+                    inicializarGraficosDashboardComFiltros(fkEmpresa, dataInicio, dataFinal);
+                }, 100);
+
+            } catch (error) {
+                console.error("Erro ao carregar dashboard com filtros:", error);
+                dashboardContent.innerHTML = getDashboardHTML();
+                setTimeout(() => {
+                    if (relatorioData) {
+                        const fkEmpresa = relatorioData.fk_usuario;
+                        const dataInicio = relatorioData.dataInicio.split('/').reverse().join('-');
+                        const dataFinal = relatorioData.dataFinal.split('/').reverse().join('-');
+                        inicializarGraficosDashboardComFiltros(fkEmpresa, dataInicio, dataFinal);
+                    }
+                }, 100);
+            }
+        }
+
+        function getDashboardHTML() {
+            return `
+<section class="full-body" style="width: 100%; height: 90vh; display: flex; flex-direction: row;">
+    
+    <div style="display: flex; width: 85%; height: 100%;">
+        <div class="middle" style="height: 100%; width: 50%; background-color: white; padding: 1%;">
+            <div class="texto-box" style="height: 10%; display: flex; justify-content: space-around; align-items: center;">
+                <h3 style="color: #000814; font-size: 18px;">Dados relacionados aos voos</h3>
+            </div>
+            
+            <div class="graficos-box" style="height: 90%; display: flex; flex-direction: column; justify-content: space-around; align-items: center;">
+                <div class="cards-grafico-1" style="width: 90%; height: 45%; display: flex; justify-content: center; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 10px; margin-top: 7%;">
+                    <canvas id="meuGraficoBarra1Modal" style="display: block; box-sizing: border-box; width: 100% !important; height: 100% !important;"></canvas>
+                </div>
+                
+                <div class="cards-grafico-2-1" style="width: 90%; height: 45%; display: flex; justify-content: center; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 10px; margin-top : 10%;">
+                    <canvas id="meuGraficoBarra2Modal" style="display: block; box-sizing: border-box; width: 100% !important; height: 100% !important;"></canvas>
+                </div>
             </div>
         </div>
-    </section>
+
+        <div class="last" style="height: 100%; width: 50%; background-color: white; padding: 1%;">
+            <div class="capa" style="border: solid 2px #000814; height: 100%; width: 100%; padding: 2%; border-radius: 10px;">
+                <div class="contain-parte-cima" style="height: 40%; width: 100%; display: flex; flex-direction: column;">
+                    <div class="divisao-pt0" style="height: 20%; width: 100%; display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
+                        <h3 style="color: #000814; font-size: 18px;">Análise de setores do total de voos</h3>
+                    </div>
+                    <div class="divisao-pt1" style="height: 40%; width: 100%; display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
+                        <div class="card" style="width: 200px; height: 80px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); display: flex; align-items: center; justify-content: center; text-align: center; flex-direction: column; position: relative; overflow: hidden; color: #000; text-decoration-line: none; font-size: 13px; padding: 30px;">
+                            <div class="card-bar1" style="position: absolute; left: 0; top: 0; height: 100%; width: 20px; background-color: #FF6700;"></div>
+                            <p style="margin: 0; font-weight: bold;">Total de voos analisados</p>
+                            <p class="subtitulo" id="kpi1Modal" style="margin: 5px 0 0 0; font-size: 14px; color: #3A6EA5;">Carregando...</p>
+                        </div>
+                        <div class="card" style="width: 200px; height: 80px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); display: flex; align-items: center; justify-content: center; text-align: center; flex-direction: column; position: relative; overflow: hidden; color: #000; text-decoration-line: none; font-size: 13px; padding: 30px;">
+                            <div class="card-bar2" style="position: absolute; left: 0; top: 0; height: 100%; width: 20px; background-color: #36A2EB;"></div>
+                            <p style="margin: 0; font-weight: bold;">Voos sem nenhum atraso</p>
+                            <p class="subtitulo" id="kpi2Modal" style="margin: 5px 0 0 0; font-size: 14px; color: #3A6EA5;">Carregando...</p>
+                        </div>
+                    </div>
+                    <div class="divisao-pt2" style="height: 40%; width: 100%; display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
+                        <div class="card" style="width: 200px; height: 80px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); display: flex; align-items: center; justify-content: center; text-align: center; flex-direction: column; position: relative; overflow: hidden; color: #000; text-decoration-line: none; font-size: 13px; padding: 30px;">
+                            <div class="card-bar4" style="position: absolute; left: 0; top: 0; height: 100%; width: 20px; background-color: #FF6384;"></div>
+                            <p style="margin: 0; font-weight: bold;">Voos com atraso</p>
+                            <p class="subtitulo" id="kpi3Modal" style="margin: 5px 0 0 0; font-size: 14px; color: #3A6EA5;">Carregando...</p>
+                        </div>
+                        <div class="card" style="width: 200px; height: 80px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); display: flex; align-items: center; justify-content: center; text-align: center; flex-direction: column; position: relative; overflow: hidden; color: #000; text-decoration-line: none; font-size: 13px; padding: 30px;">
+                            <div class="card-bar5" style="position: absolute; left: 0; top: 0; height: 100%; width: 20px; background-color: #87ff63;"></div>
+                            <p style="margin: 0; font-weight: bold;">Voos que foram cancelados</p>
+                            <p class="subtitulo" id="kpi4Modal" style="margin: 5px 0 0 0; font-size: 14px; color: #3A6EA5;">Carregando...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contain-parte-baixo" style="height: 60%; width: 100%; display: flex; justify-content: center; align-items: center;">
+                    <div style="width: 325px; height: 325px; display: flex; justify-content: center; align-items: center;">
+                        <canvas class="grafico-torta" id="meuGraficoPieModal" style="display: block; box-sizing: border-box; width: 100% !important; height: 100% !important;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 </body>

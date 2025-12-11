@@ -2,123 +2,440 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataWings - Empresas</title>
-    <link rel="stylesheet" href="css/empresas.css">
-    <link rel="icon" href="..//assets/icon/favicon-data.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataWings - Empresas</title>
+  <link rel="stylesheet" href="css/empresas.css ">
+  <link rel="icon" href="..//assets/icon/favicon-data.png">
 
 
 </head>
 
 <body onload="carregarEmpresas()">
 
-    <section class="full-body">
-        <!-- ====== CABEÇALHO ====== -->
-        <div class="left-header">
-            <div class="content">
-                <div>
-                    <img class="logo" src="../assets/logoLaranja-removebg-preview.png" alt="">
-                </div>
-
-                <h2 style="color: white; font-size: larger;" class="welcome-text">Página de cadastro das empresa</h2>
-
-            </div>
-
-            <div class="content2">
-
-                <a href="./index.html   ">
-                    <button class="botao-sair">
-                        Sair
-                    </button>
-                </a>
-            </div>
+  <section class="full-body">
+    <!-- ====== CABEÇALHO ====== -->
+    <div class="left-header">
+      <div class="content">
+        <div>
+          <img class="logo" src="../assets/logoLaranja-removebg-preview.png" alt="">
         </div>
 
-        <!-- ====== CONTEÚDO PRINCIPAL ====== -->
-        <main class="main">
-            <div class="contain-2">
-                <!-- Tabela -->
+        <h2 style="color: white; font-size: larger;" class="welcome-text">Página de cadastro das empresas</h2>
 
-                <div class="form-relatorio">
-                    <form class="card-relatorio">
-                        <h2>Cadastrar empresa</h2>
+      </div>
 
-                    <label>Nome Fantasia</label>
-                    <input type="text" id="nome_fantasia" placeholder="Digite o nome Fantasia">
-
-                    <label>Razão social</label>
-                    <input type="text" id="razao_social" placeholder="Digite o Razão Social">
-
-                    <label>CNPJ</label>
-                    <input type="text" id="cnpj" placeholder="Digite o cnpj">
-
-                    <h2>Contato</h2>
-
-                    <label>Telefone</label>
-                    <input type="text" id="numero" placeholder="Digite o Telefone">
-
-                    <label>Tipo do número</label>
-                    <select id="tipo_num">
-                        <option value="fixo">Fixo</option>
-                        <option value="móvel">Móvel</option>
-                    </select>
-
-                    <label>Departamento</label>
-                    <input type="text" id="departamento" placeholder="Digite o Departamento">
-
-                    <h2>Endereço</h2>
-
-                    <label>Apelido</label>
-                    <input type="text" id="apelido" placeholder="Digite o Apelido">
-
-                    <label>Cep</label>
-                    <input type="text" id="cep" onblur="buscarCep()" placeholder="Digite o Cep">
-
-                    <label>Logradouro</label>
-                    <input type="text" id="logradouro" placeholder="Digite o Logradouro">
-
-                    <label>Bairro</label>
-                    <input type="text" id="bairro" placeholder="Digite o Bairro">
-
-                    <label>Cidade</label>
-                    <input type="text" id="cidade" placeholder="Digite o Cidade">
-
-                    <label>Unidade Federativa</label>
-                    <input type="text" id="uf" placeholder="Digite o Unidade Federativa">
-
-                     <label>Número</label>
-                    <input type="text" id="numeroEndereco" placeholder="Digite o Número">
-
-                    <label>Complemento</label>
-                    <input type="text" id="complemento" placeholder="Digite o Complemento">
-                    <button type="submit" onclick="cadastrar()">Cadastrar</button>
-                </form>
-            </div>
+      <div class="content2">
 
 
-            <div class="tabela-scroll">
-                <table id="voosTable">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Criado em:</th>
-                            <th>Excluir</th>
-                            <th>Definir status</th>
+        <a href="./index.html   ">
+          <button class="botao-sair">
+            Sair
+          </button>
+        </a>
+      </div>
+    </div>
 
-                        </tr>
-                    </thead>
-                    <tbody id="tabela_empresas">
+    <!-- ====== CONTEÚDO PRINCIPAL ====== -->
+    <main class="main">
+      <div class="contain-2">
+        <!-- Tabela -->
+
+        <div class="form-relatorio">
+          <form class="card-relatorio">
+            <h2>Cadastrar empresa</h2>
+
+            <label>Nome Fantasia</label>
+            <input type="text" id="nome_fantasia" placeholder="Digite o nome Fantasia">
+
+            <label>Razão social</label>
+            <input type="text" id="razao_social" placeholder="Digite o Razão Social">
+
+            <label>CNPJ</label>
+            <input type="text" id="cnpj" placeholder="Digite o cnpj">
+
+            <h2>Contato</h2>
+
+            <label>Telefone</label>
+            <input type="text" id="numero" placeholder="Digite o Telefone">
+
+            <label>Tipo do número</label>
+            <select id="tipo_num">
+              <option value="fixo">Fixo</option>
+              <option value="móvel">Móvel</option>
+            </select>
+
+            <label>Departamento</label>
+            <input type="text" id="departamento" placeholder="Digite o Departamento">
+
+            <h2>Endereço</h2>
+
+            <label>Apelido</label>
+            <input type="text" id="apelido" placeholder="Digite o Apelido">
+
+            <label>Cep</label>
+            <input type="text" id="cep" onblur="buscarCep()" placeholder="Digite o Cep">
+
+            <label>Logradouro</label>
+            <input type="text" id="logradouro" placeholder="Digite o Logradouro">
+
+            <label>Bairro</label>
+            <input type="text" id="bairro" placeholder="Digite o Bairro">
+
+            <label>Cidade</label>
+            <input type="text" id="cidade" placeholder="Digite o Cidade">
+
+            <label>Unidade Federativa</label>
+            <input type="text" id="uf" placeholder="Digite o Unidade Federativa">
+
+            <label>Número</label>
+            <input type="text" id="numeroEndereco" placeholder="Digite o Número">
+
+            <label>Complemento</label>
+            <input type="text" id="complemento" placeholder="Digite o Complemento">
+            <button type="submit" onclick="cadastrar()">Cadastrar</button>
+          </form>
+        </div>
+
+
+        <div class="tabela-scroll">
+          <table id="voosTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Criado em:</th>
+                <th>Adicionar Dados</th>
+                <th>Formulário</th>
+                <th>Excluir</th>
+                <th>Definir status</th>
+
+              </tr>
+            </thead>
+            <tbody id="tabela_empresas">
+
+              <tr>
+                <td>1</td>
+                <td>Empresa Alpha</td>
+                <td>10/01/2025 14:32</td>
+
+                <td>
+                  <button class="btn-ativo" id="openModal">Adicionar</button>
+                </td>
+
+                <td>
+                  <button class="btn-form" id="openModalView">Formulário</button>
+                </td>
+
+                <td>
+                  <button class="btn-excluir">Excluir</button>
+                </td>
+
+                <td>
+                  <button class="btn-ativo">Ativo</button>
+                </td>
+              </tr>
+
+              <tr>
+                <td>2</td>
+                <td>Tech Solutions</td>
+                <td>01/02/2025 09:12</td>
+
+                <td>
+                  <button class="btn-ativo">Adicionar</button>
+                </td>
+
+                <td>
+                  <button class="btn-form">Formulário</button>
+                </td>
+
+                <td>
+                  <button class="btn-excluir">Excluir</button>
+                </td>
+
+                <td>
+                  <button class="btn-inativo">Inativo</button>
+                </td>
+              </tr>
+
+              <tr>
+                <td>3</td>
+                <td>Logística BR</td>
+                <td>15/02/2025 18:45</td>
+
+                <td>
+                  <button class="btn-ativo">Adicionar</button>
+                </td>
+
+                <td>
+                  <button class="btn-form">Formulário</button>
+                </td>
+
+                <td>
+                  <button class="btn-excluir">Excluir</button>
+                </td>
+
+                <td>
+                  <button class="btn-ativo">Ativo</button>
+                </td>
+              </tr>
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <!-- MODAIS ------------------------ -->
+
+  <div id="modalOverlay" class="modal-overlay">
+    <div class="modal-content">
+
+      <span class="close-modal" id="closeModal">&times;</span>
+
+      <h3>Adicionar Endereço e Contato <br>
+        <span style="color: #3A6EA5;" id="usuario">usuário</span>
+      </h3>
+      <br>
+
+      <form id="formDados">
 
 
 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </main>
-    </section>
+        <h3>Contato</h3>
+        <br>
+      
+        <div class="form-group">
+          <label>Telefone:</label>
+          <input type="text" name="numero_contato" required>
+        </div>
+
+        <div class="form-group">
+          <label>Tipo:</label>
+          <select name="tipo_numero">
+            <option value="fixo">Fixo</option>
+            <option value="móvel">Móvel</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Departamento:</label>
+          <input type="text" name="departamento" required>
+        </div>
+
+        <br>
+        <h3>Endereço</h3>
+        <br>
+        <div class="form-group">
+          <label>Apelido:</label>
+          <input type="text" name="apelido" required>
+        </div>
+
+        <div class="form-group">
+          <label>CEP:</label>
+          <input type="text" name="cep" required>
+        </div>
+
+        <div class="form-group">
+          <label>Logradouro:</label>
+          <input type="text" name="logradouro" required>
+        </div>
+
+        <div class="form-group">
+          <label>Bairro:</label>
+          <input type="text" name="numero" required>
+        </div>
+
+        <div class="form-group">
+          <label>Cidade:</label>
+          <input type="text" name="complemento">
+        </div>
+
+        <div class="form-group">
+          <label>Unidade Federativa</label>
+          <input type="text" name="bairro" required>
+        </div>
+
+        <div class="form-group">
+          <label>Numero:</label>
+          <input type="text" name="bairro" required>
+        </div>
+
+        <div class="form-group">
+          <label>Complemento:</label>
+          <input type="text" name="cidade" required>
+        </div>
+
+        <button type="submit" class="btn-salvar">Salvar</button>
+      </form>
+
+    </div>
+  </div>
+
+
+
+
+  <!-- -------------------- MODAL DA TABELA ---------------- -->
+
+
+  <div id="modalViewOverlay" class="modal-overlay">
+    <div class="modal-content modal-view">
+
+      <span class="close-modal" id="closeModalView">&times;</span>
+
+      <h3>Dados cadastrados<br>
+        <br>
+
+        <h3>Empresa</h3>
+        <br>
+        <table class="tabela-info">
+          <tr>
+            <th>Nome Fantasia</th>
+            <td id="v-nomefantasia">Super Tech Solutions</td>
+          </tr>
+
+          <tr>
+            <th>Razão Social</th>
+            <td id="v-razaosocial">Super Tech Solutions LTDA</td>
+          </tr>
+
+          <tr>
+            <th>CNPJ</th>
+            <td id="v-cnpj">28.394.552/0001-63</td>
+          </tr>
+
+          <tr>
+            <th>Contato</th>
+            <td id="v-contato">Suporte</td>
+          </tr>
+
+          <tr>
+            <th>Telefone</th>
+            <td id="v-telefone">(11) 94823-7654</td>
+          </tr>
+
+          <tr>
+            <th>Tipo do Número</th>
+            <td id="v-tipo-numero">Móvel</td>
+          </tr>
+
+          <tr>
+            <th>Departamento</th>
+            <td id="v-departamento">Comercial</td>
+          </tr>
+
+          <tr>
+            <th>Apelido</th>
+            <td id="v-apelido">Matriz</td>
+          </tr>
+
+          <tr>
+            <th>CEP</th>
+            <td id="v-cep">04567-220</td>
+          </tr>
+
+          <tr>
+            <th>Logradouro</th>
+            <td id="v-logradouro">Avenida das Nações Unidas</td>
+          </tr>
+
+          <tr>
+            <th>Bairro</th>
+            <td id="v-bairro">Brooklin</td>
+          </tr>
+
+          <tr>
+            <th>Cidade</th>
+            <td id="v-cidade">São Paulo</td>
+          </tr>
+
+          <tr>
+            <th>Unidade Federativa</th>
+            <td id="v-uf">SP</td>
+          </tr>
+
+          <tr>
+            <th>Número</th>
+            <td id="v-numero">1020</td>
+          </tr>
+
+          <tr>
+            <th>Complemento</th>
+            <td id="v-complemento">Conjunto 504</td>
+          </tr>
+        </table>
+
+        <br>
+        <hr>
+        <br>
+
+        <h3>Contato</h3>
+        <br>
+        <table class="tabela-info">
+          <tr>
+            <th>Nome Fantasia</th>
+            <td id="v-nomefantasia">Roalding</td>
+          </tr>
+          <tr>
+            <th>CNPJ</th>
+            <td id="v-cnpj">59.603.108/0001-11</td>
+          </tr>
+          <tr>
+            <th>Departamento</th>
+            <td id="v-departamento">Financeiro</td>
+          </tr>
+          <tr>
+            <th>Número</th>
+            <td id="v-numero-contato">11987654321</td>
+          </tr>
+          <tr>
+            <th>Tipo</th>
+            <td id="v-tipo-numero">móvel</td>
+          </tr>
+        </table>
+
+        <h3>Endereço</h3>
+        <br>
+        <table class="tabela-info">
+          <tr>
+            <th>Apelido</th>
+            <td id="v-apelido">Casa</td>
+          </tr>
+          <tr>
+            <th>Logradouro</th>
+            <td id="v-logradouro">Rua das Flores</td>
+          </tr>
+          <tr>
+            <th>Número</th>
+            <td id="v-numero">120</td>
+          </tr>
+          <tr>
+            <th>Complemento</th>
+            <td id="v-complemento">Apto 302</td>
+          </tr>
+          <tr>
+            <th>Bairro</th>
+            <td id="v-bairro">Centro</td>
+          </tr>
+          <tr>
+            <th>CEP</th>
+            <td id="v-cep">12345678</td>
+          </tr>
+          <tr>
+            <th>Cidade</th>
+            <td id="v-cidade">São Paulo</td>
+          </tr>
+          <tr>
+            <th>UF</th>
+            <td id="v-uf">SP</td>
+          </tr>
+        </table>
+
+
+
+    </div>
+  </div>
 
 </body>
 
@@ -126,9 +443,56 @@
 
 <script>
 
-function buscarCep(){
+  // Modais ------------------------------------------------------
+
+
+  const openModal = document.getElementById("openModal");
+  const closeModal = document.getElementById("closeModal");
+  const modalOverlay = document.getElementById("modalOverlay");
+
+  openModal.onclick = () => {
+    modalOverlay.style.display = "flex";
+  };
+
+  closeModal.onclick = () => {
+    modalOverlay.style.display = "none";
+  };
+
+  window.onclick = (event) => {
+    if (event.target === modalOverlay) {
+      modalOverlay.style.display = "none";
+    }
+  };
+
+  const openModalView = document.getElementById("openModalView");
+  const closeModalView = document.getElementById("closeModalView");
+  const modalViewOverlay = document.getElementById("modalViewOverlay");
+
+  openModalView.onclick = () => {
+    modalViewOverlay.style.display = "flex";
+  };
+
+  closeModalView.onclick = () => {
+    modalViewOverlay.style.display = "none";
+  };
+
+  // Fechar clicando fora
+  window.addEventListener("click", (e) => {
+    if (e.target === modalViewOverlay) {
+      modalViewOverlay.style.display = "none";
+    }
+  });
+
+
+  // ------------------------------------------
+
+
+
+
+
+  function buscarCep() {
     const cepVar = cep.value;
-    
+
     fetch(`https://viacep.com.br/ws/${cepVar}/json/`, {
       method: "GET",
       headers: {
@@ -139,7 +503,7 @@ function buscarCep(){
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-            return resposta.json();
+          return resposta.json();
 
         } else {
           throw "Houve um erro ao tentar buscar o cep digitado!";
@@ -147,22 +511,22 @@ function buscarCep(){
       })
       .then((resposta) => {
         var endereco = resposta;
-            logradouro.value = endereco.logradouro;
-            bairro.value = endereco.bairro;
-            cidade.value = endereco.localidade;
-            uf.value = endereco.uf;
+        logradouro.value = endereco.logradouro;
+        bairro.value = endereco.bairro;
+        cidade.value = endereco.localidade;
+        uf.value = endereco.uf;
 
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
       });
-    }
-    
+  }
 
 
-function cadastrar(){
+
+  function cadastrar() {
     var nome_fantasiaVar = nome_fantasia.value;
-    var razao_socialVar= razao_social.value;
+    var razao_socialVar = razao_social.value;
     var cnpjVar = cnpj.value;
     var statusVar = 'TRUE';
     var numeroVar = numero.value;
@@ -171,14 +535,14 @@ function cadastrar(){
     var apelidoVar = apelido.value;
     var cepVar = cep.value;
     var logradouroVar = logradouro.value;
-    var bairroVar = bairro.value ;
+    var bairroVar = bairro.value;
     var cidadeVar = cidade.value;
     var ufVar = uf.value;
     var numeroEnderecoVar = numeroEndereco.value;
     var complementoVar = complemento.value;
 
 
-   fetch("/empresas/cadastrarEmpresa", {
+    fetch("/empresas/cadastrarEmpresa", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -192,8 +556,8 @@ function cadastrar(){
         tipo_numServer: tipo_numVar,
         departamentoServer: departamentoVar,
         apelidoServer: apelidoVar,
-        cepServer : cepVar,
-        logradouroServer : logradouroVar,
+        cepServer: cepVar,
+        logradouroServer: logradouroVar,
         bairroServer: bairroVar,
         cidadeServer: cidadeVar,
         ufServer: ufVar,
@@ -214,47 +578,47 @@ function cadastrar(){
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-      });}
+      });
+  }
 
 
-    const select = document.getElementById("navigationSelect");
+  const select = document.getElementById("navigationSelect");
 
-    select.addEventListener("change", function () {
-        const url = this.value;
-        if (url) {
-            window.location.href = url;
-        }
-    });
-    
-    function carregarEmpresas() {
-        fetch("/empresas/listar")
-            .then((resposta) => 
-            {
-              
-              
-              
-              resposta.json()
-            })
+  select.addEventListener("change", function () {
+    const url = this.value;
+    if (url) {
+      window.location.href = url;
+    }
+  });
 
-            .then(empresas => {
+  function carregarEmpresas() {
+    fetch("/empresas/listar")
+      .then((resposta) => {
 
-                let tabela = document.getElementById("tabela_empresas");
-                tabela.innerHTML = ""; 
 
-                empresas.forEach(empresa => {
 
-                    let textoStatus = empresa.status ? "Ativo" : "Inativo";
-                    let classeStatus = empresa.status ? "btn-ativo" : "btn-inativo";
-                    const dataCriacao = empresa.data_criacao;
+        resposta.json()
+      })
 
-                    var data = dataCriacao.split("T");
-                    var tempo = data[1].split(".");
-                    var hora = tempo[0];
-                    var dataSemHora = data[0].split("-");
-                    var dataFormatada = `${dataSemHora[2]}/${dataSemHora[1]}/${dataSemHora[0]} ${hora}`
+      .then(empresas => {
 
-                    
-                    tabela.innerHTML += `
+        let tabela = document.getElementById("tabela_empresas");
+        tabela.innerHTML = "";
+
+        empresas.forEach(empresa => {
+
+          let textoStatus = empresa.status ? "Ativo" : "Inativo";
+          let classeStatus = empresa.status ? "btn-ativo" : "btn-inativo";
+          const dataCriacao = empresa.data_criacao;
+
+          var data = dataCriacao.split("T");
+          var tempo = data[1].split(".");
+          var hora = tempo[0];
+          var dataSemHora = data[0].split("-");
+          var dataFormatada = `${dataSemHora[2]}/${dataSemHora[1]}/${dataSemHora[0]} ${hora}`
+
+
+          tabela.innerHTML += `
                         <tr>
                             <td>${empresa.id}</td>
                             <td>${empresa.razao_social}</td>
@@ -263,16 +627,16 @@ function cadastrar(){
                             <td><button class="${classeStatus}" onclick="atualizarStatus(${empresa.id})">${textoStatus}</button></td>
                         </tr>
                     `;
-                });
-            })
-            .catch(erro => {
-                console.log("Erro ao listar empresas:", erro);
-            });
-    }
+        });
+      })
+      .catch(erro => {
+        console.log("Erro ao listar empresas:", erro);
+      });
+  }
 
-    function atualizarStatus(id){
+  function atualizarStatus(id) {
 
-      fetch(`/empresas/atualizarStatus/${id}`, {
+    fetch(`/empresas/atualizarStatus/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -293,11 +657,11 @@ function cadastrar(){
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
       });
-    }
+  }
 
 
-    function deletarEmpresa(id){
-      fetch(`/empresas/deletarEmpresa/${id}`, {
+  function deletarEmpresa(id) {
+    fetch(`/empresas/deletarEmpresa/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -318,5 +682,5 @@ function cadastrar(){
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
       });
-    }
+  }
 </script>
