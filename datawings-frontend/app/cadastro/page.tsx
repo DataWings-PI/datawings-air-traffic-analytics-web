@@ -20,6 +20,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 import { useSnackbar } from "notistack";
 import { cadastrarUsuario } from "@/app/services/usuarioService";
+import { useRouter } from "next/navigation"; // 👉 IMPORTANTE
 
 const textFieldStyles = {
   "& .MuiOutlinedInput-root": {
@@ -49,6 +50,7 @@ const avaliarForcaSenha = (s: string) => {
 
 export default function RegisterPage() {
   const { enqueueSnackbar } = useSnackbar();
+  const router = useRouter(); // 👉 CRIA O ROUTER
 
   const [form, setForm] = useState({
     nome: "",
@@ -72,17 +74,26 @@ export default function RegisterPage() {
   const validarStep = () => {
     if (activeStep === 0) {
       if (!form.nome)
-        return enqueueSnackbar("O campo Nome é obrigatório", { variant: "warning" });
+        return enqueueSnackbar("O campo Nome é obrigatório", {
+          variant: "warning",
+        });
+
       if (!form.email.includes("@"))
-        return enqueueSnackbar("Digite um email válido", { variant: "warning" });
+        return enqueueSnackbar("Digite um email válido", {
+          variant: "warning",
+        });
     }
 
     if (activeStep === 1) {
       if (!form.codigoEmpresa)
-        return enqueueSnackbar("O código da empresa é obrigatório", { variant: "warning" });
+        return enqueueSnackbar("O código da empresa é obrigatório", {
+          variant: "warning",
+        });
 
       if (form.codigoEmpresa.length < 4)
-        return enqueueSnackbar("Código inválido (mínimo 4 caracteres)", { variant: "error" });
+        return enqueueSnackbar("Código inválido (mínimo 4 caracteres)", {
+          variant: "error",
+        });
     }
 
     return true;
@@ -102,16 +113,30 @@ export default function RegisterPage() {
 
   const handleSubmit = async () => {
     if (!form.senha)
-      return enqueueSnackbar("O campo Senha é obrigatório", { variant: "warning" });
+      return enqueueSnackbar("O campo Senha é obrigatório", {
+        variant: "warning",
+      });
 
     if (form.senha !== form.confirmarSenha)
       return enqueueSnackbar("As senhas não coincidem", { variant: "error" });
 
     try {
       await cadastrarUsuario(form);
-      enqueueSnackbar("Cadastro realizado com sucesso!", { variant: "success" });
-    } catch (error: any) {
-      enqueueSnackbar(error.message, { variant: "error" });
+
+      enqueueSnackbar("Cadastro realizado com sucesso!", {
+        variant: "success",
+      });
+
+      setTimeout(() => {
+        router.push("/login");
+      }, 3000);
+
+    } catch (error) {
+      if (error instanceof Error) {
+        enqueueSnackbar(error.message, { variant: "error" });
+      } else {
+        enqueueSnackbar("Ocorreu um erro inesperado", { variant: "error" });
+      }
     }
   };
 
@@ -161,7 +186,10 @@ export default function RegisterPage() {
             </Stepper>
 
             {/* FORM */}
-            <form onSubmit={(e) => e.preventDefault()} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              style={{ display: "flex", flexDirection: "column", gap: 20 }}
+            >
               {/* STEP 1 */}
               {activeStep === 0 && (
                 <>
@@ -217,7 +245,11 @@ export default function RegisterPage() {
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
-                          <IconButton onClick={() => setMostrarSenha(!mostrarSenha)} edge="end" sx={{ color: "#ff6600" }}>
+                          <IconButton
+                            onClick={() => setMostrarSenha(!mostrarSenha)}
+                            edge="end"
+                            sx={{ color: "#ff6600" }}
+                          >
                             {mostrarSenha ? <VisibilityOff /> : <Visibility />}
                           </IconButton>
                         </InputAdornment>
@@ -245,18 +277,26 @@ export default function RegisterPage() {
                     label="Confirmar Senha"
                     type={mostrarConfirmarSenha ? "text" : "password"}
                     value={form.confirmarSenha}
-                    onChange={(e) => updateField("confirmarSenha", e.target.value)}
+                    onChange={(e) =>
+                      updateField("confirmarSenha", e.target.value)
+                    }
                     fullWidth
                     sx={textFieldStyles}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
                           <IconButton
-                            onClick={() => setMostrarConfirmarSenha(!mostrarConfirmarSenha)}
+                            onClick={() =>
+                              setMostrarConfirmarSenha(!mostrarConfirmarSenha)
+                            }
                             edge="end"
                             sx={{ color: "#ff6600" }}
                           >
-                            {mostrarConfirmarSenha ? <VisibilityOff /> : <Visibility />}
+                            {mostrarConfirmarSenha ? (
+                              <VisibilityOff />
+                            ) : (
+                              <Visibility />
+                            )}
                           </IconButton>
                         </InputAdornment>
                       ),
@@ -266,7 +306,9 @@ export default function RegisterPage() {
               )}
 
               {/* BOTÕES */}
-              <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
+              <Box
+                sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
+              >
                 <Button
                   disabled={activeStep === 0}
                   onClick={handleBack}

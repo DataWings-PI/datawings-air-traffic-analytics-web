@@ -15,14 +15,24 @@ import {
 import Navbar from "@/app/components/navbar";
 import Footer from "@/app/components/footer";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSnackbar } from "notistack";
+
+import { atualizarUsuario, excluirUsuario } from "@/app/services/usuarioService";
+
+interface UsuarioLocalStorage {
+  id: number;
+  nome: string;
+  email: string;
+}
 
 export default function PerfilUsuario() {
   const { enqueueSnackbar } = useSnackbar();
 
-  const [nome, setNome] = useState("Seu Nome");
-  const [email, setEmail] = useState("email@exemplo.com");
+  const [idUsuario, setIdUsuario] = useState<number | null>(null);
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senhaAtual, setSenhaAtual] = useState("");
   const [senha, setSenha] = useState("");
   const [mostrarSenha, setMostrarSenha] = useState(false);
 
@@ -39,18 +49,79 @@ export default function PerfilUsuario() {
     "& .MuiOutlinedInput-input": { color: "#fff" },
   };
 
-  function salvarAlteracoes() {
-    // Aqui você colocaria sua requisição PUT
+  useEffect(() => {
+    const usuarioStr = localStorage.getItem("usuario");
+
+    if (usuarioStr) {
+      const usuario: UsuarioLocalStorage = JSON.parse(usuarioStr);
+
+      setIdUsuario(usuario.id);
+      setNome(usuario.nome);
+      setEmail(usuario.email);
+    }
+  }, []);
+
+  async function salvarAlteracoes() {
+    if (!idUsuario) {
+      return enqueueSnackbar("Usuário não encontrado", { variant: "error" });
+    }
+
     if (!email.includes("@"))
       return enqueueSnackbar("Digite um email válido", { variant: "error" });
 
-    enqueueSnackbar("Alterações salvas com sucesso!", { variant: "success" });
+    if (senha && senhaAtual.length === 0)
+      return enqueueSnackbar("Digite sua senha atual para alterar a senha", {
+        variant: "error",
+      });
+
+    try {
+      await atualizarUsuario({
+        id: idUsuario,
+        nome,
+        email,
+        senhaAntiga: senhaAtual,
+        senhaNova: senha || senhaAtual,
+      });
+
+      enqueueSnackbar("Alterações salvas com sucesso!", {
+        variant: "success",
+      });
+
+      localStorage.setItem(
+        "usuario",
+        JSON.stringify({ id: idUsuario, nome, email })
+      );
+
+      setSenhaAtual("");
+      setSenha("");
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Erro ao atualizar";
+
+      enqueueSnackbar(message, { variant: "error" });
+    }
   }
 
-  function excluirConta() {
-    if (confirm("Tem certeza que deseja excluir sua conta?")) {
-      enqueueSnackbar("Conta excluída!", { variant: "warning" });
-      // Aqui você colocaria sua requisição DELETE
+  async function excluirConta() {
+    if (!idUsuario)
+      return enqueueSnackbar("Usuário não encontrado", { variant: "error" });
+
+    if (!confirm("Tem certeza que deseja excluir sua conta?")) return;
+
+    try {
+      await excluirUsuario(idUsuario);
+
+      enqueueSnackbar("Conta excluída com sucesso!", {
+        variant: "warning",
+      });
+
+      localStorage.removeItem("usuario");
+      window.location.href = "/login";
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Erro ao excluir conta";
+
+      enqueueSnackbar(message, { variant: "error" });
     }
   }
 
@@ -87,7 +158,6 @@ export default function PerfilUsuario() {
               }}
               style={{ display: "flex", flexDirection: "column", gap: 20 }}
             >
-              {/* Nome */}
               <TextField
                 label="Nome"
                 value={nome}
@@ -96,7 +166,6 @@ export default function PerfilUsuario() {
                 sx={textFieldStyles}
               />
 
-              {/* Email */}
               <TextField
                 label="Email"
                 type="email"
@@ -112,7 +181,28 @@ export default function PerfilUsuario() {
                 sx={textFieldStyles}
               />
 
-              {/* Senha */}
+              <TextField
+                label="Senha atual"
+                type={mostrarSenha ? "text" : "password"}
+                value={senhaAtual}
+                onChange={(e) => setSenhaAtual(e.target.value)}
+                fullWidth
+                sx={textFieldStyles}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => setMostrarSenha(!mostrarSenha)}
+                        edge="end"
+                        sx={{ color: "#ff6600" }}
+                      >
+                        {mostrarSenha ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+
               <TextField
                 label="Senha (nova)"
                 type={mostrarSenha ? "text" : "password"}
@@ -135,7 +225,6 @@ export default function PerfilUsuario() {
                 }}
               />
 
-              {/* Botão Salvar */}
               <Button
                 type="submit"
                 variant="contained"
@@ -151,7 +240,6 @@ export default function PerfilUsuario() {
 
               <Divider sx={{ my: 2, borderColor: "#444" }} />
 
-              {/* Botão Excluir Conta */}
               <Button
                 variant="outlined"
                 color="error"

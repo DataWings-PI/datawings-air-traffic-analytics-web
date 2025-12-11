@@ -33,6 +33,12 @@
 
             <div class="content2">
 
+                <select id="meuSelect" onchange="window.location.href = this.value;">
+                    <option value="dashboard.html" selected>Dashboard</option>
+                    <option value="relatorio.html">Relatórios</option>
+                    <option value="slack.html">Notificações</option>
+                </select>
+
                 <a href="index.html">
                     <button class="botao-sair">
                         Sair
@@ -132,7 +138,7 @@
                 <table id="voosTable">
                     <thead>
                         <tr>
-                            <th>Rota</th>
+                            <th>Número Voo</th>
                             <th>Data prevista</th>
                             <th>Previsão Partida</th>
                             <th>Previsão Chegada</th>
@@ -146,7 +152,7 @@
                             <th>Código Justificativa</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody_voos">
                         <tr>
                             <td>101</td>
                             <td>01/01/2025</td>
@@ -732,133 +738,133 @@
         const fkEmpresa = localStorage.getItem('fkEmpresa');
 
 
-        
+
         //Kpis
 
-    //KPI 1
-    fetch(`/voos/kpi1/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
-    if (response.status === 204) {
-      alert('Nenhuma dado encontrada.');
-      return;
-    }
-    if (response.ok) {
-      response.json().then(function (resposta) {
-        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-        exibirKpi1(resposta);
-        
-      });
-    } else {
-      console.error('Nenhum dado encontrado ou erro na API');
-    }
-  })
-    .catch(function (error) {
-      console.error(`Erro na obtenção dos dados p/ Kpi 1: ${error.message}`);
-    });
+        //KPI 1
+        fetch(`/voos/kpi1/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+            if (response.status === 204) {
+                alert('Nenhuma dado encontrada.');
+                return;
+            }
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    exibirKpi1(resposta);
 
-    
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ Kpi 1: ${error.message}`);
+            });
 
-    function exibirKpi1(kpi1){
-        const kpi1_id = document.getElementById('kpi1');
-        kpi1_id.innerHTML = `${kpi1[0].total_voos} voos`;
 
-        
-    }
 
-    // KPI 2
-    fetch(`/voos/kpi2/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
-    if (response.status === 204) {
-      alert('Nenhuma dado encontrada.');
-      return;
-    }
-    if (response.ok) {
-      response.json().then(function (resposta) {
-        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-        exibirKpi2(resposta);
-      });
-    } else {
-      console.error('Nenhum dado encontrado ou erro na API');
-    }
-  })
-    .catch(function (error) {
-      console.error(`Erro na obtenção dos dados p/ Kpi 1: ${error.message}`);
-    });
+        function exibirKpi1(kpi1) {
+            const kpi1_id = document.getElementById('kpi1');
+            kpi1_id.innerHTML = `${kpi1[0].total_voos} voos`;
 
-    
 
-    function exibirKpi2(kpi2){
-        const kpi2_id = document.getElementById('kpi2');
-        kpi2_id.innerHTML = `${kpi2[0].voos_sem_atraso} voos | <span
+        }
+
+        // KPI 2
+        fetch(`/voos/kpi2/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+            if (response.status === 204) {
+                alert('Nenhuma dado encontrada.');
+                return;
+            }
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    exibirKpi2(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ Kpi 1: ${error.message}`);
+            });
+
+
+
+        function exibirKpi2(kpi2) {
+            const kpi2_id = document.getElementById('kpi2');
+            kpi2_id.innerHTML = `${kpi2[0].voos_sem_atraso} voos | <span
         style="color: #3A6EA5; font-weight: bolder;">${kpi2[0].porcentagem}</span>`;
 
-        sessionStorage.PORCENTAGEM_KPI2 = kpi2[0].porcentagem;
-    }
+            sessionStorage.PORCENTAGEM_KPI2 = kpi2[0].porcentagem;
+        }
 
-    // KPI 3
-    fetch(`/voos/kpi3/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
-    if (response.status === 204) {
-      alert('Nenhuma dado encontrada.');
-      return;
-    }
-    if (response.ok) {
-      response.json().then(function (resposta) {
-        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-        exibirKpi3(resposta);
-      });
-    } else {
-      console.error('Nenhum dado encontrado ou erro na API');
-    }
-  })
-    .catch(function (error) {
-      console.error(`Erro na obtenção dos dados p/ Kpi 3: ${error.message}`);
-    });
+        // KPI 3
+        fetch(`/voos/kpi3/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+            if (response.status === 204) {
+                alert('Nenhuma dado encontrada.');
+                return;
+            }
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    exibirKpi3(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ Kpi 3: ${error.message}`);
+            });
 
-    
 
-    function exibirKpi3(kpi3){
-        const kpi3_id = document.getElementById('kpi3');
-        kpi3_id.innerHTML = `${kpi3[0].voos_com_atraso} voos | <span
+
+        function exibirKpi3(kpi3) {
+            const kpi3_id = document.getElementById('kpi3');
+            kpi3_id.innerHTML = `${kpi3[0].voos_com_atraso} voos | <span
         style="color: #3A6EA5; font-weight: bolder;">${kpi3[0].porcentagem}</span>`;
-    sessionStorage.PORCENTAGEM_KPI3 = kpi3[0].porcentagem;
-    }
+            sessionStorage.PORCENTAGEM_KPI3 = kpi3[0].porcentagem;
+        }
 
 
-    // KPI 4
-    fetch(`/voos/kpi4/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
-    if (response.status === 204) {
-      alert('Nenhuma dado encontrada.');
-      return;
-    }
-    if (response.ok) {
-      response.json().then(function (resposta) {
-        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-        exibirKpi4(resposta);
-      });
-    } else {
-      console.error('Nenhum dado encontrado ou erro na API');
-    }
-  })
-    .catch(function (error) {
-      console.error(`Erro na obtenção dos dados p/ Kpi 4: ${error.message}`);
-    });
+        // KPI 4
+        fetch(`/voos/kpi4/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+            if (response.status === 204) {
+                alert('Nenhuma dado encontrada.');
+                return;
+            }
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    exibirKpi4(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ Kpi 4: ${error.message}`);
+            });
 
-    
 
-    function exibirKpi4(kpi4){
-        const kpi4_id = document.getElementById('kpi4');
-        kpi4_id.innerHTML = `${kpi4[0].voos_cancelados} voos | <span
+
+        function exibirKpi4(kpi4) {
+            const kpi4_id = document.getElementById('kpi4');
+            kpi4_id.innerHTML = `${kpi4[0].voos_cancelados} voos | <span
         style="color: #3A6EA5; font-weight: bolder;">${kpi4[0].porcentagem}</span>`;
 
-    sessionStorage.PORCENTAGEM_KPI4 = kpi4[0].porcentagem;
-    }
+            sessionStorage.PORCENTAGEM_KPI4 = kpi4[0].porcentagem;
+        }
 
         // ----------------- grafico DE TORTA -------------- //
 
         // porcentagem grafico de torta
         const porcentagens = [];
 
-        porcentagens.push(parseFloat(sessionStorage.PORCENTAGEM_KPI2.replace('%','')));
-        porcentagens.push(parseFloat(sessionStorage.PORCENTAGEM_KPI3.replace('%','')));
-        porcentagens.push(parseFloat(sessionStorage.PORCENTAGEM_KPI4.replace('%','')));
+        porcentagens.push(parseFloat(sessionStorage.PORCENTAGEM_KPI2.replace('%', '')));
+        porcentagens.push(parseFloat(sessionStorage.PORCENTAGEM_KPI3.replace('%', '')));
+        porcentagens.push(parseFloat(sessionStorage.PORCENTAGEM_KPI4.replace('%', '')));
 
 
         const DATA_COUNT = 5;
@@ -868,9 +874,9 @@
             labels: ['sem atrasos', 'com atrasos', 'cancelados'],
             datasets: [
                 {
-                    label: 'Dataset 1',
+                    label: 'Voos',
                     data: porcentagens,
-                    backgroundColor: ['#36A2EB', '#FF6384', '#87ff63'],
+                    backgroundColor: ['#003459', '#90E0EF', '#00A8E8'],
                 }
             ]
         };
@@ -906,89 +912,89 @@
         new Chart(ctx, config);
 
 
-    // ----------------- grafico barra 1 -------------- //
-    const codigo_justificativa = [];
-    const qtd_vezes = [];
-    
-    fetch(`/voos/graficoJustificativas/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
-    if (response.status === 204) {
-      alert('Nenhuma dado encontrada.');
-      return;
-    }
-    if (response.ok) {
-      response.json().then(function (resposta) {
-        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        // ----------------- grafico barra 1 -------------- //
+        const codigo_justificativa = [];
+        const qtd_vezes = [];
 
-        resposta.forEach(codigo => {
-            codigo_justificativa.push(codigo.codigo_justificativa);
-        });
+        fetch(`/voos/graficoJustificativas/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+            if (response.status === 204) {
+                alert('Nenhuma dado encontrada.');
+                return;
+            }
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-        resposta.forEach(qtd => {
-            qtd_vezes.push(qtd.qtd_vezes);
-        });
+                    resposta.forEach(codigo => {
+                        codigo_justificativa.push(codigo.codigo_justificativa);
+                    });
 
-        exibirJustificativas(codigo_justificativa, qtd_vezes);
-    });
-} else {
-    console.error('Nenhum dado encontrado ou erro na API');
-}
-})
-.catch(function (error) {
-    console.error(`Erro na obtenção dos dados p/ Gráfico de top 10 justificativas: ${error.message}`);
-});
+                    resposta.forEach(qtd => {
+                        qtd_vezes.push(qtd.qtd_vezes);
+                    });
+
+                    exibirJustificativas(codigo_justificativa, qtd_vezes);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ Gráfico de top 10 justificativas: ${error.message}`);
+            });
 
 
 
-    function exibirJustificativas(codigo_justificativa, qtd_vezes){
-        
-    
+        function exibirJustificativas(codigo_justificativa, qtd_vezes) {
 
-        const DATA_COUNTbar1 = 10;
-        const NUMBER_CFGbar1 = { count: DATA_COUNTbar1, min: 0, max: 100 };
 
-        const dataBar1 = {
-            labels: codigo_justificativa,
-            datasets: [
-                {
-                    data: qtd_vezes,
-                    backgroundColor: [
-                        '#36A2EB', '#FFCD56', '#FF6384',
-                        '#87ff63', '#9966FF', '#FF9F40',
-                        '#4BC0C0', '#C9CBCE', '#A9A9A9', '#DA70D6'
-                    ]
-                }
-            ]
-        };
 
-        const configBar1 = {
-            type: 'bar',
-            data: dataBar1,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: false,
-                    title: {
-                        display: true,
-                        text: 'Top 10 códigos de justificativas mais indicados'
-                    },
-                    datalabels: {
-                        anchor: 'centre',
-                        align: 'centre',
-                        color: 'white',
-                        font: {
-                            weight: 'bold',
-                            size: 12
+            const DATA_COUNTbar1 = 10;
+            const NUMBER_CFGbar1 = { count: DATA_COUNTbar1, min: 0, max: 100 };
+
+            const dataBar1 = {
+                labels: codigo_justificativa,
+                datasets: [
+                    {
+                        data: qtd_vezes,
+                        backgroundColor: [
+                            '#3A6EA5', '#3A6EA5', '#3A6EA5',
+                            '#3A6EA5', '#3A6EA5', '#3A6EA5',
+                            '#3A6EA5', '#3A6EA5', '#3A6EA5', '#3A6EA5'
+                        ]
+                    }
+                ]
+            };
+
+            const configBar1 = {
+                type: 'bar',
+                data: dataBar1,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: false,
+                        title: {
+                            display: true,
+                            text: 'Top 10 códigos de justificativas mais indicados'
+                        },
+                        datalabels: {
+                            anchor: 'centre',
+                            align: 'centre',
+                            color: 'white',
+                            font: {
+                                weight: 'bold',
+                                size: 12
+                            }
                         }
                     }
-                }
-            },
-            plugins: [ChartDataLabels]
-        };
+                },
+                plugins: [ChartDataLabels]
+            };
 
-        const ctxBar1 = document.getElementById('meuGraficoBarra1');
-        new Chart(ctxBar1, configBar1);
+            const ctxBar1 = document.getElementById('meuGraficoBarra1');
+            new Chart(ctxBar1, configBar1);
 
-    }
+        }
 
 
 
@@ -996,96 +1002,177 @@
 
         // ---------------- grafico barra 2 --------------- //
 
-        const labels = ['SP / PE', 'PE / SP', 'RJ / RR', 'SP / MG',
-            'RJ / BA', 'DF / AM', 'RS / PR', 'GO / PA',
-            'RS / SP', 'RJ / MG'];
+        const rotas = [];
+        const quantidade_atrasos = [];
+        const media_atrasos = [];
 
-        const data1 = [25, 14, 25, 32, 35, 40, 10, 22, 24, 20]; // Barras
-        const data2 = [32, 16, 27, 34, 37, 42, 12, 24, 26, 22]; // Linha
+        fetch(`/voos/graficoDesempenho/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+            if (response.status === 204) {
+                alert('Nenhuma dado encontrada.');
+                return;
+            }
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-        // 🔥 Novo dataset corrigido
-        const dataBar2 = {
-            labels: labels,
-            datasets: [
-                {
-                    label: 'Quantidade de atrasos por rota',
-                    data: data1,
-                    backgroundColor: [
-                        '#FF6700'
-                    ],
-                    stack: 'combined',
-                    type: 'bar',
-                    order: 0,
+                    resposta.forEach(rotaAtual => {
+                        rotas.push(rotaAtual.rota);
+                    });
+
+                    resposta.forEach(qtd => {
+                        quantidade_atrasos.push(qtd.quantidade_atrasos);
+                    });
+
+                    resposta.forEach(media_atraso => {
+                        media_atrasos.push(parseFloat(media_atraso.media_atraso));
+                    });
+
+                    exibirDesempenho(rotas, quantidade_atrasos, media_atrasos);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ Gráfico de top 10 justificativas: ${error.message}`);
+            });
+
+        function exibirDesempenho(rotas, quantidade_atrasos, media_atrasos) {
+
+            const labels = rotas;
+
+            const data1 = quantidade_atrasos; // Barras
+            const data2 = media_atrasos; // Linha
+
+            // 🔥 Novo dataset corrigido
+            const dataBar2 = {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Quantidade de atrasos por rota',
+                        data: data1,
+                        backgroundColor: [
+                            '#FF6700'
+                        ],
+                        stack: 'combined',
+                        type: 'bar',
+                        order: 0,
 
 
-                    // 🔥 DataLabels para as barras
-                    datalabels: {
-                        anchor: 'center',
-                        align: 'center',
-                        color: 'white',
-                        font: {
-                            weight: 'bold',
-                            size: 12
+                        // 🔥 DataLabels para as barras
+                        datalabels: {
+                            anchor: 'center',
+                            align: 'center',
+                            color: 'white',
+                            font: {
+                                weight: 'bold',
+                                size: 12
+                            },
+
+                        }
+                    },
+                    {
+                        label: 'Média de tempo de atraso',
+                        data: data2,
+                        borderColor: '#36a2eb',
+                        backgroundColor: '#36a2eb',
+                        type: 'bar',
+                        fill: false,
+                        order: 1,
+
+
+                        // 🔥 DataLabels para a linha
+                        datalabels: {
+                            anchor: 'center',
+                            align: 'center',
+                            color: 'black',
+                            font: {
+                                weight: 'bold',
+                                size: 12
+                            },
+                        }
+                    }
+                ]
+            };
+
+            const configBar2 = {
+                type: 'bar',
+                data: dataBar2,
+                options: {
+                    responsive: true,
+
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Desempenho de Atrasos por Rota (Contagem e Média)'
                         },
 
-                    }
-                },
-                {
-                    label: 'Média de tempo de atraso',
-                    data: data2,
-                    borderColor: '#36a2eb',
-                    backgroundColor: '#36a2eb',
-                    type: 'bar',
-                    fill: false,
-                    order: 1,
-
-
-                    // 🔥 DataLabels para a linha
-                    datalabels: {
-                        anchor: 'center',
-                        align: 'center',
-                        color: 'black',
-                        font: {
-                            weight: 'bold',
-                            size: 12
-                        },
-                    }
-                }
-            ]
-        };
-
-        const configBar2 = {
-            type: 'bar',
-            data: dataBar2,
-            options: {
-                responsive: true,
-
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Desempenho de Atrasos por Rota (Contagem e Média)'
+                        // 🔥 Ativando DataLabels globalmente
+                        datalabels: {
+                            display: true
+                        }
                     },
 
-                    // 🔥 Ativando DataLabels globalmente
-                    datalabels: {
-                        display: true
+                    scales: {
+                        y: {
+                            stacked: true,
+                            beginAtZero: true
+                        }
                     }
                 },
+                plugins: [ChartDataLabels]
+            };
 
-                scales: {
-                    y: {
-                        stacked: true,
-                        beginAtZero: true
-                    }
-                }
-            },
-            plugins: [ChartDataLabels]
-        };
+            // Inicializa o Gráfico
+            const ctxBar2 = document.getElementById('meuGraficoBarra2').getContext('2d');
+            new Chart(ctxBar2, configBar2);
+        }
 
-        // Inicializa o Gráfico
-        const ctxBar2 = document.getElementById('meuGraficoBarra2').getContext('2d');
-        new Chart(ctxBar2, configBar2);
+        // ---------------- tabela voos --------------- //
 
+        fetch(`/voos/tabelaVoos/${fkEmpresa}`, { cache: 'no-store' }).then(function (response) {
+            if (response.status === 204) {
+                alert('Nenhuma dado encontrada.');
+                return;
+            }
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    exibirVoos(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ Gráfico de top 10 justificativas: ${error.message}`);
+            });
+
+        function exibirVoos(resposta) {
+            const tbody_voos = document.getElementById("tbody_voos");
+            let voos = "";
+
+            resposta.forEach(resposta => {
+                voos += `<tr>
+                            <td>${resposta.numero_voo}</td>
+                            <td>${resposta.data_prevista}</td>
+                            <td>${resposta.previsao_partida}</td>
+                            <td>${resposta.previsao_chegada}</td>
+                            <td>${resposta.partida}</td>
+                            <td>${resposta.chegada}</td>
+                            <td>${resposta.atraso_chegada}</td>
+                            <td>${resposta.atraso_partida}</td>
+                            <td>${resposta.atraso_total}</td>
+                            <td>${resposta.origem}</td>
+                            <td>${resposta.destino}</td>
+                            <td>${resposta.codigo_justificativa}</td>
+                        </tr>\n`
+            })
+
+            tbody_voos.innerHTML = voos;
+
+        }
 
 
 
@@ -1120,7 +1207,7 @@
             if (e.target === modal3) modal3.style.display = "none";
         };
 
-    
+
     </script>
 </body>
 

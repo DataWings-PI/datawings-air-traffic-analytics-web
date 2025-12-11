@@ -25,4 +25,12 @@ router.get("/kpi4/:id", function (req, res) {
 router.get("/graficoJustificativas/:id", function (req, res) {
     vooController.buscarJustificativas(req, res);
 })
+
+router.get("/graficoDesempenho/:id", function (req, res) {
+    vooController.buscarDesempenho(req, res);
+})
+
+router.get("/tabelaVoos/:id", function (req, res) {
+    vooController.buscarVoos(req, res);
+})
 module.exports = router;

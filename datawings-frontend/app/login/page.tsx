@@ -16,9 +16,12 @@ import Footer from "@/app/components/footer";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 import { useSnackbar } from "notistack";
+import { autenticar } from "@/app/services/usuarioService";
+import { useRouter } from "next/navigation";
 
-export default function RegisterStep1() {
+export default function LoginPage() {
   const { enqueueSnackbar } = useSnackbar();
+  const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -37,7 +40,7 @@ export default function RegisterStep1() {
     "& .MuiOutlinedInput-input": { color: "#fff" },
   };
 
-  const handleSubmit = () => {
+  const handleLogin = async () => {
     if (!email.includes("@"))
       return enqueueSnackbar("Digite um email válido", { variant: "error" });
 
@@ -46,7 +49,24 @@ export default function RegisterStep1() {
         variant: "warning",
       });
 
-    enqueueSnackbar("Etapa 1 concluída!", { variant: "success" });
+    try {
+      const usuario = await autenticar(email, senha);
+
+      enqueueSnackbar("Login realizado com sucesso!", { variant: "success" });
+
+      localStorage.setItem("usuario", JSON.stringify(usuario));
+
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
+
+    } catch (error) {
+      if (error instanceof Error) {
+        enqueueSnackbar(error.message, { variant: "error" });
+      } else {
+        enqueueSnackbar("Ocorreu um erro inesperado", { variant: "error" });
+      }
+    }
   };
 
   return (
@@ -72,14 +92,13 @@ export default function RegisterStep1() {
               color="#ff6600"
               mb={3}
             >
-              Criar Conta
+              Login
             </Typography>
 
-            {/* ---- SOMENTE EMAIL + SENHA ---- */}
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                handleSubmit();
+                handleLogin();
               }}
               style={{ display: "flex", flexDirection: "column", gap: 20 }}
             >
@@ -130,7 +149,7 @@ export default function RegisterStep1() {
                   "&:hover": { backgroundColor: "#e45b00" },
                 }}
               >
-                Continuar
+                Entrar
               </Button>
             </form>
           </Paper>

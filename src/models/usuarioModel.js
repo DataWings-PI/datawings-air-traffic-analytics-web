@@ -37,7 +37,50 @@ function cadastrar(nome, email, senha, codigoAtivacao) {
     });
 }
 
+function ligarDesligar(statusNotif, statusAtraso, statusCancelamento) {
+    
+    var instrucaoSql = `
+        INSERT INTO slack (StatusNotif, statusAtraso, statusCancelamento) 
+        VALUES ('${statusNotif}', '${statusAtraso}', '${statusCancelamento}');
+    `
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+/* function mudarStatus(status) {
+
+    var instrucaoSql = `
+    UPDATE slack WHERE 
+    `
+} */
+
+
+
+function atualizar(id, nome, email, senha) {
+    const sql = `
+        UPDATE usuario
+        SET nome_completo = '${nome}',
+            email = '${email}',
+            senha = '${senha}'
+        WHERE id = ${id};
+    `;
+
+    return database.executar(sql);
+}
+
+function deletar(id) {
+    const sql = `
+        DELETE FROM usuario
+        WHERE id = ${id};
+    `;
+    return database.executar(sql);
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    atualizar,
+    deletar,
+    ligarDesligar
 };
