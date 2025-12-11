@@ -163,7 +163,7 @@ table {
 th, td {
   padding: 5px 5px;
   text-align: left;
-  white-space: nowrap; /* evita quebra de linha */
+  white-space: nowrap;
 }
 
 
@@ -329,7 +329,6 @@ tbody tr:nth-child(even) {
   background-color: #ff9343;
 }
 
-
 /* ------------------- modais ----------------------- */
 
 .modal-overlay {
@@ -349,7 +348,7 @@ tbody tr:nth-child(even) {
 .modal-content {
   font-family: var(--fonte-principal);
   background: #fff;
-  width: 500px;
+  width: 950px;
   max-height: 90vh;
   overflow-y: auto;
   padding: 25px;
@@ -400,7 +399,6 @@ input, select {
   background: #0f5fc6;
 }
 
-
 /*-------------------- Tabela de visualização----------------------- */
 .tabela-info {
   width: 100%;
@@ -422,4 +420,90 @@ input, select {
 .tabela-info td {
   padding: 10px;
   background: #fff;
+}
+
+.secao-contatos {
+  margin-bottom: 25px;
+  margin-top: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.secao-enderecos {
+  margin-top: 10px;
+  margin-bottom: 25px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.titulo-secao {
+  color: #3A6EA5;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #3A6EA5;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.item-contato,
+.item-endereco {
+  margin-bottom: 15px;
+  padding: 12px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.item-contato:last-child,
+.item-endereco:last-child {
+  margin-bottom: 0;
+}
+
+.subtitulo-item {
+  color: #495057;
+  margin-bottom: 8px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e9ecef;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.tabela-item {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.tabela-item th {
+  background-color: #6c757d;
+  color: white;
+  padding: 6px 10px;
+  text-align: left;
+  font-weight: 500;
+  width: 140px;
+}
+
+.tabela-item td {
+  padding: 6px 10px;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.tabela-item tr:last-child td {
+  border-bottom: none;
+}
+
+.mensagem-vazia {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  border: 1px dashed #dee2e6;
 }

@@ -1,14 +1,12 @@
-var empresaModel =  require("../models/empresaModel");
+var empresaModel = require("../models/empresaModel");
 
 
 function listarEmpresas(req, res) {
     empresaModel.listarEmpresas()
         .then((resultado) => {
             if (resultado.length > 0) {
-                // Sucesso: retorna as empresas encontradas
                 res.status(200).json(resultado);
             } else {
-                // Nenhuma empresa no banco
                 res.status(204).send("Nenhuma empresa encontrada!");
             }
         })
@@ -34,7 +32,7 @@ function cadastrarEmpresa(req, res) {
     var uf = req.body.ufServer;
     var numeroEndereco = req.body.numeroEnderecoServer;
     var complemento = req.body.complementoServer;
-    
+
 
     if (nome_fantasia == undefined) {
         res.status(400).send("Seu nome fantasia está undefined!");
@@ -66,7 +64,7 @@ function cadastrarEmpresa(req, res) {
         res.status(400).send("Seu numero do endereço está undefined!");
     } else if (complemento == undefined) {
         res.status(400).send("Seu complemento está undefined!");
-    }else {
+    } else {
 
         empresaModel.cadastrarEmpresa(nome_fantasia, razao_social, cnpj, status, departamento, numero, tipo_num, apelido, cep, logradouro, bairro, cidade, uf, numeroEndereco, complemento)
             .then(
@@ -86,41 +84,129 @@ function cadastrarEmpresa(req, res) {
     }
 }
 
+function adicionarEndCont(req, res) {
+    const fk_empresa = req.body.fk_empresa;
+    const departamento = req.body.departamento;
+    const numero = req.body.numero;
+    const tipo_num = req.body.tipo_num;
+    const apelido = req.body.apelido;
+    const cep = req.body.cep;
+    const logradouro = req.body.logradouro;
+    const bairro = req.body.bairro;
+    const cidade = req.body.cidade;
+    const uf = req.body.uf;
+    const numeroEndereco = req.body.numeroEndereco;
+    const complemento = req.body.complemento;
+
+    // Validações
+    if (!fk_empresa) {
+        return res.status(400).json({ error: "fk_empresa está undefined!" });
+    }
+    if (!departamento) {
+        return res.status(400).json({ error: "departamento está undefined!" });
+    }
+    if (!numero) {
+        return res.status(400).json({ error: "numero está undefined!" });
+    }
+    if (!tipo_num) {
+        return res.status(400).json({ error: "tipo_num está undefined!" });
+    }
+    if (!apelido) {
+        return res.status(400).json({ error: "apelido está undefined!" });
+    }
+    if (!cep) {
+        return res.status(400).json({ error: "cep está undefined!" });
+    }
+
+    empresaModel.adicionarEndCont(
+        departamento,
+        numero,
+        tipo_num,
+        apelido,
+        cep,
+        logradouro,
+        bairro,
+        cidade,
+        uf,
+        numeroEndereco,
+        complemento,
+        fk_empresa
+    )
+    .then((resultado) => {
+        res.status(201).json({ message: "Dados cadastrados com sucesso!" });
+    })
+    .catch((erro) => {
+        console.log("Erro ao adicionar End/Cont:", erro);
+        res.status(500).json({ error: erro.sqlMessage || "Erro interno do servidor" });
+    });
+}
+
+function mostrarDadosEmpresa(req, res) {
+    const id = req.params.id;
+    
+    if (!id) {
+        return res.status(400).json({ error: "ID da empresa não fornecido!" });
+    }
+
+    empresaModel.buscarEmpresaPorId(id)
+        .then((empresa) => {
+            if (!empresa || empresa.length === 0) {
+                return res.status(404).json({ error: "Empresa não encontrada!" });
+            }
+            
+            return Promise.all([
+                empresaModel.buscarContatosPorEmpresa(id),
+                empresaModel.buscarEnderecosPorEmpresa(id)
+            ]).then(([contatos, enderecos]) => {
+                res.status(200).json({
+                    empresa: empresa[0],
+                    contatos: contatos,
+                    enderecos: enderecos
+                });
+            });
+        })
+        .catch((erro) => {
+            console.log("Erro ao buscar dados da empresa:", erro);
+            res.status(500).json({ error: erro.sqlMessage || "Erro interno do servidor" });
+        });
+}
+
+
 function atualizarStatus(req, res) {
     var id = req.params.id;
     empresaModel.atualizarStatus(id)
-    .then(
-        function (resultado) {
-            res.json(resultado);
-        }
-    ).catch(
-        function (erro) {
-            console.log(erro);
-            console.log(
-                "\nHouve um erro ao atualizar o status! Erro: ",
-                erro.sqlMessage
-            );
-            res.status(500).json(erro.sqlMessage);
-        });
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao atualizar o status! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            });
 };
 
 
 function deletarEmpresa(req, res) {
     var id = req.params.id;
     empresaModel.deletarEmpresa(id)
-    .then(
-        function (resultado) {
-            res.json(resultado);
-        }
-    ).catch(
-        function (erro) {
-            console.log(erro);
-            console.log(
-                "\nHouve um erro ao deletar a empresa! Erro: ",
-                erro.sqlMessage
-            );
-            res.status(500).json(erro.sqlMessage);
-        });
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao deletar a empresa! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            });
 };
 
 
@@ -128,5 +214,7 @@ module.exports = {
     listarEmpresas,
     cadastrarEmpresa,
     atualizarStatus,
-    deletarEmpresa
+    deletarEmpresa,
+    adicionarEndCont,
+    mostrarDadosEmpresa
 }
