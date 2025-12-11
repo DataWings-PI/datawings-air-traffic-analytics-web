@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="user">
-                    <span>@usuário</span>
+                    <span id="nome"></span>
                 </div>
 
                 <h2 style="color: white; font-size: larger;" class="welcome-text">Página de relatório</h2>
@@ -32,7 +32,7 @@
             <div class="content2">
 
                 <select id="meuSelect" onchange="window.location.href = this.value;">
-                    <option value="dashboard.html" >Dashboard</option>
+                    <option value="dashboard.html">Dashboard</option>
                     <option value="relatorio.html" selected>Relatórios</option>
                     <option value="slack.html">Notificações</option>
                 </select>
@@ -201,6 +201,13 @@
 </html>
 
 <script>
+
+    const nomeUsuario = new URLSearchParams(window.location.search("nome"));
+
+    getElementById('nome').innerHTML = nomeUsuario;
+
+    console.log(nome);
+
     const select = document.getElementById("navigationSelect");
 
     select.addEventListener("change", function () {

@@ -36,7 +36,7 @@
 
     <!-- ====== CONTEÚDO PRINCIPAL ====== -->
     <main class="main">
-      <h2 class="welcome-text">Bem-vindo, usuário...</h2>
+      <h2 class="welcome-text">Bem-vindo, <span id="nome"></span></h2>
 
       <section class="cards-container">
         <a href="dashboard.html" class="card">
@@ -50,8 +50,8 @@
         </a>
 
         <a href="slack.html" class="card">
-            <div class="card-bar"></div>
-            <p>Parâmetros Notificações</p>
+          <div class="card-bar"></div>
+          <p>Parâmetros Notificações</p>
         </a>
 
       </section>
@@ -84,6 +84,13 @@
 
 
   <script>
+
+    const nomeUsuario = new URLSearchParams(window.location.search("nome"));
+
+    getElementById('nome').innerHTML = nomeUsuario;
+
+    console.log(nome);
+
     // Redirecionamento do select
     const select = document.getElementById("navigationSelect");
     select.addEventListener("change", function () {

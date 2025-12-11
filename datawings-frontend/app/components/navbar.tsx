@@ -129,7 +129,7 @@ export default function Navbar() {
                   onClick={() =>
                     setTimeout(() => {
                       router.push(
-                        `http://localhost:8080/dashboard/?id=${usuario.id}`
+                        `http://localhost:8080/dashboard/?nome=${usuario.nome}`
                       );
                     }, 500)
                   }

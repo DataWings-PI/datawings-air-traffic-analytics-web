@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="user">
-                    <span>@usuário</span>
+                    <span id="nome"></span>
                 </div>
 
                 <h2 class="welcome-text">Estatísticas de voos</h2>
@@ -733,6 +733,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
     <script>
+
+        const nomeUsuario = new URLSearchParams(window.location.search("nome"));
+
+        getElementById('nome').innerHTML = nomeUsuario;
+
+        console.log(nome);
 
         // Pegando os ids
         const fkEmpresa = localStorage.getItem('fkEmpresa');
