@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="user">
-                    <span id="nome"></span>
+                    <span id="nomeUsuario">@usuário</span>
                 </div>
 
                 <h2 class="welcome-text">Estatísticas de voos</h2>
@@ -734,11 +734,9 @@
 
     <script>
 
-        const nomeUsuario = new URLSearchParams(window.location.search("nome"));
+        const nome = sessionStorage.getItem("NomeUsuario");
 
-        getElementById('nome').innerHTML = nomeUsuario;
-
-        console.log(nome);
+        document.getElementById("nomeUsuario").innerHTML = nome;
 
         // Pegando os ids
         const fkEmpresa = 1;

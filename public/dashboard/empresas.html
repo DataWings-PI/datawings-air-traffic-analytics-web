@@ -189,39 +189,31 @@
   </section>
 
   <!-- MODAIS ------------------------ -->
-
   <div id="modalOverlay" class="modal-overlay">
     <div class="modal-content">
-
       <span class="close-modal" id="closeModal">&times;</span>
-
       <h3>Adicionar Endereço e Contato <br>
         <span style="color: #3A6EA5;" id="usuario">usuário</span>
       </h3>
       <br>
 
-      <form id="formDados">
-
-
-
+      <div id="formDados">
         <h3>Contato</h3>
         <br>
-      
         <div class="form-group">
           <label>Telefone:</label>
-          <input type="text" name="numero_contato" required>
+          <input type="text" id="modal_numero" placeholder="Digite o telefone" required>
         </div>
-
         <div class="form-group">
           <label>Tipo:</label>
-          <select name="tipo_numero">
+          <select id="modal_tipo_num">
             <option value="fixo">Fixo</option>
             <option value="móvel">Móvel</option>
           </select>
         </div>
         <div class="form-group">
           <label>Departamento:</label>
-          <input type="text" name="departamento" required>
+          <input type="text" id="modal_departamento" placeholder="Digite o departamento" required>
         </div>
 
         <br>
@@ -229,47 +221,39 @@
         <br>
         <div class="form-group">
           <label>Apelido:</label>
-          <input type="text" name="apelido" required>
+          <input type="text" id="modal_apelido" placeholder="Digite o apelido" required>
         </div>
-
         <div class="form-group">
           <label>CEP:</label>
-          <input type="text" name="cep" required>
+          <input type="text" id="modal_cep" onblur="buscarCepModal()" placeholder="Digite o CEP" required>
         </div>
-
         <div class="form-group">
           <label>Logradouro:</label>
-          <input type="text" name="logradouro" required>
+          <input type="text" id="modal_logradouro" placeholder="Digite o logradouro" required>
         </div>
-
         <div class="form-group">
           <label>Bairro:</label>
-          <input type="text" name="numero" required>
+          <input type="text" id="modal_bairro" placeholder="Digite o bairro" required>
         </div>
-
         <div class="form-group">
           <label>Cidade:</label>
-          <input type="text" name="complemento">
+          <input type="text" id="modal_cidade" placeholder="Digite a cidade" required>
         </div>
-
         <div class="form-group">
-          <label>Unidade Federativa</label>
-          <input type="text" name="bairro" required>
+          <label>Unidade Federativa:</label>
+          <input type="text" id="modal_uf" placeholder="Digite a UF" required>
         </div>
-
         <div class="form-group">
-          <label>Numero:</label>
-          <input type="text" name="bairro" required>
+          <label>Número:</label>
+          <input type="text" id="modal_numero_endereco" placeholder="Digite o número" required>
         </div>
-
         <div class="form-group">
           <label>Complemento:</label>
-          <input type="text" name="cidade" required>
+          <input type="text" id="modal_complemento" placeholder="Digite o complemento (opcional)">
         </div>
 
-        <button type="submit" class="btn-salvar">Salvar</button>
-      </form>
-
+        <button type="button" class="btn-salvar" onclick="salvarEnderecoContato()">Salvar</button>
+      </div>
     </div>
   </div>
 
@@ -277,175 +261,67 @@
 
 
   <!-- -------------------- MODAL DA TABELA ---------------- -->
-
-
   <div id="modalViewOverlay" class="modal-overlay">
     <div class="modal-content modal-view">
 
       <span class="close-modal" id="closeModalView">&times;</span>
+        <span style="color: #3A6EA5; font-size: 16px; display: none;" id="empresaSelecionada">Carregando...</span>
 
-      <h3>Dados cadastrados<br>
-        <br>
+      <div class="dados-container">
+        <div class="secao-dados">
+          <h3>Dados da Empresa</h3>
+          <table class="tabela-info" id="tabela-empresa">
+            <tr>
+              <th>Nome Fantasia</th>
+              <td id="v-nomefantasia">-</td>
+            </tr>
+            <tr>
+              <th>Razão Social</th>
+              <td id="v-razaosocial">-</td>
+            </tr>
+            <tr>
+              <th>CNPJ</th>
+              <td id="v-cnpj">-</td>
+            </tr>
+            <tr>
+              <th>Status</th>
+              <td id="v-status">-</td>
+            </tr>
+            <tr>
+              <th>Data de Criação</th>
+              <td id="v-data-criacao">-</td>
+            </tr>
+          </table>
+        </div>
 
-        <h3>Empresa</h3>
-        <br>
-        <table class="tabela-info">
-          <tr>
-            <th>Nome Fantasia</th>
-            <td id="v-nomefantasia">Super Tech Solutions</td>
-          </tr>
+        <div class="secao-dados">
+          <h3 style="margin-top: 4%;">Contatos</h3>
+          <div class="tabela-container" id="container-contatos">
+            <p id="sem-contatos" style="color: #666; font-style: italic;">Nenhum contato cadastrado</p>
+          </div>
+        </div>
 
-          <tr>
-            <th>Razão Social</th>
-            <td id="v-razaosocial">Super Tech Solutions LTDA</td>
-          </tr>
-
-          <tr>
-            <th>CNPJ</th>
-            <td id="v-cnpj">28.394.552/0001-63</td>
-          </tr>
-
-          <tr>
-            <th>Contato</th>
-            <td id="v-contato">Suporte</td>
-          </tr>
-
-          <tr>
-            <th>Telefone</th>
-            <td id="v-telefone">(11) 94823-7654</td>
-          </tr>
-
-          <tr>
-            <th>Tipo do Número</th>
-            <td id="v-tipo-numero">Móvel</td>
-          </tr>
-
-          <tr>
-            <th>Departamento</th>
-            <td id="v-departamento">Comercial</td>
-          </tr>
-
-          <tr>
-            <th>Apelido</th>
-            <td id="v-apelido">Matriz</td>
-          </tr>
-
-          <tr>
-            <th>CEP</th>
-            <td id="v-cep">04567-220</td>
-          </tr>
-
-          <tr>
-            <th>Logradouro</th>
-            <td id="v-logradouro">Avenida das Nações Unidas</td>
-          </tr>
-
-          <tr>
-            <th>Bairro</th>
-            <td id="v-bairro">Brooklin</td>
-          </tr>
-
-          <tr>
-            <th>Cidade</th>
-            <td id="v-cidade">São Paulo</td>
-          </tr>
-
-          <tr>
-            <th>Unidade Federativa</th>
-            <td id="v-uf">SP</td>
-          </tr>
-
-          <tr>
-            <th>Número</th>
-            <td id="v-numero">1020</td>
-          </tr>
-
-          <tr>
-            <th>Complemento</th>
-            <td id="v-complemento">Conjunto 504</td>
-          </tr>
-        </table>
-
-        <br>
-        <hr>
-        <br>
-
-        <h3>Contato</h3>
-        <br>
-        <table class="tabela-info">
-          <tr>
-            <th>Nome Fantasia</th>
-            <td id="v-nomefantasia">Roalding</td>
-          </tr>
-          <tr>
-            <th>CNPJ</th>
-            <td id="v-cnpj">59.603.108/0001-11</td>
-          </tr>
-          <tr>
-            <th>Departamento</th>
-            <td id="v-departamento">Financeiro</td>
-          </tr>
-          <tr>
-            <th>Número</th>
-            <td id="v-numero-contato">11987654321</td>
-          </tr>
-          <tr>
-            <th>Tipo</th>
-            <td id="v-tipo-numero">móvel</td>
-          </tr>
-        </table>
-
-        <h3>Endereço</h3>
-        <br>
-        <table class="tabela-info">
-          <tr>
-            <th>Apelido</th>
-            <td id="v-apelido">Casa</td>
-          </tr>
-          <tr>
-            <th>Logradouro</th>
-            <td id="v-logradouro">Rua das Flores</td>
-          </tr>
-          <tr>
-            <th>Número</th>
-            <td id="v-numero">120</td>
-          </tr>
-          <tr>
-            <th>Complemento</th>
-            <td id="v-complemento">Apto 302</td>
-          </tr>
-          <tr>
-            <th>Bairro</th>
-            <td id="v-bairro">Centro</td>
-          </tr>
-          <tr>
-            <th>CEP</th>
-            <td id="v-cep">12345678</td>
-          </tr>
-          <tr>
-            <th>Cidade</th>
-            <td id="v-cidade">São Paulo</td>
-          </tr>
-          <tr>
-            <th>UF</th>
-            <td id="v-uf">SP</td>
-          </tr>
-        </table>
-
-
+        <div class="secao-dados">
+          <h3 style="margin-top: 5%;">Endereços</h3>
+          <div class="tabela-container" id="container-enderecos">
+            <p id="sem-enderecos" style="color: #666; font-style: italic;">Nenhum endereço cadastrado</p>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>
+
 
 </body>
 
 </html>
 
 <script>
+  // Variável global para armazenar o ID da empresa selecionada
+  let empresaIdSelecionada = null;
 
   // Modais ------------------------------------------------------
-
-
   const openModal = document.getElementById("openModal");
   const closeModal = document.getElementById("closeModal");
   const modalOverlay = document.getElementById("modalOverlay");
@@ -483,15 +359,15 @@
     }
   });
 
-
   // ------------------------------------------
-
-
-
-
 
   function buscarCep() {
     const cepVar = cep.value;
+
+    if (!cepVar || cepVar.length !== 8) {
+      alert("Digite um CEP válido (8 dígitos)");
+      return;
+    }
 
     fetch(`https://viacep.com.br/ws/${cepVar}/json/`, {
       method: "GET",
@@ -500,47 +376,89 @@
       }
     })
       .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
         if (resposta.ok) {
           return resposta.json();
-
         } else {
           throw "Houve um erro ao tentar buscar o cep digitado!";
         }
       })
       .then((resposta) => {
+        if (resposta.erro) {
+          alert("CEP não encontrado!");
+          return;
+        }
         var endereco = resposta;
-        logradouro.value = endereco.logradouro;
-        bairro.value = endereco.bairro;
-        cidade.value = endereco.localidade;
-        uf.value = endereco.uf;
-
+        logradouro.value = endereco.logradouro || "";
+        bairro.value = endereco.bairro || "";
+        cidade.value = endereco.localidade || "";
+        uf.value = endereco.uf || "";
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
+        alert("Erro ao buscar CEP!");
       });
   }
 
+  function buscarCepModal() {
+    const cepVar = document.getElementById("modal_cep").value;
 
+    if (!cepVar || cepVar.length !== 8) {
+      alert("Digite um CEP válido (8 dígitos)");
+      return;
+    }
 
-  function cadastrar() {
-    var nome_fantasiaVar = nome_fantasia.value;
-    var razao_socialVar = razao_social.value;
-    var cnpjVar = cnpj.value;
+    fetch(`https://viacep.com.br/ws/${cepVar}/json/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          return resposta.json();
+        } else {
+          throw "Erro ao buscar CEP!";
+        }
+      })
+      .then((resposta) => {
+        if (resposta.erro) {
+          alert("CEP não encontrado!");
+          return;
+        }
+        document.getElementById("modal_logradouro").value = resposta.logradouro || "";
+        document.getElementById("modal_bairro").value = resposta.bairro || "";
+        document.getElementById("modal_cidade").value = resposta.localidade || "";
+        document.getElementById("modal_uf").value = resposta.uf || "";
+      })
+      .catch(function (erro) {
+        console.log(`#ERRO: ${erro}`);
+        alert("Erro ao buscar CEP!");
+      });
+  }
+
+  function cadastrar(event) {
+
+    var nome_fantasiaVar = document.getElementById("nome_fantasia").value;
+    var razao_socialVar = document.getElementById("razao_social").value;
+    var cnpjVar = document.getElementById("cnpj").value;
     var statusVar = 'TRUE';
-    var numeroVar = numero.value;
-    var tipo_numVar = tipo_num.value;
-    var departamentoVar = departamento.value;
-    var apelidoVar = apelido.value;
-    var cepVar = cep.value;
-    var logradouroVar = logradouro.value;
-    var bairroVar = bairro.value;
-    var cidadeVar = cidade.value;
-    var ufVar = uf.value;
-    var numeroEnderecoVar = numeroEndereco.value;
-    var complementoVar = complemento.value;
+    var numeroVar = document.getElementById("numero").value;
+    var tipo_numVar = document.getElementById("tipo_num").value;
+    var departamentoVar = document.getElementById("departamento").value;
+    var apelidoVar = document.getElementById("apelido").value;
+    var cepVar = document.getElementById("cep").value;
+    var logradouroVar = document.getElementById("logradouro").value;
+    var bairroVar = document.getElementById("bairro").value;
+    var cidadeVar = document.getElementById("cidade").value;
+    var ufVar = document.getElementById("uf").value;
+    var numeroEnderecoVar = document.getElementById("numeroEndereco").value;
+    var complementoVar = document.getElementById("complemento").value;
 
+    // Validações básicas
+    if (!nome_fantasiaVar || !razao_socialVar || !cnpjVar) {
+      alert("Preencha todos os campos obrigatórios da empresa!");
+      return;
+    }
 
     fetch("/empresas/cadastrarEmpresa", {
       method: "POST",
@@ -566,47 +484,32 @@
       }),
     })
       .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
         if (resposta.ok) {
-
-          alert("Empresa cadastrada com sucesso");
-
+          return resposta.json();
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
+      .then(() => {
+        alert("Empresa cadastrada com sucesso");
+        carregarEmpresas(); // Recarrega a lista de empresas
+        // Limpa os campos do formulário
+        document.querySelector('.card-relatorio').reset();
+      })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
+        alert("Erro ao cadastrar empresa: " + resposta);
       });
   }
 
-
-  const select = document.getElementById("navigationSelect");
-
-  select.addEventListener("change", function () {
-    const url = this.value;
-    if (url) {
-      window.location.href = url;
-    }
-  });
-
   function carregarEmpresas() {
     fetch("/empresas/listar")
-      .then((resposta) => {
-
-
-
-        resposta.json()
-      })
-
+      .then(resposta => resposta.json())
       .then(empresas => {
-
         let tabela = document.getElementById("tabela_empresas");
         tabela.innerHTML = "";
 
         empresas.forEach(empresa => {
-
           let textoStatus = empresa.status ? "Ativo" : "Inativo";
           let classeStatus = empresa.status ? "btn-ativo" : "btn-inativo";
           const dataCriacao = empresa.data_criacao;
@@ -615,27 +518,414 @@
           var tempo = data[1].split(".");
           var hora = tempo[0];
           var dataSemHora = data[0].split("-");
-          var dataFormatada = `${dataSemHora[2]}/${dataSemHora[1]}/${dataSemHora[0]} ${hora}`
-
+          var dataFormatada = `${dataSemHora[2]}/${dataSemHora[1]}/${dataSemHora[0]} ${hora}`;
 
           tabela.innerHTML += `
-                        <tr>
-                            <td>${empresa.id}</td>
-                            <td>${empresa.razao_social}</td>
-                            <td>${dataFormatada}</td>
-                            <td><button class="btn-excluir" onclick="deletarEmpresa(${empresa.id})">Excluir</button></td>
-                            <td><button class="${classeStatus}" onclick="atualizarStatus(${empresa.id})">${textoStatus}</button></td>
-                        </tr>
-                    `;
+            <tr>
+              <td>${empresa.id}</td>
+              <td>${empresa.razao_social}</td>
+              <td>${dataFormatada}</td>
+              <td><button class="btn-ativo btn-add" data-id="${empresa.id}">Adicionar</button></td>
+              <td><button class="btn-form btn-view" data-id="${empresa.id}">Formulário</button></td>
+              <td><button class="btn-excluir btn-del" data-id="${empresa.id}">Excluir</button></td>
+              <td><button class="${classeStatus} btn-status" data-id="${empresa.id}">${textoStatus}</button></td>
+            </tr>
+          `;
         });
+        configurarAcoes();
       })
       .catch(erro => {
         console.log("Erro ao listar empresas:", erro);
       });
   }
 
-  function atualizarStatus(id) {
+  function configurarAcoes() {
+  document.querySelectorAll(".btn-add").forEach((btn) => {
+    btn.onclick = () => {
+      empresaIdSelecionada = btn.dataset.id;
+      const linha = btn.closest('tr');
+      const nomeEmpresa = linha.querySelector('td:nth-child(2)').textContent;
+      document.getElementById("usuario").textContent = nomeEmpresa;
+      modalOverlay.style.display = "flex";
+    };
+  });
 
+  document.querySelectorAll(".btn-view").forEach((btn) => {
+    btn.onclick = () => {
+      const id = btn.dataset.id;
+      const linha = btn.closest('tr');
+      const nomeEmpresa = linha.querySelector('td:nth-child(2)').textContent;
+      mostrarFormulario(id, nomeEmpresa);
+    };
+  });
+
+  document.querySelectorAll(".btn-del").forEach((btn) => {
+    btn.onclick = () => {
+      const id = btn.dataset.id;
+      if (confirm("Tem certeza que deseja excluir esta empresa?")) {
+        deletarEmpresa(id);
+      }
+    };
+  });
+
+  document.querySelectorAll(".btn-status").forEach((btn) => {
+    btn.onclick = () => {
+      const id = btn.dataset.id;
+      atualizarStatus(id);
+    };
+  });
+}
+
+function mostrarFormulario(id, nomeEmpresa) {
+  document.getElementById("empresaSelecionada").textContent = nomeEmpresa || `ID: ${id}`;
+  
+  modalViewOverlay.style.display = "flex";
+  
+  document.getElementById("v-nomefantasia").textContent = "-";
+  document.getElementById("v-razaosocial").textContent = "-";
+  document.getElementById("v-cnpj").textContent = "-";
+  document.getElementById("v-status").textContent = "-";
+  document.getElementById("v-data-criacao").textContent = "-";
+  
+  document.getElementById("container-contatos").innerHTML = '<p id="sem-contatos" style="color: #666; font-style: italic;">Carregando contatos...</p>';
+  document.getElementById("container-enderecos").innerHTML = '<p id="sem-enderecos" style="color: #666; font-style: italic;">Carregando endereços...</p>';
+  
+  fetch(`/empresas/mostrarDadosEmpresa/${id}`)
+    .then(function (resposta) {
+      if (resposta.ok) {
+        return resposta.json();
+      } else {
+        throw "Erro ao buscar dados da empresa!";
+      }
+    })
+    .then((dados) => {
+      console.log("Dados recebidos:", dados);
+      
+      const empresa = dados.empresa;
+      document.getElementById("empresaSelecionada").textContent = empresa.nome_fantasia || empresa.razao_social || `ID: ${id}`;
+      
+      document.getElementById("v-nomefantasia").textContent = empresa.nome_fantasia || "-";
+      document.getElementById("v-razaosocial").textContent = empresa.razao_social || "-";
+      document.getElementById("v-cnpj").textContent = empresa.cnpj || "-";
+      document.getElementById("v-status").textContent = empresa.status ? "Ativo" : "Inativo";
+      
+      if (empresa.data_criacao) {
+        const data = new Date(empresa.data_criacao);
+        const dataFormatada = data.toLocaleDateString('pt-BR') + ' ' + data.toLocaleTimeString('pt-BR');
+        document.getElementById("v-data-criacao").textContent = dataFormatada;
+      }
+      
+      const contatos = dados.contatos || [];
+      const containerContatos = document.getElementById("container-contatos");
+      
+      if (contatos.length > 0) {
+        let htmlContatos = '';
+        contatos.forEach((contato, index) => {
+          htmlContatos += `
+            <div class="registro-container">
+              <h4>Contato ${index + 1}</h4>
+              <table class="registro-tabela">
+                <tr>
+                  <th>Departamento</th>
+                  <td>${contato.departamento || "-"}</td>
+                </tr>
+                <tr>
+                  <th>Telefone</th>
+                  <td>${contato.numero || "-"}</td>
+                </tr>
+                <tr>
+                  <th>Tipo</th>
+                  <td>${contato.tipo_numero === "móvel" ? "Móvel" : "Fixo"}</td>
+                </tr>
+              </table>
+            </div>
+          `;
+        });
+        containerContatos.innerHTML = htmlContatos;
+      } else {
+        containerContatos.innerHTML = '<p id="sem-contatos" style="color: #666; font-style: italic;">Nenhum contato cadastrado</p>';
+      }
+      
+      const enderecos = dados.enderecos || [];
+      const containerEnderecos = document.getElementById("container-enderecos");
+      
+      if (enderecos.length > 0) {
+        let htmlEnderecos = '';
+        enderecos.forEach((endereco, index) => {
+          htmlEnderecos += `
+            <div class="registro-container">
+              <h4>Endereço ${index + 1} - ${endereco.apelido || "Sem apelido"}</h4>
+              <table class="registro-tabela">
+                <tr>
+                  <th>CEP</th>
+                  <td>${endereco.cep || "-"}</td>
+                </tr>
+                <tr>
+                  <th>Logradouro</th>
+                  <td>${endereco.logradouro || "-"}</td>
+                </tr>
+                <tr>
+                  <th>Número</th>
+                  <td>${endereco.numero || "-"}</td>
+                </tr>
+                <tr>
+                  <th>Complemento</th>
+                  <td>${endereco.complemento || "-"}</td>
+                </tr>
+                <tr>
+                  <th>Bairro</th>
+                  <td>${endereco.bairro || "-"}</td>
+                </tr>
+                <tr>
+                  <th>Cidade</th>
+                  <td>${endereco.cidade || "-"}</td>
+                </tr>
+                <tr>
+                  <th>UF</th>
+                  <td>${endereco.uf || "-"}</td>
+                </tr>
+              </table>
+            </div>
+          `;
+        });
+        containerEnderecos.innerHTML = htmlEnderecos;
+      } else {
+        containerEnderecos.innerHTML = '<p id="sem-enderecos" style="color: #666; font-style: italic;">Nenhum endereço cadastrado</p>';
+      }
+    })
+    .catch(function (erro) {
+      console.error(`#ERRO: ${erro}`);
+      alert("Erro ao carregar dados da empresa!");
+      
+      document.getElementById("container-contatos").innerHTML = '<p style="color: #dc3545; font-style: italic;">Erro ao carregar contatos</p>';
+      document.getElementById("container-enderecos").innerHTML = '<p style="color: #dc3545; font-style: italic;">Erro ao carregar endereços</p>';
+    });
+}
+
+  function salvarEnderecoContato() {
+    if (!empresaIdSelecionada) {
+      alert("Nenhuma empresa selecionada!");
+      return;
+    }
+
+    // Pegue os valores dos campos do modal
+    var numeroVar = document.getElementById("modal_numero").value;
+    var tipo_numVar = document.getElementById("modal_tipo_num").value;
+    var departamentoVar = document.getElementById("modal_departamento").value;
+    var apelidoVar = document.getElementById("modal_apelido").value;
+    var cepVar = document.getElementById("modal_cep").value;
+    var logradouroVar = document.getElementById("modal_logradouro").value;
+    var bairroVar = document.getElementById("modal_bairro").value;
+    var cidadeVar = document.getElementById("modal_cidade").value;
+    var ufVar = document.getElementById("modal_uf").value;
+    var numeroEnderecoVar = document.getElementById("modal_numero_endereco").value;
+    var complementoVar = document.getElementById("modal_complemento").value;
+
+    if (!numeroVar || !departamentoVar || !apelidoVar || !cepVar || !logradouroVar || !bairroVar || !cidadeVar || !ufVar || !numeroEnderecoVar) {
+      alert("Preencha todos os campos obrigatórios!");
+      return;
+    }
+
+    console.log("Enviando dados:", {
+      fk_empresa: empresaIdSelecionada,
+      departamento: departamentoVar,
+      numero: numeroVar,
+      tipo_num: tipo_numVar,
+      apelido: apelidoVar,
+      cep: cepVar,
+      logradouro: logradouroVar,
+      bairro: bairroVar,
+      cidade: cidadeVar,
+      uf: ufVar,
+      numeroEndereco: numeroEnderecoVar,
+      complemento: complementoVar
+    });
+
+    fetch("/empresas/adicionarEndCont", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fk_empresa: empresaIdSelecionada,
+        departamento: departamentoVar,
+        numero: numeroVar,
+        tipo_num: tipo_numVar,
+        apelido: apelidoVar,
+        cep: cepVar,
+        logradouro: logradouroVar,
+        bairro: bairroVar,
+        cidade: cidadeVar,
+        uf: ufVar,
+        numeroEndereco: numeroEnderecoVar,
+        complemento: complementoVar
+      }),
+    })
+      .then(function (resposta) {
+        console.log("Status da resposta:", resposta.status);
+
+        if (resposta.ok) {
+          return resposta.json();
+        } else {
+          return resposta.text().then(text => {
+            throw text || "Erro desconhecido do servidor";
+          });
+        }
+      })
+      .then((dados) => {
+        console.log("Resposta do servidor:", dados);
+        alert("Dados cadastrados com sucesso!");
+        modalOverlay.style.display = "none";
+
+        document.getElementById("modal_numero").value = "";
+        document.getElementById("modal_tipo_num").value = "fixo";
+        document.getElementById("modal_departamento").value = "";
+        document.getElementById("modal_apelido").value = "";
+        document.getElementById("modal_cep").value = "";
+        document.getElementById("modal_logradouro").value = "";
+        document.getElementById("modal_bairro").value = "";
+        document.getElementById("modal_cidade").value = "";
+        document.getElementById("modal_uf").value = "";
+        document.getElementById("modal_numero_endereco").value = "";
+        document.getElementById("modal_complemento").value = "";
+
+        empresaIdSelecionada = null;
+      })
+      .catch(function (erro) {
+        console.error(`#ERRO: ${erro}`);
+        alert("Erro ao cadastrar dados. Verifique o console para mais detalhes.");
+      });
+  }
+
+function mostrarFormulario(id) {
+
+  document.getElementById("empresaSelecionada").textContent = `ID: ${id}`;
+  
+  modalViewOverlay.style.display = "flex";
+  
+  document.getElementById("v-nomefantasia").textContent = "-";
+  document.getElementById("v-razaosocial").textContent = "-";
+  document.getElementById("v-cnpj").textContent = "-";
+  document.getElementById("v-status").textContent = "-";
+  document.getElementById("v-data-criacao").textContent = "-";
+  
+  document.getElementById("container-contatos").innerHTML = '<p id="sem-contatos" style="color: #666; font-style: italic;">Carregando contatos...</p>';
+  document.getElementById("container-enderecos").innerHTML = '<p id="sem-enderecos" style="color: #666; font-style: italic;">Carregando endereços...</p>';
+  
+  fetch(`/empresas/mostrarDadosEmpresa/${id}`)
+    .then(function (resposta) {
+      if (resposta.ok) {
+        return resposta.json();
+      } else {
+        throw "Erro ao buscar dados da empresa!";
+      }
+    })
+    .then((dados) => {
+      console.log("Dados recebidos:", dados);
+      
+      const empresa = dados.empresa;
+      document.getElementById("empresaSelecionada").textContent = empresa.nome_fantasia || empresa.razao_social || `ID: ${id}`;
+      document.getElementById("v-nomefantasia").textContent = empresa.nome_fantasia || "-";
+      document.getElementById("v-razaosocial").textContent = empresa.razao_social || "-";
+      document.getElementById("v-cnpj").textContent = empresa.cnpj || "-";
+      document.getElementById("v-status").textContent = empresa.status ? "Ativo" : "Inativo";
+      
+      if (empresa.data_criacao) {
+        const data = new Date(empresa.data_criacao);
+        const dataFormatada = data.toLocaleDateString('pt-BR') + ' ' + data.toLocaleTimeString('pt-BR');
+        document.getElementById("v-data-criacao").textContent = dataFormatada;
+      }
+      
+      const contatos = dados.contatos || [];
+      const containerContatos = document.getElementById("container-contatos");
+      
+      if (contatos.length > 0) {
+        let htmlContatos = '';
+        contatos.forEach((contato, index) => {
+          htmlContatos += `
+            <div class="registro-container">
+              <h4>Contato ${index + 1}</h4>
+              <table class="registro-tabela">
+                <tr>
+                  <th>Departamento</th>
+                  <td>${contato.departamento || "-"}</td>
+                </tr>
+                <tr>
+                  <th>Telefone</th>
+                  <td>${contato.numero || "-"}</td>
+                </tr>
+                <tr>
+                  <th>Tipo</th>
+                  <td>${contato.tipo_numero === "móvel" ? "Móvel" : "Fixo"}</td>
+                </tr>
+              </table>
+            </div>
+            <br>
+          `;
+        });
+        containerContatos.innerHTML = htmlContatos;
+      } else {
+        containerContatos.innerHTML = '<p id="sem-contatos" style="color: #666; font-style: italic;">Nenhum contato cadastrado</p>';
+      }
+      
+      const enderecos = dados.enderecos || [];
+      const containerEnderecos = document.getElementById("container-enderecos");
+      
+      if (enderecos.length > 0) {
+        let htmlEnderecos = '';
+        enderecos.forEach((endereco, index) => {
+          htmlEnderecos += `
+            <div class="registro-container">
+              <h4>Endereço ${index + 1} - ${endereco.apelido || "Sem apelido"}</h4>
+              <table class="registro-tabela">
+                <tr>
+                  <th>CEP</th>
+                  <td>${endereco.cep || "-"}</td>
+                </tr>
+                <tr>
+                  <th>Logradouro</th>
+                  <td>${endereco.logradouro || "-"}</td>
+                </tr>
+                <tr>
+                  <th>Número</th>
+                  <td>${endereco.numero || "-"}</td>
+                </tr>
+                <tr>
+                  <th>Complemento</th>
+                  <td>${endereco.complemento || "-"}</td>
+                </tr>
+                <tr>
+                  <th>Bairro</th>
+                  <td>${endereco.bairro || "-"}</td>
+                </tr>
+                <tr>
+                  <th>Cidade</th>
+                  <td>${endereco.cidade || "-"}</td>
+                </tr>
+                <tr>
+                  <th>UF</th>
+                  <td>${endereco.uf || "-"}</td>
+                </tr>
+              </table>
+            </div>
+            <br>
+          `;
+        });
+        containerEnderecos.innerHTML = htmlEnderecos;
+      } else {
+        containerEnderecos.innerHTML = '<p id="sem-enderecos" style="color: #666; font-style: italic;">Nenhum endereço cadastrado</p>';
+      }
+    })
+    .catch(function (erro) {
+      console.error(`#ERRO: ${erro}`);
+      alert("Erro ao carregar dados da empresa!");
+      
+      document.getElementById("container-contatos").innerHTML = '<p style="color: #dc3545; font-style: italic;">Erro ao carregar contatos</p>';
+      document.getElementById("container-enderecos").innerHTML = '<p style="color: #dc3545; font-style: italic;">Erro ao carregar endereços</p>';
+    });
+}
+
+  function atualizarStatus(id) {
     fetch(`/empresas/atualizarStatus/${id}`, {
       method: "PATCH",
       headers: {
@@ -643,22 +933,21 @@
       }
     })
       .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
         if (resposta.ok) {
-
-          alert("Status atualizado com sucesso");
-          carregarEmpresas();
-
+          return resposta.json();
         } else {
           throw "Houve um erro ao atualizar o status da empresa!";
         }
       })
+      .then(() => {
+        alert("Status atualizado com sucesso");
+        carregarEmpresas();
+      })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
+        alert("Erro ao atualizar status: " + resposta);
       });
   }
-
 
   function deletarEmpresa(id) {
     fetch(`/empresas/deletarEmpresa/${id}`, {
@@ -668,19 +957,31 @@
       }
     })
       .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
         if (resposta.ok) {
-
-          alert("Empresa deletada com sucesso");
-          carregarEmpresas();
-
+          return resposta.json();
         } else {
-          throw "Houve um erro ao tentar deletar uma empresa!";
+          throw "Houve um erro ao tentar deletar a empresa!";
         }
+      })
+      .then(() => {
+        alert("Empresa deletada com sucesso");
+        carregarEmpresas();
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
+        alert("Erro ao deletar empresa: " + resposta);
       });
   }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('.card-relatorio');
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        cadastrar(e);
+      });
+    }
+
+    configurarAcoes();
+  });
 </script>

@@ -17,24 +17,24 @@
             <div class="content">
                 <img class="logo" src="../assets/logoLaranja-removebg-preview.png" alt="">
                 <div class="user">
-                    <span id="nome"></span>
+                    <span id="nomeUsuario">@usuário</span>
                 </div>
                 <h2 class="welcome-text">Página de relatório</h2>
             </div>
             <div class="content2">
 
                 <select id="meuSelect" onchange="window.location.href = this.value;">
-                    <option value="dashboard.html">Dashboard</option>
-                    <option value="relatorio.html" selected>Relatórios</option>
-                    <option value="slack.html">Notificações</option>
+                  <option value="dashboard.html" >Dashboard</option>
+                  <option value="relatorio.html" selected>Relatórios</option>
+                  <option value="slack.html">Notificações</option>
                 </select>
-
-                <a href="./index.html   ">
-                    <button class="botao-sair">
-                        Sair
-                    </button>
+        
+                <a href="index.html">
+                  <button class="botao-sair">
+                    Sair
+                  </button>
                 </a>
-            </div>
+              </div>
         </div>
 
         <main class="main">
@@ -118,6 +118,11 @@
     </div>
 
     <script>
+
+    const nome = sessionStorage.getItem("NomeUsuario");
+
+    document.getElementById("nomeUsuario").innerHTML = nome;
+
         let idEditando;
         let relatorioAtual = null;
         const modalEditar = document.getElementById("modalEditar");
@@ -287,14 +292,17 @@
         <div class="middle" style="height: 100%; width: 50%; background-color: white; padding: 1%;">
             <div class="texto-box" style="height: 10%; display: flex; justify-content: space-around; align-items: center;">
                 <h3 style="color: #000814; font-size: 18px;">Dados relacionados aos voos</h3>
+                <button id="tabelaDadosVoosModal" class="botoes-modal" style="background-color: #000814; color: #FFFFFF; border: solid 1px #000814; font-size: 14px; font-family: 'Montserrat'; height: 30px; width: 180px; border-radius: 10px; cursor: pointer; transition: 0.4s;">Tabela Dados dos voos</button>
             </div>
             
             <div class="graficos-box" style="height: 90%; display: flex; flex-direction: column; justify-content: space-around; align-items: center;">
-                <div class="cards-grafico-1" style="width: 90%; height: 45%; display: flex; justify-content: center; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 10px; margin-top: 7%;">
+                <div class="cards-grafico-1" style="width: 90%; height: 45%; display: flex; justify-content: center; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 10px;">
                     <canvas id="meuGraficoBarra1Modal" style="display: block; box-sizing: border-box; width: 100% !important; height: 100% !important;"></canvas>
                 </div>
                 
-                <div class="cards-grafico-2-1" style="width: 90%; height: 45%; display: flex; justify-content: center; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 10px; margin-top : 10%;">
+                <button id="tabelaLegendaJustificativasModal" class="botoes-modal" style="background-color: #000814; color: #FFFFFF; border: solid 1px #000814; font-size: 14px; font-family: 'Montserrat'; height: 30px; width: 200px; border-radius: 10px; cursor: pointer; transition: 0.4s; margin: 5px 0;">Tabela justificativa legendas</button>
+                
+                <div class="cards-grafico-2-1" style="width: 90%; height: 45%; display: flex; justify-content: center; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 10px;">
                     <canvas id="meuGraficoBarra2Modal" style="display: block; box-sizing: border-box; width: 100% !important; height: 100% !important;"></canvas>
                 </div>
             </div>
@@ -342,49 +350,782 @@
     </div>
 </section>
 
+<!-- Modais -->
+<div id="modalVoosModal" class="modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); justify-content: center; align-items: center; z-index: 1000;">
+    <div class="modal-content" style="background-color: #fff; border-radius: 12px; padding: 25px; width: 90%; max-width: 1400px; text-align: center; position: relative; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); max-height: 90vh; overflow-y: auto;">
+        <span class="close" style="position: absolute; top: 7px; right: 15px; font-size: 40px; font-weight: bold; color: #FF6700; cursor: pointer;">&times;</span>
+        <h2 style="color: #000814; margin-bottom: 20px;">Dados dos Voos</h2>
+        <div class="table-container">
+            <table style="border-collapse: collapse; width: 100%; background-color: #ffffff; border-radius: 12px; overflow: hidden;">
+                <thead style="background-color: #4a90e2; color: #ffffff;">
+                    <tr>
+                        <th style="padding: 10px; text-align: center;">Número Voo</th>
+                        <th style="padding: 10px; text-align: center;">Data Prevista</th>
+                        <th style="padding: 10px; text-align: center;">Previsão Partida</th>
+                        <th style="padding: 10px; text-align: center;">Previsão Chegada</th>
+                        <th style="padding: 10px; text-align: center;">Partida Real</th>
+                        <th style="padding: 10px; text-align: center;">Chegada Real</th>
+                        <th style="padding: 10px; text-align: center;">Atraso Chegada</th>
+                        <th style="padding: 10px; text-align: center;">Atraso Partida</th>
+                        <th style="padding: 10px; text-align: center;">Atraso Total</th>
+                        <th style="padding: 10px; text-align: center;">Origem</th>
+                        <th style="padding: 10px; text-align: center;">Destino</th>
+                        <th style="padding: 10px; text-align: center;">Código Justificativa</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyVoosModal">
+                    <!-- Dados serão inseridos aqui -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="modalLegendasModal" class="modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); justify-content: center; align-items: center; z-index: 1000;">
+    <div class="modal-content" style="background-color: #fff; border-radius: 12px; padding: 25px; width: 90%; max-width: 1200px; text-align: center; position: relative; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); max-height: 90vh; overflow-y: auto;">
+        <span class="close" style="position: absolute; top: 7px; right: 15px; font-size: 40px; font-weight: bold; color: #FF6700; cursor: pointer;">&times;</span>
+        <h2 style="color: #000814; margin-bottom: 20px;">Legendas das Justificativas</h2>
+        <div class="table-container">
+            <table style="border-collapse: collapse; width: 100%; background-color: #ffffff; border-radius: 12px; overflow: hidden;">
+                <thead style="background-color: #000814; color: #ffffff;">
+                    <tr>
+                        <th style="padding: 10px; text-align: center; width: 100px;">Código</th>
+                        <th style="padding: 10px; text-align: left;">Descrição</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyLegendasModal" style="text-align: left;">
+                    <!-- Dados serão inseridos aqui -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>`;
+        }
+
+        function inicializarGraficosDashboardComFiltros(fkEmpresa, dataInicio, dataFinal) {
+            console.log("Inicializando gráficos com filtros:", { fkEmpresa, dataInicio, dataFinal });
+
+            carregarKPIsComFiltro(fkEmpresa, dataInicio, dataFinal);
+            carregarGraficoJustificativasComFiltro(fkEmpresa, dataInicio, dataFinal);
+            carregarGraficoDesempenhoComFiltro(fkEmpresa, dataInicio, dataFinal);
+            carregarTabelaVoosComFiltro(fkEmpresa, dataInicio, dataFinal);
+            carregarTabelaLegendas();
+            configurarEventosDashboardModal();
+        }
+
+        async function carregarKPIsComFiltro(fkEmpresa, dataInicio, dataFinal) {
+            try {
+                const kpi1 = await fetch(`http://localhost:8080/relatorios/kpi1/${fkEmpresa}?dataInicio=${dataInicio}&dataFinal=${dataFinal}`).then(r => r.json());
+                const kpi1Elem = document.getElementById('kpi1Modal');
+                if (kpi1Elem && kpi1[0]) {
+                    kpi1Elem.innerHTML = `${kpi1[0].total_voos || 0} voos`;
+                }
+
+                const kpi2 = await fetch(`http://localhost:8080/relatorios/kpi2/${fkEmpresa}?dataInicio=${dataInicio}&dataFinal=${dataFinal}`).then(r => r.json());
+                const kpi2Elem = document.getElementById('kpi2Modal');
+                if (kpi2Elem && kpi2[0]) {
+                    const porcentagemKPI2 = kpi2[0].porcentagem || '0%';
+                    kpi2Elem.innerHTML = `${kpi2[0].voos_sem_atraso} voos | <span style="color: #3A6EA5; font-weight: bold;">${porcentagemKPI2}</span>`;
+                    porcentagensKPI.kpi2 = parseFloat(porcentagemKPI2.replace('%', '')) || 0;
+                }
+
+                const kpi3 = await fetch(`http://localhost:8080/relatorios/kpi3/${fkEmpresa}?dataInicio=${dataInicio}&dataFinal=${dataFinal}`).then(r => r.json());
+                const kpi3Elem = document.getElementById('kpi3Modal');
+                if (kpi3Elem && kpi3[0]) {
+                    const porcentagemKPI3 = kpi3[0].porcentagem || '0%';
+                    kpi3Elem.innerHTML = `${kpi3[0].voos_com_atraso} voos | <span style="color: #3A6EA5; font-weight: bold;">${porcentagemKPI3}</span>`;
+                    porcentagensKPI.kpi3 = parseFloat(porcentagemKPI3.replace('%', '')) || 0;
+                }
+
+                const kpi4 = await fetch(`http://localhost:8080/relatorios/kpi4/${fkEmpresa}?dataInicio=${dataInicio}&dataFinal=${dataFinal}`).then(r => r.json());
+                const kpi4Elem = document.getElementById('kpi4Modal');
+                if (kpi4Elem && kpi4[0]) {
+                    const porcentagemKPI4 = kpi4[0].porcentagem || '0%';
+                    kpi4Elem.innerHTML = `${kpi4[0].voos_cancelados} voos | <span style="color: #3A6EA5; font-weight: bold;">${porcentagemKPI4}</span>`;
+                    porcentagensKPI.kpi4 = parseFloat(porcentagemKPI4.replace('%', '')) || 0;
+                }
+
+                setTimeout(() => carregarGraficoTortaComFiltro(porcentagensKPI), 100);
+
+            } catch (error) {
+                console.error("Erro ao carregar KPIs com filtro:", error);
+                carregarGraficoTortaComFiltro({ kpi2: 0, kpi3: 0, kpi4: 0 });
+            }
+        }
+
+        function carregarGraficoTortaComFiltro(porcentagens = { kpi2: 0, kpi3: 0, kpi4: 0 }) {
+            const dados = [
+                porcentagens.kpi2 || 0,
+                porcentagens.kpi3 || 0,
+                porcentagens.kpi4 || 0
+            ];
+
+            const total = dados.reduce((a, b) => a + b, 0);
+            if (total === 0) {
+                dados[0] = 65.72;
+                dados[1] = 12.00;
+                dados[2] = 22.28;
+            }
+
+            const data = {
+                labels: ['sem atrasos', 'com atrasos', 'cancelados'],
+                datasets: [{
+                    data: dados,
+                    backgroundColor: ['#36A2EB', '#FF6384', '#87ff63'],
+                    borderColor: ['#2a7eb8', '#cc4f66', '#6acc4f'],
+                    borderWidth: 2
+                }]
+            };
+
+            const config = {
+                type: 'pie',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    family: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+                                },
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    return `${label}: ${value.toFixed(2)}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            if (typeof ChartDataLabels !== 'undefined') {
+                config.plugins = config.plugins || {};
+                config.plugins.datalabels = {
+                    color: '#fff',
+                    font: {
+                        weight: 'bold',
+                        size: 16
+                    },
+                    formatter: (value) => {
+                        return value.toFixed(1) + '%';
+                    }
+                };
+                config.plugins = [ChartDataLabels, ...(config.plugins ? Object.values(config.plugins) : [])];
+            }
+
+            const ctx = document.getElementById('meuGraficoPieModal');
+            if (ctx) {
+                try {
+                    if (ctx.chart && typeof ctx.chart.destroy === 'function') {
+                        ctx.chart.destroy();
+                    }
+
+                    ctx.chart = new Chart(ctx, config);
+                } catch (error) {
+                    console.error('Erro ao criar gráfico de torta:', error);
+                    const container = ctx.parentElement;
+                    if (container) {
+                        container.innerHTML = `
+                            <div style="text-align: center; padding: 20px;">
+                                <h4>Distribuição de Voos</h4>
+                                <p>Sem atrasos: ${dados[0].toFixed(2)}%</p>
+                                <p>Com atrasos: ${dados[1].toFixed(2)}%</p>
+                                <p>Cancelados: ${dados[2].toFixed(2)}%</p>
+                            </div>
+                        `;
+                    }
+                }
+            }
+        }
+
+        async function carregarGraficoJustificativasComFiltro(fkEmpresa, dataInicio, dataFinal) {
+            try {
+                console.log("Carregando gráfico de justificativas...");
+                const resposta = await fetch(`http://localhost:8080/relatorios/justificativas/${fkEmpresa}?dataInicio=${dataInicio}&dataFinal=${dataFinal}`).then(r => r.json());
+                console.log("Dados recebidos para justificativas:", resposta);
+
+                const codigo_justificativa = resposta.map(codigo => codigo.codigo_justificativa);
+                const qtd_vezes = resposta.map(qtd => qtd.qtd_vezes);
+
+                const dataBar1 = {
+                    labels: codigo_justificativa,
+                    datasets: [{
+                        data: qtd_vezes,
+                        backgroundColor: [
+                            '#36A2EB', '#FFCD56', '#FF6384',
+                            '#87ff63', '#9966FF', '#FF9F40',
+                            '#4BC0C0', '#C9CBCE', '#A9A9A9', '#DA70D6'
+                        ],
+                        borderWidth: 1,
+                        borderColor: '#333'
+                    }]
+                };
+
+                const configBar1 = {
+                    type: 'bar',
+                    data: dataBar1,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Top 10 códigos de justificativas mais indicados',
+                                font: {
+                                    size: 16
+                                }
+                            },
+                            datalabels: {
+                                anchor: 'center',
+                                align: 'center',
+                                color: 'white',
+                                font: {
+                                    weight: 'bold',
+                                    size: 12
+                                },
+                                formatter: function (value) {
+                                    return value;
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Quantidade'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Código de Justificativa'
+                                }
+                            }
+                        }
+                    },
+                    plugins: [ChartDataLabels]
+                };
+
+                const ctxBar1 = document.getElementById('meuGraficoBarra1Modal');
+                if (ctxBar1) {
+                    console.log("Criando gráfico de barras 1...");
+
+                    if (window.chartBar1) {
+                        window.chartBar1.destroy();
+                    }
+
+                    ctxBar1.style.width = '100%';
+                    ctxBar1.style.height = '300px';
+
+                    window.chartBar1 = new Chart(ctxBar1, configBar1);
+                    console.log("Gráfico de barras 1 criado com sucesso");
+                } else {
+                    console.error("Canvas meuGraficoBarra1Modal não encontrado");
+                }
+            } catch (error) {
+                console.error("Erro no gráfico de justificativas com filtro:", error);
+            }
+        }
+
+        async function carregarGraficoDesempenhoComFiltro(fkEmpresa, dataInicio, dataFinal) {
+            try {
+                console.log("Carregando gráfico de desempenho...");
+                const resposta = await fetch(`http://localhost:8080/relatorios/desempenho/${fkEmpresa}?dataInicio=${dataInicio}&dataFinal=${dataFinal}`).then(r => r.json());
+                console.log("Dados recebidos para desempenho:", resposta);
+
+                const rotas = resposta.map(rota => rota.rota);
+                const quantidade_atrasos = resposta.map(qtd => qtd.quantidade_atrasos);
+                const media_atrasos = resposta.map(media => parseFloat(media.media_atraso) || 0);
+
+                const dataBar2 = {
+                    labels: rotas,
+                    datasets: [
+                        {
+                            label: 'Quantidade de atrasos por rota',
+                            data: quantidade_atrasos,
+                            backgroundColor: '#FF6700',
+                            borderColor: '#FF6700',
+                            borderWidth: 1,
+                            type: 'bar',
+                            order: 2,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Média de tempo de atraso (min)',
+                            data: media_atrasos,
+                            borderColor: '#36a2eb',
+                            backgroundColor: '#36a2eb',
+                            type: 'line',
+                            order: 1,
+                            yAxisID: 'y1',
+                            tension: 0.4,
+                            fill: false
+                        }
+                    ]
+                };
+
+                const configBar2 = {
+                    type: 'bar',
+                    data: dataBar2,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        interaction: {
+                            mode: 'index',
+                            intersect: false,
+                        },
+                        stacked: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Desempenho de Atrasos por Rota',
+                                font: {
+                                    size: 16
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            if (context.datasetIndex === 1) {
+                                                label += context.parsed.y.toFixed(2) + ' min';
+                                            } else {
+                                                label += context.parsed.y;
+                                            }
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Rotas'
+                                }
+                            },
+                            y: {
+                                type: 'linear',
+                                display: true,
+                                position: 'left',
+                                title: {
+                                    display: true,
+                                    text: 'Quantidade de atrasos'
+                                },
+                                beginAtZero: true
+                            },
+                            y1: {
+                                type: 'linear',
+                                display: true,
+                                position: 'right',
+                                title: {
+                                    display: true,
+                                    text: 'Média de atraso (min)'
+                                },
+                                beginAtZero: true,
+                                grid: {
+                                    drawOnChartArea: false,
+                                },
+                            }
+                        }
+                    }
+                };
+
+                const ctxBar2 = document.getElementById('meuGraficoBarra2Modal');
+                if (ctxBar2) {
+                    console.log("Criando gráfico de barras 2...");
+
+                    if (window.chartBar2) {
+                        window.chartBar2.destroy();
+                    }
+
+                    ctxBar2.style.width = '100%';
+                    ctxBar2.style.height = '300px';
+
+                    // Criar novo gráfico
+                    window.chartBar2 = new Chart(ctxBar2.getContext('2d'), configBar2);
+                    console.log("Gráfico de barras 2 criado com sucesso");
+                } else {
+                    console.error("Canvas meuGraficoBarra2Modal não encontrado");
+                }
+            } catch (error) {
+                console.error("Erro no gráfico de desempenho com filtro:", error);
+            }
+        }
+
+        async function carregarTabelaVoosComFiltro(fkEmpresa, dataInicio, dataFinal) {
+            try {
+                const resposta = await fetch(`http://localhost:8080/relatorios/voos/${fkEmpresa}?dataInicio=${dataInicio}&dataFinal=${dataFinal}`).then(r => r.json());
+                const tbody = document.getElementById("tbodyVoosModal");
+                if (!tbody) return;
+
+                let voos = "";
+                resposta.forEach(voo => {
+                    voos += `<tr>
+                <td>${voo.numero_voo}</td>
+                <td>${voo.data_prevista}</td>
+                <td>${voo.previsao_partida}</td>
+                <td>${voo.previsao_chegada}</td>
+                <td>${voo.partida}</td>
+                <td>${voo.chegada}</td>
+                <td>${voo.atraso_chegada}</td>
+                <td>${voo.atraso_partida}</td>
+                <td>${voo.atraso_total}</td>
+                <td>${voo.origem}</td>
+                <td>${voo.destino}</td>
+                <td>${voo.codigo_justificativa}</td>
+            </tr>`;
+                });
+                tbody.innerHTML = voos;
+            } catch (error) {
+                console.error("Erro ao carregar tabela de voos com filtro:", error);
+            }
+        }
+
+        function carregarTabelaLegendas() {
+            const legendas = [
+                { codigo: "AA", descricao: "ATRASO AEROPORTO DE ALTERNATIVA – ORDEM TÉCNICA" },
+                { codigo: "AF", descricao: "FACILIDADES DO AEROPORTO - RESTRIÇÕES DE APOIO" },
+                { codigo: "AG", descricao: "MIGRAÇÃO/ALFÂNDEGA/SAÚDE" },
+                { codigo: "AI", descricao: "AEROPORTO DE ORIGEM INTERDITADO" },
+                { codigo: "AJ", descricao: "AEROPORTO DE DESTINO INTERDITADO" },
+                { codigo: "AM", descricao: "ATRASO AEROPORTO DE ALTERNATIVA – CONDIÇÕES METEOROLÓGICAS" },
+                { codigo: "AS", descricao: "SEGURANÇA/PAX/CARGA/ALARME" },
+                { codigo: "AR", descricao: "AEROPORTO COM RESTRIÇÕES OPERACIONAIS" },
+                { codigo: "AT", descricao: "LIBERAÇÃO SERV. TRÁFEGO AÉREO/ANTECIPAÇÃO" },
+                { codigo: "DF", descricao: "AVARIA DURANTE OPERAÇÕES EM VÔO" },
+                { codigo: "DG", descricao: "AVARIA DURANTE OPERAÇÕES EM SOLO" },
+                { codigo: "FP", descricao: "PLANO DE VÔO - APROVAÇÃO" },
+                { codigo: "GF", descricao: "ABASTECIMENTO/DESTANQUEIO" },
+                { codigo: "MA", descricao: "FALHA EQUIPO AUTOMOTIVO E DE ATENDIMENTO DE PAX" },
+                { codigo: "MX", descricao: "ATRASOS NÃO ESPECÍFICOS – OUTROS" },
+                { codigo: "OA", descricao: "AUTORIZADO" },
+                { codigo: "RA", descricao: "CONEXÃO DE AERONAVE" },
+                { codigo: "RI", descricao: "CONEXÃO AERONAVE/VOLTA – VÔO DE IDA NÃO PENALIZADO - AEROPORTO INTERDITADO" },
+                { codigo: "RM", descricao: "CONEXÃO AERONAVE/VOLTA – VÔO DE IDA NÃO PENALIZADO - CONDIÇÕES METEOROLÓGICAS" },
+                { codigo: "TC", descricao: "TROCA DE AERONAVE" },
+                { codigo: "TD", descricao: "DEFEITOS DA AERONAVE" },
+                { codigo: "WA", descricao: "ALTERNATIVA ABAIXO DOS LIMITES" },
+                { codigo: "WI", descricao: "DEGELO E REMOÇÃO DE NEVE E/OU LAMA EM AERONAVE" },
+                { codigo: "WR", descricao: "ATRASO DEVIDO RETORNO – CONDIÇÕES METEOROLÓGICAS" },
+                { codigo: "WO", descricao: "AEROPORTO ORIGEM ABAIXO DOS LIMITES" },
+                { codigo: "WP", descricao: "ATRASO DEVIDO RETORNO – ORDEM TÉCNICA" },
+                { codigo: "WT", descricao: "AEROPORTO DESTINO ABAIXO DOS LIMITES" },
+                { codigo: "WS", descricao: "REMOÇÃO GELO/ÁGUA/LAMA/AREIA EM AEROPORTO" },
+                { codigo: "XA", descricao: "PROGRAMADO – FERIADO NACIONAL" },
+                { codigo: "XB", descricao: "AUTORIZADO (CANCELAMENTO)" },
+                { codigo: "XI", descricao: "CANCELAMENTO – AEROPORTO DE ORIGEM INTERDITADO" },
+                { codigo: "XJ", descricao: "CANCELAMENTO – AEROPORTO DE DESTINO INTERDITADO" },
+                { codigo: "XL", descricao: "FALTA PAX COM PASSAGEM MARCADA – (LINHAS DOMÉSTICAS REGIONAIS)" },
+                { codigo: "XM", descricao: "CANCELAMENTO – CONEXÃO/VOLTA – VÔO DE IDA CANCELADO – AEROPORTO INTERDITADO" },
+                { codigo: "XN", descricao: "CANCELAMENTO POR MOTIVOS TÉCNICOS/OPERACIONAIS" },
+                { codigo: "XO", descricao: "CANCELAMENTO – AEROPORTO ORIGEM ABAIXO LIMITES" },
+                { codigo: "XT", descricao: "CANCELAMENTO – AEROPORTO DESTINO ABAIXO LIMITES" },
+                { codigo: "XR", descricao: "CANCELAMENTO DE VÔOS EM CODE SHARING" },
+                { codigo: "XS", descricao: "CANCELAMENTO – CONEXÃO/VOLTA – CONDIÇÕES METEOROLÓGICAS" },
+                { codigo: "ST", descricao: "INCLUSÃO DE ETAPA DEVIDO CANCELAMENTO DE ESCALAS" },
+                { codigo: "IR", descricao: "INCLUSÃO DE ETAPA (AEROPORTO ALTERNATIVA) – VÔO ESPECIAL RETORNO" },
+                { codigo: "VR", descricao: "VÔO ESPECIAL DE RETORNO" },
+                { codigo: "VE", descricao: "VÔO ESPECIAL DE EXPERIÊNCIA" },
+                { codigo: "VI", descricao: "VÔO ESPECIAL DE INSTRUÇÃO" },
+                { codigo: "HA", descricao: "AUTORIZADA (ALTERAÇÃO DE HORÁRIO)" },
+                { codigo: "HB", descricao: "VÔO > 4H ATRASO – PANE AERONAVE" },
+                { codigo: "HC", descricao: "VÔO > 4H ATRASO – AEROPORTO INTERDITADO" },
+                { codigo: "HD", descricao: "ANTECIPAÇÃO DE HORÁRIO AUTORIZADA" },
+                { codigo: "HI", descricao: "ANTECIPAÇÃO DE HORÁRIO – VÔOS INTERNACIONAIS" }
+            ];
+
+            const tbody = document.getElementById("tbodyLegendasModal");
+            if (!tbody) return;
+
+            let html = "";
+            legendas.forEach(legenda => {
+                html += `<tr><td>${legenda.codigo}</td><td>${legenda.descricao}</td></tr>`;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function configurarEventosDashboardModal() {
+            const btnVoosModal = document.getElementById('tabelaDadosVoosModal');
+            const btnLegendasModal = document.getElementById('tabelaLegendaJustificativasModal');
+
+            if (btnVoosModal) {
+                btnVoosModal.addEventListener('click', () => {
+                    document.getElementById('modalVoosModal').style.display = 'block';
+                });
+            }
+
+            if (btnLegendasModal) {
+                btnLegendasModal.addEventListener('click', () => {
+                    document.getElementById('modalLegendasModal').style.display = 'block';
+                });
+            }
+        }
+
+        function imprimirDashboard() {
+            var modalDashboard = document.getElementById("modalDashboard");
+
+            var displayOriginal = modalDashboard.style.display;
+            modalDashboard.style.display = "flex";
+
+            try {
+                Chart.helpers.each(Chart.instances, function (instance) {
+                    instance.resize();
+                });
+            } catch (e) {
+                console.warn("Erro ao redimensionar gráfico: ", e);
+            }
+
+            setTimeout(function () {
+
+                document.body.classList.add("print-dashboard");
+
+                window.print();
+                document.body.classList.remove("print-dashboard");
+
+                modalDashboard.style.display = displayOriginal;
+
+            }, 300);
+        }
+
+
+        async function criarRelatorio(e) {
+            e.preventDefault();
+            const nome = document.getElementById("nome-relatorio").value;
+            const dataInicio = document.getElementById("data-inicio").value;
+            const dataFinal = document.getElementById("data-final").value;
+            const fk_usuario = sessionStorage.getItem("usuarioId") || 1;
+
+            console.log("Valores a enviar:", { nome, dataInicio, dataFinal, fk_usuario });
+
+            if (!nome.trim()) {
+                alert("Por favor, informe um nome para o relatório");
+                return;
+            }
+
+            if (!dataInicio || !dataFinal) {
+                alert("Por favor, informe as datas de início e final");
+                return;
+            }
+
+            if (new Date(dataInicio) > new Date(dataFinal)) {
+                alert("A data de início não pode ser posterior à data final");
+                return;
+            }
+
+            try {
+                const dadosParaEnviar = {
+                    nome: nome,
+                    dataInicio: dataInicio,
+                    dataFinal: dataFinal,
+                    fk_usuario: parseInt(fk_usuario)
+                };
+
+                console.log("JSON a enviar:", JSON.stringify(dadosParaEnviar));
+
+                const response = await fetch("http://localhost:8080/relatorios/criar", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify(dadosParaEnviar)
+                });
+
+                console.log("Status da resposta:", response.status);
+
+                if (!response.ok) {
+                    let errorText = "";
+                    try {
+                        errorText = await response.text();
+                        console.error("Texto do erro:", errorText);
+                    } catch {
+                        errorText = "Não foi possível ler o erro";
+                    }
+                    throw new Error(`Erro HTTP: ${response.status} - ${errorText}`);
+                }
+
+                const result = await response.json();
+                console.log("Resposta do servidor:", result);
+
+                document.getElementById("formRelatorio").reset();
+                carregarRelatorios();
+                alert("Relatório criado com sucesso!");
+
+            } catch (error) {
+                console.error("Erro detalhado ao criar relatório:", error);
+                alert(`Erro ao criar relatório: ${error.message}`);
+            }
+        }
+
+        async function editarRelatorio(e) {
+            idEditando = e.target.dataset.id;
+            const fk_usuario = sessionStorage.getItem("usuarioId") || 1;
+
+            try {
+                const res = await fetch(`http://localhost:8080/relatorios/mostrar/${idEditando}?fk_usuario=${fk_usuario}`);
+                if (!res.ok) throw new Error(`Erro HTTP: ${res.status}`);
+
+                const data = await res.json();
+                let relatorio;
+
+                if (Array.isArray(data) && data.length > 0) {
+                    relatorio = data[0];
+                } else if (typeof data === 'object' && data !== null) {
+                    relatorio = data;
+                } else {
+                    throw new Error("Formato de dados inválido");
+                }
+
+                document.getElementById("editar-nome").value = relatorio.nome || "";
+
+                const formatarDataParaInput = (dataString) => {
+                    if (!dataString) return "";
+                    dataString = dataString.toString().trim();
+                    if (/^\d{4}-\d{2}-\d{2}$/.test(dataString)) return dataString;
+                    if (/^\d{2}\/\d{2}\/\d{4}$/.test(dataString)) {
+                        const partes = dataString.split("/");
+                        return `${partes[2]}-${partes[1].padStart(2, '0')}-${partes[0].padStart(2, '0')}`;
+                    }
+                    return "";
+                };
+
+                document.getElementById("editar-data-inicio").value = formatarDataParaInput(relatorio.data_inicio || relatorio.dataInicio || "");
+                document.getElementById("editar-data-final").value = formatarDataParaInput(relatorio.data_final || relatorio.dataFinal || "");
+                modalEditar.style.display = "flex";
+            } catch (error) {
+                console.error("Erro ao buscar relatório para edição:", error);
+                alert("Erro ao carregar dados para edição.");
+            }
+        }
+
+        async function salvarEdicao(e) {
+            e.preventDefault();
+            const nome = document.getElementById("editar-nome").value;
+            const dataInicio = document.getElementById("editar-data-inicio").value;
+            const dataFinal = document.getElementById("editar-data-final").value;
+            const fk_usuario = sessionStorage.getItem("usuarioId") || 1;
+
+            if (!nome.trim()) {
+                alert("Por favor, informe um nome para o relatório");
+                return;
+            }
+
+            if (!dataInicio || !dataFinal) {
+                alert("Por favor, informe as datas de início e final");
+                return;
+            }
+
+            if (new Date(dataInicio) > new Date(dataFinal)) {
+                alert("A data de início não pode ser posterior à data final");
+                return;
+            }
+
+            try {
+                const response = await fetch("http://localhost:8080/relatorios/atualizarRelatorio", {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        idRelatorio: idEditando,
+                        nome,
+                        dataInicio,
+                        dataFinal,
+                        fk_usuario
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Erro HTTP ${response.status}: ${errorText}`);
+                }
+
+                await response.json();
+                modalEditar.style.display = "none";
+                carregarRelatorios();
+                alert("Relatório atualizado com sucesso!");
+            } catch (error) {
+                console.error("Erro ao atualizar relatório:", error);
+                alert("Erro ao atualizar relatório: " + error.message);
+            }
+        }
+
+        async function excluirRelatorio(e) {
+            const id = e.target.dataset.id;
+            const fk_usuario = sessionStorage.getItem("usuarioId") || 1;
+
+            if (confirm("Tem certeza que deseja excluir este relatório?")) {
+                try {
+                    const response = await fetch(`http://localhost:8080/relatorios/deletar/${id}?fk_usuario=${fk_usuario}`, {
+                        method: "DELETE"
+                    });
+
+                    if (response.ok) {
+                        alert("Relatório excluído com sucesso!");
+                        carregarRelatorios();
+                    } else {
+                        throw new Error("Erro ao excluir relatório");
+                    }
+                } catch (error) {
+                    console.error("Erro ao excluir relatório:", error);
+                    alert("Erro ao excluir relatório");
+                }
+            }
+        }
+
+        function verificarElementosDashboard() {
+            console.log('=== VERIFICANDO ELEMENTOS DO DASHBOARD ===');
+
+            const elementos = [
+                'meuGraficoBarra1Modal',
+                'meuGraficoBarra2Modal',
+                'meuGraficoPieModal',
+                'meuGraficoBarra1',
+                'meuGraficoBarra2',
+                'meuGraficoPie',
+                'kpi1Modal',
+                'kpi2Modal',
+                'kpi3Modal',
+                'kpi4Modal'
+            ];
+
+            elementos.forEach(id => {
+                const elem = document.getElementById(id);
+                if (elem) {
+                    console.log(`✓ Elemento ${id}: ENCONTRADO`, elem);
+                } else {
+                    console.log(`✗ Elemento ${id}: NÃO ENCONTRADO`);
+                }
+            });
+
+            const todosCanvas = document.querySelectorAll('canvas');
+            console.log(`Total de canvas encontrados: ${todosCanvas.length}`);
+            todosCanvas.forEach((canvas, index) => {
+                console.log(`Canvas ${index}: id="${canvas.id}", class="${canvas.className}"`);
+            });
+
+            console.log('Chart.js disponível?', typeof Chart !== 'undefined');
+            console.log('ChartDataLabels disponível?', typeof ChartDataLabels !== 'undefined');
+        }
+    </script>
 
 </body>
 
 </html>
-
-<script>
-
-    const nomeUsuario = new URLSearchParams(window.location.search("nome"));
-
-    getElementById('nome').innerHTML = nomeUsuario;
-
-    console.log(nome);
-
-    const select = document.getElementById("navigationSelect");
-
-    select.addEventListener("change", function () {
-        const url = this.value;
-        if (url) {
-            window.location.href = url;
-        }
-    });
-
-    // ===== LÓGICA DO MODAL =====
-    const perfilIcon = document.getElementById('perfilIcon'); // imagem do perfil
-    const modal = document.getElementById('modal');
-    const btnFechar = document.getElementById('fechar');
-    const form = document.getElementById('formUsuario');
-
-    // Abrir modal ao clicar na imagem de perfil
-    perfilIcon.addEventListener('click', () => {
-        modal.style.display = 'flex';
-    });
-
-    // Fechar modal ao clicar no "X"
-    btnFechar.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    // Fechar modal ao clicar fora do conteúdo
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-</script>
-</script>

@@ -31,8 +31,8 @@ const textFieldStyles = {
     "&:hover fieldset": { borderColor: "#ff6600" },
     "&.Mui-focused fieldset": { borderColor: "#ff6600" },
   },
-  "& .MuiInputLabel-root": { color: "#ccc" },
-  "& .MuiOutlinedInput-input": { color: "#fff" },
+  "& .MuiInputLabel-root": { color: "#ccc"},
+  "& .MuiOutlinedInput-input": { color: "#fff"},
 };
 
 const avaliarForcaSenha = (s: string) => {
@@ -68,7 +68,7 @@ export default function RegisterPage() {
   const steps = ["Dados Pessoais", "Código da Empresa", "Segurança"];
 
   const updateField = (field: string, value: string) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
+    setForm((prev) => ({ ...prev, [field]: value }))
   };
 
   const validarStep = () => {
@@ -108,6 +108,11 @@ export default function RegisterPage() {
   };
 
   const handleBack = () => {
+    if(activeStep === 0){
+      setTimeout(() => {
+        router.push("/login");
+      }, 1000);
+    }
     if (activeStep > 0) setActiveStep(activeStep - 1);
   };
 
@@ -129,7 +134,7 @@ export default function RegisterPage() {
 
       setTimeout(() => {
         router.push("/login");
-      }, 3000);
+      }, 2000);
 
     } catch (error) {
       if (error instanceof Error) {
@@ -179,7 +184,11 @@ export default function RegisterPage() {
               }}
             >
               {steps.map((label) => (
-                <Step key={label}>
+                <Step key={label} sx={{
+                  "& .MuiStepLabel-label": { color: "#ccc !important" },
+                  "& .Mui-active": { color: "#ccc" },
+                  "& .MuiStepIcon-text": {fill: "#000 !important"},
+                }}>
                   <StepLabel>{label}</StepLabel>
                 </Step>
               ))}
@@ -310,14 +319,13 @@ export default function RegisterPage() {
                 sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
               >
                 <Button
-                  disabled={activeStep === 0}
                   onClick={handleBack}
                   variant="outlined"
                   sx={{
                     borderRadius: 3,
                     textTransform: "none",
                     borderColor: "#ff6600",
-                    color: "#ff6600",
+                    color: "#ffffff",
                     "&:hover": { backgroundColor: "rgba(255,102,0,0.1)" },
                   }}
                 >

@@ -55,7 +55,7 @@
           <img class="logo" src="../assets/logoLaranja-removebg-preview.png" alt="Logo">
         </div>
         <div class="user">
-          <span>@usuário</span>
+          <span id="nomeUsuario">@usuário</span>
         </div>
         <h2 class="welcome-text">Ajustes de notificações</h2>
       </div>
@@ -126,6 +126,12 @@
   </section>
 
   <script>
+
+    const nome = sessionStorage.getItem("NomeUsuario");
+
+    document.getElementById("nomeUsuario").innerHTML = nome;
+
+
     function getRadioValue(name) {
       const radios = document.getElementsByName(name);
       for (let i = 0; i < radios.length; i++) {

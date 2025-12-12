@@ -85,11 +85,12 @@
 
   <script>
 
-    const nomeUsuario = new URLSearchParams(window.location.search("nome"));
+    const Url = new URLSearchParams(window.location.search);
+    const nomeUsuario = Url.get("nome");
 
-    getElementById('nome').innerHTML = nomeUsuario;
+    let nome = document.getElementById('nome').innerHTML = nomeUsuario;
 
-    console.log(nome);
+    sessionStorage.NomeUsuario = nome;
 
     // Redirecionamento do select
     const select = document.getElementById("navigationSelect");
