@@ -507,3 +507,64 @@ input, select {
   border-radius: 8px;
   border: 1px dashed #dee2e6;
 }
+
+/* ================= REGISTROS (CONTATOS / ENDEREÇOS) ================= */
+
+.registro-container {
+  margin-bottom: 16px;
+  padding: 14px;
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.registro-container h4 {
+  margin-bottom: 10px;
+  color: #3A6EA5;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ===== TABELA ===== */
+
+.registro-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  display: table; /* 🔥 força comportamento correto */
+}
+
+.registro-tabela tr {
+  display: table-row;
+}
+
+.registro-tabela th,
+.registro-tabela td {
+  display: table-cell;     /* 🔥 CRUCIAL */
+  vertical-align: top;     /* 🔥 alinhamento correto */
+  padding: 8px 10px;
+  word-break: break-word;
+  font-size: 14px;
+}
+
+/* Coluna de rótulos */
+.registro-tabela th {
+  width: 140px;
+  background: #f4f4f4;
+  text-align: left;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Coluna de valores */
+.registro-tabela td {
+  background: #ffffff;
+  color: #000;
+}
+
+/* Linha separadora */
+.registro-tabela tr:not(:last-child) td,
+.registro-tabela tr:not(:last-child) th {
+  border-bottom: 1px solid #eaeaea;
+}
