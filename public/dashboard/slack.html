@@ -281,93 +281,39 @@
     }
 
     function ligarDesligar() {
-      const statusNotif = getRadioValue('notificacaoGeral');
-      const statusAtraso = getRadioValue('notificacaoAtrasos');
-      const statusCancelamento = getRadioValue('notificacaoCancelamento');
+    var statusNotif = getRadioValue('notificacaoGeral');
+    var statusAtraso = getRadioValue('notificacaoAtrasos');
+    var statusCancelamento = getRadioValue('notificacaoCancelamento');
+    
 
-      if (statusNotif === null) {
-        showFeedback('Por favor, selecione se deseja receber notificações.', 'error');
-        return false;
-      }
+    fetch("/usuarios/ligarDesligar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        statusServer: statusNotif,
+        atrasoServer: statusAtraso,
+        cancelServer: statusCancelamento,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
 
-      let atrasoFinal = statusAtraso;
-      let cancelamentoFinal = statusCancelamento;
-
-      if (statusNotif === '0') {
-        atrasoFinal = '0';
-        cancelamentoFinal = '0';
-        showFeedback('Notificações gerais desativadas. Todas as notificações foram desligadas.', 'info');
-      } else {
-        if (atrasoFinal === null) atrasoFinal = '0';
-        if (cancelamentoFinal === null) cancelamentoFinal = '0';
-      }
-
-      showFeedback('Salvando suas preferências...', 'info');
-
-      console.log('Enviando para o servidor:', {
-        statusNotif: statusNotif,
-        statusAtraso: atrasoFinal,
-        statusCancelamento: cancelamentoFinal
+        if (resposta.ok) {
+          cardErro.style.display = "block";
+          mensagem_erro.innerHTML =
+            "Parâmetros definidos, você receberá as notificações desejadas!";
+        } else {
+          throw "Houve um erro ao definir seus parâmetros...";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
       });
 
-      fetch("/usuarios/ligarDesligar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          statusServer: statusNotif,
-          atrasoServer: atrasoFinal,
-          cancelServer: cancelamentoFinal
-        }),
-      })
-        .then(function (resposta) {
-          console.log("Resposta do servidor:", resposta);
-
-          if (resposta.ok) {
-            return resposta.json().catch(() => ({}));
-          } else {
-            throw new Error(`Erro HTTP: ${resposta.status}`);
-          }
-        })
-        .then(function (dados) {
-          console.log("Dados recebidos:", dados);
-
-          let mensagem = '';
-          if (statusNotif === '0') {
-            mensagem = 'Notificações desativadas com sucesso! Você não receberá mais notificações.';
-          } else {
-            const atrasos = atrasoFinal === '1' ? 'atrasos' : '';
-            const cancelamentos = cancelamentoFinal === '1' ? 'cancelamentos' : '';
-            const separador = atrasos && cancelamentos ? ' e ' : '';
-
-            mensagem = `Preferências salvas! Você receberá notificações de ${atrasos}${separador}${cancelamentos}${atrasos || cancelamentos ? '' : 'nenhum tipo específico'}.`;
-          }
-
-          showFeedback(mensagem, 'success');
-        })
-        .catch(function (erro) {
-          console.error(`#ERRO: ${erro}`);
-
-          if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-            console.warn('Modo de teste local ativado - simulando resposta do servidor');
-
-            let mensagem = '';
-            if (statusNotif === '0') {
-              mensagem = '[SIMULAÇÃO] Notificações desativadas com sucesso!';
-            } else {
-              mensagem = '[SIMULAÇÃO] Preferências salvas! Configuração aplicada.';
-            }
-
-            showFeedback(mensagem, 'success');
-          } else {
-            showFeedback('Erro ao salvar preferências. Tente novamente mais tarde.', 'error');
-          }
-        });
-
-      return false;
-    }
-
+    return false;
+  }
     function inicializarPagina() {
       controlarOpcoesSecundarias();
 
