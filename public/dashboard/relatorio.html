@@ -24,17 +24,17 @@
             <div class="content2">
 
                 <select id="meuSelect" onchange="window.location.href = this.value;">
-                  <option value="dashboard.html" >Dashboard</option>
-                  <option value="relatorio.html" selected>Relatórios</option>
-                  <option value="slack.html">Notificações</option>
+                    <option value="dashboard.html">Dashboard</option>
+                    <option value="relatorio.html" selected>Relatórios</option>
+                    <option value="slack.html">Notificações</option>
                 </select>
-        
+
                 <a href="index.html">
-                  <button class="botao-sair">
-                    Sair
-                  </button>
+                    <button class="botao-sair">
+                        Sair
+                    </button>
                 </a>
-              </div>
+            </div>
         </div>
 
         <main class="main">
@@ -119,9 +119,9 @@
 
     <script>
 
-    const nome = sessionStorage.getItem("NomeUsuario");
+        const nome = sessionStorage.getItem("NomeUsuario");
 
-    document.getElementById("nomeUsuario").innerHTML = nome;
+        document.getElementById("nomeUsuario").innerHTML = nome;
 
         let idEditando;
         let relatorioAtual = null;
@@ -138,6 +138,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             inicializarEventos();
             carregarRelatorios();
+            document.getElementById("modalDashboard").style.display = "none";
         });
 
         function inicializarEventos() {
