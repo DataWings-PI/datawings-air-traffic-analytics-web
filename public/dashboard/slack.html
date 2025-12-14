@@ -1,134 +1,422 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slack</title>
-    <style>
-        .grupo-desabilitado {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-    </style>
-</head>
-<body onload="controlarOpcoesSecundarias()">
-    
-    <h2>Deseja receber notificações?</h2>
-    <input type="radio" name="notificacaoGeral" id="notificacaoOn_input" value="1" onchange="controlarOpcoesSecundarias()" checked>Sim</input>
-    <input type="radio" name="notificacaoGeral" id="notificacaoOff_input" value="0" onchange="controlarOpcoesSecundarias()">Não</input>
-    <br>
-    
-    <div id="grupoAtrasos">
-        <h2>Deseja receber notificações sobre <u>atrasos</u> de voôs?</h2>
-        <input type="radio" name="notificacaoAtrasos" id="atrasoOn_input" value="1">Sim</input>
-        <input type="radio" name="notificacaoAtrasos" id="atrasoOff_input" value="0" checked>Não</input>
-    </div>
-    <br>
-
-    <div id="grupoCancelamentos">
-        <h2>Deseja receber notificações sobre <u>cancelamento</u> de voôs?</h2>
-        <input type="radio" name="notificacaoCancelamento" id="cancelamentoOn_input" value="1">Sim</input>
-        <input type="radio" name="notificacaoCancelamento" id="cancelamentoOff_input" value="0" checked>Não</input>
-    </div>
-    
-    <button onclick="ligarDesligar()">Aplicar</button>
-
-</body>
-</html>
-
-<script>
-    /**
-     * Função auxiliar para obter o valor selecionado de um grupo de radio buttons.
-     * @param {string} name - O valor do atributo 'name' do grupo de rádio.
-     * @returns {string | null} O valor ('value') do botão de rádio selecionado, ou null se nenhum estiver selecionado.
-     */
-    function getRadioValue(name) {
-        // Seleciona todos os rádio buttons com o 'name' especificado
-        const radios = document.getElementsByName(name);
-        
-        // Itera sobre eles e retorna o valor do que estiver marcado
-        for (let i = 0; i < radios.length; i++) {
-            if (radios[i].checked) {
-                return radios[i].value;
-            }
-        }
-        return null; // Retorna null se nenhum estiver selecionado
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataWings - Ajustes de notificações</title>
+  <link rel="stylesheet" href="./css/slack.css">
+  <style>
+    .hit {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      cursor: pointer;
+      z-index: 2;
     }
 
-    /**
-     * Controla o estado (habilitado/desabilitado) dos grupos de notificações secundárias.
-     */
-    function controlarOpcoesSecundarias() {
-        // Verifica se o "Não" geral está selecionado
-        const naoGeralSelecionado = document.getElementById('notificacaoOff_input').checked;
-        
-        // Seleciona os contêineres e os inputs dos grupos secundários
-        const grupoAtrasos = document.getElementById('grupoAtrasos');
-        const grupoCancelamentos = document.getElementById('grupoCancelamentos');
-        
-        const inputsSecundarios = document.querySelectorAll(
-            'input[name="notificacaoAtrasos"], input[name="notificacaoCancelamento"]'
-        );
+    .hit.on {
+      right: 0;
+      width: 50%;
+    }
 
-        // Aplica a lógica de desabilitar/habilitar
-        inputsSecundarios.forEach(input => {
-            input.disabled = naoGeralSelecionado; 
-            
-            // Se estiver desabilitando, garante que o input esteja desmarcado
-            if (naoGeralSelecionado) {
-                input.checked = false;
-            }
+    .hit.off {
+      left: 0;
+      width: 50%;
+    }
+
+    .feedback {
+      padding: 12px;
+      border-radius: 8px;
+      margin: 16px 0;
+      display: none;
+      font-weight: 500;
+    }
+
+    .feedback.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .feedback.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+  </style>
+</head>
+
+<body onload="controlarOpcoesSecundarias()">
+  <section class="full-body">
+    <div class="left-header">
+      <div class="content">
+        <div>
+          <img class="logo" src="../assets/logoLaranja-removebg-preview.png" alt="Logo">
+        </div>
+        <div class="user">
+          <span id="nomeUsuario">@usuário</span>
+        </div>
+        <h2 class="welcome-text">Ajustes de notificações</h2>
+      </div>
+      <div class="content2">
+
+        <select id="meuSelect" onchange="window.location.href = this.value;">
+          <option value="dashboard.html" >Dashboard</option>
+          <option value="relatorio.html">Relatórios</option>
+          <option value="slack.html" selected>Notificações</option>
+        </select>
+
+
+        <a href="index.html">
+          <button class="botao-sair">
+            Sair
+          </button>
+        </a>
+      </div>
+    </div>
+
+    <div class="main">
+      <h1>Ajustes de notificações</h1>
+
+      <div id="feedbackMessage" class="feedback"></div>
+
+      <h2>Deseja receber notificações?</h2>
+      <div class="ios-switch">
+        <input type="radio" name="notificacaoGeral" id="notificacaoOn_input" value="1"
+          onchange="controlarOpcoesSecundarias()" checked>
+        <input type="radio" name="notificacaoGeral" id="notificacaoOff_input" value="0"
+          onchange="controlarOpcoesSecundarias()">
+        <span class="track"><span class="thumb"></span></span>
+        <label for="notificacaoOn_input" class="hit on" aria-label="Ativar"></label>
+        <label for="notificacaoOff_input" class="hit off" aria-label="Desativar"></label>
+      </div>
+
+      <br><br>
+
+      <div id="grupoAtrasos" class="card">
+        <div class="row">
+          <h3>Notificações de atrasos de voos</h3>
+          <div class="ios-switch">
+            <input type="radio" name="notificacaoAtrasos" id="atrasoOn_input" value="1">
+            <input type="radio" name="notificacaoAtrasos" id="atrasoOff_input" value="0" checked>
+            <span class="track"><span class="thumb"></span></span>
+            <label for="atrasoOn_input" class="hit on" aria-label="Ativar notificações de atrasos"></label>
+            <label for="atrasoOff_input" class="hit off" aria-label="Desativar notificações de atrasos"></label>
+          </div>
+        </div>
+      </div>
+
+      <div id="grupoCancelamentos" class="card">
+        <div class="row">
+          <h3>Notificações de cancelamentos de voos</h3>
+          <div class="ios-switch">
+            <input type="radio" name="notificacaoCancelamento" id="cancelamentoOn_input" value="1">
+            <input type="radio" name="notificacaoCancelamento" id="cancelamentoOff_input" value="0" checked>
+            <span class="track"><span class="thumb"></span></span>
+            <label for="cancelamentoOn_input" class="hit on" aria-label="Ativar notificações de cancelamentos"></label>
+            <label for="cancelamentoOff_input" class="hit off"
+              aria-label="Desativar notificações de cancelamentos"></label>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-aplicar" onclick="ligarDesligar()">Aplicar</button>
+    </div>
+  </section>
+
+  <script>
+
+    const nome = sessionStorage.getItem("NomeUsuario");
+
+    document.getElementById("nomeUsuario").innerHTML = nome;
+
+
+    function getRadioValue(name) {
+      const radios = document.getElementsByName(name);
+      for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+          return radios[i].value;
+        }
+      }
+      return null;
+    }
+
+    function controlarOpcoesSecundarias() {
+      const naoGeralSelecionado = document.getElementById('notificacaoOff_input').checked;
+      const grupoAtrasos = document.getElementById('grupoAtrasos');
+      const grupoCancelamentos = document.getElementById('grupoCancelamentos');
+
+      const gruposSecundarios = document.querySelectorAll(
+        '#grupoAtrasos .ios-switch, #grupoCancelamentos .ios-switch'
+      );
+
+      const hitsSecundarios = document.querySelectorAll(
+        '#grupoAtrasos .hit, #grupoCancelamentos .hit'
+      );
+
+      if (naoGeralSelecionado) {
+        grupoAtrasos.classList.add('grupo-desabilitado');
+        grupoCancelamentos.classList.add('grupo-desabilitado');
+
+        hitsSecundarios.forEach(hit => {
+          hit.style.pointerEvents = 'none';
+          hit.style.opacity = '0.5';
+          hit.style.cursor = 'not-allowed';
         });
 
-        // Aplica a classe CSS para o efeito visual de desabilitado
-        if (naoGeralSelecionado) {
-            grupoAtrasos.classList.add('grupo-desabilitado');
-            grupoCancelamentos.classList.add('grupo-desabilitado');
-        } else {
-            grupoAtrasos.classList.remove('grupo-desabilitado');
-            grupoCancelamentos.classList.remove('grupo-desabilitado');
+        document.querySelectorAll('input[name="notificacaoAtrasos"]').forEach(input => {
+          input.checked = false;
+        });
+        document.querySelectorAll('input[name="notificacaoCancelamento"]').forEach(input => {
+          input.checked = false;
+        });
+
+      } else {
+        grupoAtrasos.classList.remove('grupo-desabilitado');
+        grupoCancelamentos.classList.remove('grupo-desabilitado');
+
+        hitsSecundarios.forEach(hit => {
+          hit.style.pointerEvents = 'auto';
+          hit.style.opacity = '1';
+          hit.style.cursor = 'pointer';
+        });
+
+        const atrasosMarcado = document.querySelector('input[name="notificacaoAtrasos"]:checked');
+        const cancelamentosMarcado = document.querySelector('input[name="notificacaoCancelamento"]:checked');
+
+        if (!atrasosMarcado) {
+          document.getElementById('atrasoOff_input').checked = true;
         }
+        if (!cancelamentosMarcado) {
+          document.getElementById('cancelamentoOff_input').checked = true;
+        }
+      }
     }
 
+    function configurarSwitchesSecundarios() {
+      const atrasoOn = document.getElementById('atrasoOn_input');
+      const atrasoOff = document.getElementById('atrasoOff_input');
+      const atrasoOnLabel = document.querySelector('label[for="atrasoOn_input"]');
+      const atrasoOffLabel = document.querySelector('label[for="atrasoOff_input"]');
 
-    /**
-     * Função original de envio de dados, refatorada para obter os valores corretos.
-     */
-    function ligarDesligar() {
-    var statusNotif = getRadioValue('notificacaoGeral');
-    var statusAtraso = getRadioValue('notificacaoAtrasos');
-    var statusCancelamento = getRadioValue('notificacaoCancelamento');
-    
+      if (atrasoOnLabel && atrasoOffLabel) {
+        atrasoOnLabel.addEventListener('click', function (e) {
+          if (document.getElementById('notificacaoOff_input').checked) {
+            e.preventDefault();
+            e.stopPropagation();
+            showFeedback('Ative as notificações gerais primeiro para ajustar esta opção.', 'info');
+            return false;
+          }
+          atrasoOn.checked = true;
+          console.log('Atrasos: ON');
+        });
 
-    fetch("/usuarios/ligarDesligar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        statusServer: statusNotif,
-        atrasoServer: statusAtraso,
-        cancelServer: statusCancelamento,
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
+        atrasoOffLabel.addEventListener('click', function (e) {
+          if (document.getElementById('notificacaoOff_input').checked) {
+            e.preventDefault();
+            e.stopPropagation();
+            showFeedback('Ative as notificações gerais primeiro para ajustar esta opção.', 'info');
+            return false;
+          }
+          atrasoOff.checked = true;
+          console.log('Atrasos: OFF');
+        });
+      }
 
-        if (resposta.ok) {
-          cardErro.style.display = "block";
-          mensagem_erro.innerHTML =
-            "Parâmetros definidos, você receberá as notificações desejadas!";
+      const cancelamentoOn = document.getElementById('cancelamentoOn_input');
+      const cancelamentoOff = document.getElementById('cancelamentoOff_input');
+      const cancelamentoOnLabel = document.querySelector('label[for="cancelamentoOn_input"]');
+      const cancelamentoOffLabel = document.querySelector('label[for="cancelamentoOff_input"]');
+
+      if (cancelamentoOnLabel && cancelamentoOffLabel) {
+        cancelamentoOnLabel.addEventListener('click', function (e) {
+          if (document.getElementById('notificacaoOff_input').checked) {
+            e.preventDefault();
+            e.stopPropagation();
+            showFeedback('Ative as notificações gerais primeiro para ajustar esta opção.', 'info');
+            return false;
+          }
+          cancelamentoOn.checked = true;
+          console.log('Cancelamentos: ON');
+        });
+
+        cancelamentoOffLabel.addEventListener('click', function (e) {
+          if (document.getElementById('notificacaoOff_input').checked) {
+            e.preventDefault();
+            e.stopPropagation();
+            showFeedback('Ative as notificações gerais primeiro para ajustar esta opção.', 'info');
+            return false;
+          }
+          cancelamentoOff.checked = true;
+          console.log('Cancelamentos: OFF');
+        });
+      }
+    }
+
+    function showFeedback(message, type = 'info') {
+      let feedback = document.getElementById('feedbackMessage');
+
+      if (!feedback) {
+        feedback = document.createElement('div');
+        feedback.id = 'feedbackMessage';
+        feedback.className = 'feedback';
+        const main = document.querySelector('.main');
+        if (main.firstChild) {
+          main.insertBefore(feedback, main.firstChild);
         } else {
-          throw "Houve um erro ao definir seus parâmetros...";
+          main.appendChild(feedback);
         }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
+      }
+
+      feedback.textContent = message;
+      feedback.className = 'feedback ' + type;
+      feedback.style.display = 'block';
+
+      if (type === 'success') {
+        setTimeout(() => {
+          feedback.style.display = 'none';
+        }, 3000);
+      }
+    }
+
+    function ligarDesligar() {
+      const statusNotif = getRadioValue('notificacaoGeral');
+      const statusAtraso = getRadioValue('notificacaoAtrasos');
+      const statusCancelamento = getRadioValue('notificacaoCancelamento');
+
+      if (statusNotif === null) {
+        showFeedback('Por favor, selecione se deseja receber notificações.', 'error');
+        return false;
+      }
+
+      let atrasoFinal = statusAtraso;
+      let cancelamentoFinal = statusCancelamento;
+
+      if (statusNotif === '0') {
+        atrasoFinal = '0';
+        cancelamentoFinal = '0';
+        showFeedback('Notificações gerais desativadas. Todas as notificações foram desligadas.', 'info');
+      } else {
+        if (atrasoFinal === null) atrasoFinal = '0';
+        if (cancelamentoFinal === null) cancelamentoFinal = '0';
+      }
+
+      showFeedback('Salvando suas preferências...', 'info');
+
+      console.log('Enviando para o servidor:', {
+        statusNotif: statusNotif,
+        statusAtraso: atrasoFinal,
+        statusCancelamento: cancelamentoFinal
       });
 
-    return false;
-  }
+      fetch("/usuarios/ligarDesligar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          statusServer: statusNotif,
+          atrasoServer: atrasoFinal,
+          cancelServer: cancelamentoFinal
+        }),
+      })
+        .then(function (resposta) {
+          console.log("Resposta do servidor:", resposta);
 
+          if (resposta.ok) {
+            return resposta.json().catch(() => ({}));
+          } else {
+            throw new Error(`Erro HTTP: ${resposta.status}`);
+          }
+        })
+        .then(function (dados) {
+          console.log("Dados recebidos:", dados);
 
-</script
+          let mensagem = '';
+          if (statusNotif === '0') {
+            mensagem = 'Notificações desativadas com sucesso! Você não receberá mais notificações.';
+          } else {
+            const atrasos = atrasoFinal === '1' ? 'atrasos' : '';
+            const cancelamentos = cancelamentoFinal === '1' ? 'cancelamentos' : '';
+            const separador = atrasos && cancelamentos ? ' e ' : '';
+
+            mensagem = `Preferências salvas! Você receberá notificações de ${atrasos}${separador}${cancelamentos}${atrasos || cancelamentos ? '' : 'nenhum tipo específico'}.`;
+          }
+
+          showFeedback(mensagem, 'success');
+        })
+        .catch(function (erro) {
+          console.error(`#ERRO: ${erro}`);
+
+          if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            console.warn('Modo de teste local ativado - simulando resposta do servidor');
+
+            let mensagem = '';
+            if (statusNotif === '0') {
+              mensagem = '[SIMULAÇÃO] Notificações desativadas com sucesso!';
+            } else {
+              mensagem = '[SIMULAÇÃO] Preferências salvas! Configuração aplicada.';
+            }
+
+            showFeedback(mensagem, 'success');
+          } else {
+            showFeedback('Erro ao salvar preferências. Tente novamente mais tarde.', 'error');
+          }
+        });
+
+      return false;
+    }
+
+    function inicializarPagina() {
+      controlarOpcoesSecundarias();
+
+      configurarSwitchesSecundarios();
+
+      const botaoSair = document.querySelector('.botao-sair');
+      if (botaoSair) {
+        botaoSair.addEventListener('click', function (e) {
+          if (!confirm('Tem certeza que deseja sair?')) {
+            e.preventDefault();
+          }
+        });
+      }
+
+      document.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter' && (e.target.type === 'radio' || e.target.className.includes('ios-switch'))) {
+          ligarDesligar();
+        }
+      });
+
+      const notificacaoOn = document.getElementById('notificacaoOn_input');
+      const notificacaoOff = document.getElementById('notificacaoOff_input');
+      const notificacaoOnLabel = document.querySelector('label[for="notificacaoOn_input"]');
+      const notificacaoOffLabel = document.querySelector('label[for="notificacaoOff_input"]');
+
+      if (notificacaoOnLabel && notificacaoOffLabel) {
+        notificacaoOnLabel.addEventListener('click', function () {
+          setTimeout(controlarOpcoesSecundarias, 10);
+        });
+
+        notificacaoOffLabel.addEventListener('click', function () {
+          setTimeout(controlarOpcoesSecundarias, 10);
+        });
+      }
+
+      console.log('Página de notificações carregada');
+      console.log('Valor inicial geral:', getRadioValue('notificacaoGeral'));
+      console.log('Valor inicial atrasos:', getRadioValue('notificacaoAtrasos'));
+      console.log('Valor inicial cancelamentos:', getRadioValue('notificacaoCancelamento'));
+    }
+
+    document.addEventListener('DOMContentLoaded', inicializarPagina);
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', inicializarPagina);
+    } else {
+      inicializarPagina();
+    }
+  </script>
+</body>
+
+</html>
