@@ -40,7 +40,7 @@ function cadastrar(nome, email, senha, codigoAtivacao) {
 function ligarDesligar(statusNotif, statusAtraso, statusCancelamento) {
     const instrucaoSql = `
         INSERT INTO slack (statusNotif, statusAtraso, statusCancelamento)
-        VALUES (?, ?, ?);
+        VALUES (${statusNotif}, ${statusAtraso}, ${statusCancelamento});
     `;
 
     return database.executar(instrucaoSql, [
