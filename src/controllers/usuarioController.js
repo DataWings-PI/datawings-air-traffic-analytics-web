@@ -55,13 +55,13 @@ function cadastrar(req, res) {
 }
 
 function ligarDesligar(req, res) {
-    var statusNotif = req.body.statusServer;
-    var statusAtraso = req.body.atrasoServer;
-    var statusCancelamento = req.body.cancelServer;
+    var statusNotif = Number(req.body.statusServer);
+    var statusAtraso = Number(req.body.atrasoServer);
+    var statusCancelamento = Number(req.body.cancelServer);
 
-    if (statusNotif == undefined) {
+    if (statusNotif == 0) {
         res.status(400).send("O campo não pode estar em branco");
-    } else if (statusAtraso == undefined || statusCancelamento == undefined) {
+    } else if (statusAtraso == 0 || statusCancelamento == 0) {
         res.status(400).send("Selecione ao menos um tipo de notificação.");
     } else {
         // Envia para o model

@@ -38,24 +38,17 @@ function cadastrar(nome, email, senha, codigoAtivacao) {
 }
 
 function ligarDesligar(statusNotif, statusAtraso, statusCancelamento) {
-    
-    var instrucaoSql = `
-        INSERT INTO slack (StatusNotif, statusAtraso, statusCancelamento) 
-        VALUES ('${statusNotif}', '${statusAtraso}', '${statusCancelamento}');
-    `
+    const instrucaoSql = `
+        INSERT INTO slack (statusNotif, statusAtraso, statusCancelamento)
+        VALUES (?, ?, ?);
+    `;
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+    return database.executar(instrucaoSql, [
+        statusNotif,
+        statusAtraso,
+        statusCancelamento
+    ]);
 }
-
-/* function mudarStatus(status) {
-
-    var instrucaoSql = `
-    UPDATE slack WHERE 
-    `
-} */
-
-
 
 function atualizar(id, nome, email, senha) {
     const sql = `
